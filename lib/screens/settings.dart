@@ -1,8 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
-import 'package:cawil/homepage.dart';
-import 'package:cawil/login.dart';
+import 'dart:typed_data';
+
+import 'package:cawil/screens/homepage.dart';
+import 'package:cawil/screens/login.dart';
+import 'package:cawil/utilities/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -12,6 +16,15 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  Uint8List? _image;
+
+  void selectImage() async{
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,31 +76,31 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   SizedBox(height: 30,),
 
-                  InkWell(
-                     // onTap: (){},
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage('assets/profile.jpg'),
-                        ),
-                        title: Text('Nana Caleb',
-                          style: TextStyle(
-                              fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),),
-                        subtitle: Text("nana1234@gmail.com",
-                          style: TextStyle(
-                            fontSize: 13.5,
-                            color: Colors.white38
-                          ),),
-                        trailing: IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.edit_note_sharp,color: Colors.white,size: 35,),
-                        ),
+                  Row(
+                    children: [
+                      Stack(
+                        children: [
+                          _image != null
+                          ? CircleAvatar(
+                    radius: 40,
+                    backgroundImage: MemoryImage(_image!),
+                  )
+                           : CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage('assets/defaultProfile.jpeg'),
+                          ),
+                          Positioned(
+                            bottom: -10,
+                              left: 40,
+                              child: IconButton(
+                            onPressed: selectImage,
+                            icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
+                          )
+                          )
+                        ],
                       )
-                  ),
-
+                    ],
+                  )
 
                 ],
               ),
@@ -207,7 +220,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(height: 20,),
                 InkWell(
                     onTap: (){
-                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                      Navigator.pop(context);
+                      Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                     },
                     child: ListTile(
                       leading: CircleAvatar(

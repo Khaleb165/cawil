@@ -1,4 +1,5 @@
-import 'package:cawil/login.dart';
+import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/screens/login.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,6 +14,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool hide = true;
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _usernameTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         padding: const EdgeInsets.only(left: 35.0,right: 35),
         child: TextField(
           style: TextStyle(color: Colors.black38),
+          controller: _usernameTextController,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
@@ -148,7 +151,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     SizedBox(height: 20,),
     Center(
     child:  ElevatedButton(
-     onPressed: (){
+     onPressed: () async{
+       String res = await AuthMethods().signUpUser(
+           username: _usernameTextController.text,
+           email: _emailTextController.text,
+           password: _passwordTextController.text,
+           //file: +
+       );
+       print(res);
+
          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     },
         style: TextButton.styleFrom(

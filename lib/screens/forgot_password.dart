@@ -16,11 +16,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: BoxDecoration(
-        gradient: LinearGradient(
-        colors: [const Color.fromRGBO(0, 7, 240,0.5),Color.fromRGBO(0, 7, 240,0.5), Color.fromRGBO(127,0,255,100)],
+      //resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+          gradient: LinearGradient(
+          colors: [const Color.fromRGBO(0, 7, 240,0.5),Color.fromRGBO(0, 7, 240,0.5), Color.fromRGBO(127,0,255,100)],
     tileMode: TileMode.clamp,
     ),
 
@@ -90,43 +91,44 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     ),
     ),
     SizedBox(height: 25,),
-      Center(
-        child:  ElevatedButton(
-          onPressed: (){
-           // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.greenAccent[100],
-            padding: EdgeInsets.symmetric(horizontal: 130,vertical: 18),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          ),
-          child: Text('RESET',
-            style: TextStyle(
-              color: Colors.white,
-
-            ),),
-        ),
-      ),
-      SizedBox(height:20,),
-
-      Padding(
-        padding: const EdgeInsets.only(right: 20.0),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: TextButton(onPressed: (){
-            Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-          },
-              child: Text('Back',
+        Center(
+          child:  ElevatedButton(
+            onPressed: (){
+             // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.greenAccent[100],
+              padding: EdgeInsets.symmetric(horizontal: 130,vertical: 18),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            ),
+            child: Text('RESET',
               style: TextStyle(
-                fontSize: 16,
-                color: Colors.greenAccent[100]
+                color: Colors.white,
+
               ),),
           ),
         ),
-      )
+        SizedBox(height:20,),
+
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: TextButton(onPressed: (){
+              Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+                child: Text('Back',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.greenAccent[100]
+                ),),
+            ),
+          ),
+        )
 
     ]),
     )
+        ),
       )
     );
   }

@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
-import 'package:cawil/seat_select.dart';
-import 'package:cawil/settings.dart';
+import 'package:cawil/screens/seat_select.dart';
+import 'package:cawil/screens/settings.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';

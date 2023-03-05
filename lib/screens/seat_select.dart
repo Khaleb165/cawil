@@ -1,4 +1,4 @@
-import 'package:cawil/passenger_details.dart';
+import 'package:cawil/screens/passenger_details.dart';
 import 'package:flutter/material.dart';
 
 class SeatSelectPage extends StatefulWidget {
