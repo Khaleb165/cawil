@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/signup.dart';
+import 'package:cawil/utilities/utils.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +18,35 @@ class _LoginScreenState extends State<LoginScreen> {
   bool hide = true;
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
+
+  void loginUser() async{
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+    email: _emailTextController.text,
+    password: _passwordTextController.text,
+    );
+
+    if(res == 'success'){
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomepageScreen()));
+
+    } else{
+      showSnackBar(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,16 +156,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20,),
                 Center(
                   child:  ElevatedButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomepageScreen()));
-                    },
+                    onPressed: loginUser,
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.greenAccent[100],
                           padding: EdgeInsets.symmetric(horizontal: 150,vertical: 18),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                       ),
-                    child: Text('LOGIN',
+                    child:  _isLoading? Center(
+                      child: CircularProgressIndicator(color: Colors.white,),
+                    ) : Text('LOGIN',
                     style: TextStyle(
                       color: Colors.white,
 
@@ -220,8 +250,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),),
                     )
                   ],
-                )
+                ),
+                SizedBox(height: 90,),
               ],
+
             ),
           ),
 

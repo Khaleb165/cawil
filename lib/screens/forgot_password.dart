@@ -124,7 +124,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),),
             ),
           ),
-        )
+        ),
+      SizedBox(height: 300,)
 
     ]),
     )

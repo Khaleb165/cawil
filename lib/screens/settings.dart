@@ -2,6 +2,7 @@
 
 import 'dart:typed_data';
 
+import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/login.dart';
 import 'package:cawil/utilities/utils.dart';
@@ -19,9 +20,9 @@ class _SettingsPageState extends State<SettingsPage> {
   Uint8List? _image;
 
   void selectImage() async{
-    Uint8List im = await pickImage(ImageSource.gallery);
+    Uint8List image = await pickImage(ImageSource.gallery);
     setState(() {
-      _image = im;
+      _image = image;
     });
   }
 
@@ -98,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           )
                           )
                         ],
-                      )
+                      ),
                     ],
                   )
 
@@ -220,6 +221,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(height: 20,),
                 InkWell(
                     onTap: (){
+
                       Navigator.pop(context);
                       Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                     },

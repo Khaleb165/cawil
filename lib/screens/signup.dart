@@ -1,6 +1,10 @@
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../utilities/utils.dart';
 
 
 class SignUpScreen extends StatefulWidget {
@@ -15,6 +19,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
+  Uint8List? _image;
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _passwordTextController.dispose();
+    _emailTextController.dispose();
+    _usernameTextController.dispose();
+    super.dispose();
+  }
+
+  void selectImage() async{
+    Uint8List image = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void signUpUser()async{
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+      username: _usernameTextController.text,
+      email: _emailTextController.text,
+      password: _passwordTextController.text,
+      file: _image!,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (res != 'success'){
+      showSnackBar(res, context);
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +106,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         ),
         ),
-    SizedBox(height: 50,),
+    SizedBox(height: 10,),
+      Stack(
+        children: [
+          _image != null
+              ? CircleAvatar(
+            radius: 40,
+            backgroundImage: MemoryImage(_image!),
+          )
+              : CircleAvatar(
+            radius: 40,
+            backgroundImage: AssetImage('assets/defaultProfile.jpeg'),
+          ),
+          Positioned(
+              bottom: -10,
+              left: 40,
+              child: IconButton(
+                onPressed: selectImage,
+                icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
+              )
+          )
+        ],
+      ),
+      SizedBox(height: 10,),
         Padding(
         padding: const EdgeInsets.only(left: 35.0,right: 35),
         child: TextField(
@@ -151,23 +217,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     SizedBox(height: 20,),
     Center(
     child:  ElevatedButton(
-     onPressed: () async{
-       String res = await AuthMethods().signUpUser(
-           username: _usernameTextController.text,
-           email: _emailTextController.text,
-           password: _passwordTextController.text,
-           //file: +
-       );
-       print(res);
-
-         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    },
+     onPressed: signUpUser,
         style: TextButton.styleFrom(
         backgroundColor: Colors.greenAccent[100],
         padding: EdgeInsets.symmetric(horizontal: 150,vertical: 18),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     ),
-        child: Text('SIGN UP',
+        child: _isLoading? Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ) : Text('SIGN UP',
            style: TextStyle(
                color: Colors.white,
 
