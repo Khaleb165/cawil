@@ -58,6 +58,7 @@ dev_dependencies:
 flutter_native_splash:
   color: '#EDE7F6'
   image: assets/caleb3.png
+  web: false
 
 
   flutter_launcher_icons: ^0.11.0

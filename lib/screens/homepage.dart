@@ -2,6 +2,8 @@
 
 import 'package:cawil/screens/bus_page.dart';
 import 'package:cawil/screens/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -26,6 +28,24 @@ class _HomepageScreenState extends State<HomepageScreen> {
     });
   }
   String data = 'Choose your trip date';
+  String username = '';
+
+  @override
+  void initState() {
+    getUsername();
+    super.initState();
+  }
+
+  void getUsername() async{
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').
+    doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    setState(() {
+      username = (snap.data() as Map<String, dynamic>)['username'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,13 +103,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
             Padding(padding: EdgeInsets.only(left: 45,right: 15),
             child: Row(
               children: [
-                Text('Hey, ',
+                Text('Hey ',
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.black,
                   fontWeight: FontWeight.bold
                 ),
-                )
+                ),
+                Text('$username,',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
               ],
             ),
             ),

@@ -6,6 +6,8 @@ import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/login.dart';
 import 'package:cawil/utilities/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,6 +25,26 @@ class _SettingsPageState extends State<SettingsPage> {
     Uint8List image = await pickImage(ImageSource.gallery);
     setState(() {
       _image = image;
+    });
+  }
+
+  String username = '';
+  String email = '';
+
+  @override
+  void initState() {
+    getUsername();
+    super.initState();
+  }
+
+  void getUsername() async{
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').
+    doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    setState(() {
+      username = (snap.data() as Map<String, dynamic>)['username'];
+      email = (snap.data() as Map<String, dynamic>)['email'];
     });
   }
 
@@ -87,17 +109,41 @@ class _SettingsPageState extends State<SettingsPage> {
                     backgroundImage: MemoryImage(_image!),
                   )
                            : CircleAvatar(
-                            radius: 40,
+                            radius: 30,
                             backgroundImage: AssetImage('assets/defaultProfile.jpeg'),
                           ),
-                          Positioned(
-                            bottom: -10,
-                              left: 40,
-                              child: IconButton(
-                            onPressed: selectImage,
-                            icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
-                          )
-                          )
+                          // Positioned(
+                          //   bottom: -10,
+                          //     left: 40,
+                          //     child: IconButton(
+                          //   onPressed: selectImage,
+                          //   icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
+                          // )
+                          // )
+                        ],
+                      ),
+                      SizedBox(width: 10,),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('$username',
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              letterSpacing: 2.5
+                            ),
+                          ),
+                          SizedBox(height: 1,),
+
+                          Text('$email',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w200
+                            ),
+                          ),
                         ],
                       ),
                     ],
