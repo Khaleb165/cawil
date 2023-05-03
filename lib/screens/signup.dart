@@ -1,4 +1,5 @@
 import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -54,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (res != 'success'){
       showSnackBar(res, context);
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomepageScreen()));
     }
   }
 

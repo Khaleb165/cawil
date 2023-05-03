@@ -94,27 +94,29 @@ class _BusPageState extends State<BusPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 0.0,right: 0),
+                        padding: const EdgeInsets.only(left: 10.0,right: 0),
                         child: Expanded(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                 Padding(padding: EdgeInsets.only(top:10 ),),
                                   Text('First Bus',
                                   style: TextStyle(
                                     letterSpacing: 2,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 25,
+                                    fontSize: 28,
                                     color: Color.fromRGBO(19, 41, 75, 1),
                                   ),),
                                   SizedBox(height: 10,),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    //crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset('assets/send1.png',scale: 6,),
-                                      SizedBox(width: 15,),
+                                    //  Image.asset('assets/send1.png',scale: 6,),
+                                      Icon(Icons.near_me_outlined,size: 35,color: Colors.greenAccent[100],),
+                                      SizedBox(width: 5,),
                                       Text('Accra',
                                       style: TextStyle(
                                         letterSpacing: 2,
@@ -124,7 +126,7 @@ class _BusPageState extends State<BusPage> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 45),
+                                    padding: EdgeInsets.only(left: 40),
                                     child: Text('15-01-2023',
                                       style: TextStyle(
                                           fontSize: 15,
@@ -136,8 +138,9 @@ class _BusPageState extends State<BusPage> {
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset('assets/locate.png',scale: 22,),
-                                      SizedBox(width: 15,),
+                                    //  Image.asset('assets/locate.png',scale: 22,),
+                                      Icon(Icons.place_outlined,size: 35,),
+                                      SizedBox(width: 5,),
                                       Column(
                                         children: [
                                           Text('Kumasi',

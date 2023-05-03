@@ -90,7 +90,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: IconButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage(uid: '',)));
                         },
                             icon: Icon(Icons.notes_sharp,size: 30,color: Colors.white,)
                         ),

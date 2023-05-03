@@ -12,32 +12,26 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final String uid;
+  const SettingsPage({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  Uint8List? _image;
-
-  void selectImage() async{
-    Uint8List image = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
-  }
+  
 
   String username = '';
   String email = '';
 
   @override
   void initState() {
-    getUsername();
+    getData();
     super.initState();
   }
 
-  void getUsername() async{
+  void getData() async{
     DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').
     doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
@@ -101,14 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   Row(
                     children: [
-                      Stack(
-                        children: [
-                          _image != null
-                          ? CircleAvatar(
-                    radius: 40,
-                    backgroundImage: MemoryImage(_image!),
-                  )
-                           : CircleAvatar(
+                       CircleAvatar(
                             radius: 30,
                             backgroundImage: AssetImage('assets/defaultProfile.jpeg'),
                           ),
@@ -120,8 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           //   icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
                           // )
                           // )
-                        ],
-                      ),
+                        
                       SizedBox(width: 10,),
 
                       Column(
@@ -266,10 +252,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(height: 20,),
                 InkWell(
-                    onTap: (){
-
-                      Navigator.pop(context);
-                      Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    onTap: () async{
+                      await AuthMethods().signOut();
+                      Navigator.of(context).pushReplacement( MaterialPageRoute(builder: (context) => LoginScreen()));
                     },
                     child: ListTile(
                       leading: CircleAvatar(
