@@ -4,12 +4,15 @@ import 'package:cawil/screens/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'local_utils/storage.dart';
+
 
 import 'screens/intro_screen.dart';
 
 Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  storage().storageInit();
   runApp(const MyApp());
 }
 

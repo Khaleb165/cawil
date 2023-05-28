@@ -5,6 +5,7 @@ import 'package:cawil/screens/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cawil/local_utils/storage.dart';
 
 
 class HomepageScreen extends StatefulWidget {
@@ -160,6 +161,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
                               enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white, width: 0.0),
                               ),
                             ),
+
+                            // This fires the hive create
+                            onSubmitted: (String from) async {
+                              await storage().create("from",from);
+                              print(storage().read("from"));
+                            },
                           ),
                         ),
                         Divider(
@@ -181,6 +188,11 @@ class _HomepageScreenState extends State<HomepageScreen> {
                               enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white, width: 0.0),
                               ),
                             ),
+
+                            //hive create
+                            onSubmitted: (String to){
+                              storage().create("to",to);
+                            },
                           ),
                         ),
                       ],

@@ -1,7 +1,8 @@
 
-@HiveField(0)
-class booking extends HiveObject {
-  @HiveField(0)
-  String
-  @HiveField(1)
-}
+import 'package:hive/hive.dart';
+
+//@HiveField(0)
+// class booking extends HiveObject {
+//   @HiveField(0)
+//   @HiveField(1)
+// }

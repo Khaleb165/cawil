@@ -1,23 +1,39 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
  class storage{
-   var boxflu = Hive.box('storageCache');
-   create(){
-     box.put('',)
+
+   var box;
+   // initialize hive in app
+   storageInit() async {
+     await Hive.initFlutter();
+     box = Hive.box('storageCache');
+   }
+
+   // create data in  hive
+   create(String key , dynamic data){
+     box.put(key,data);
+   }
+
+   // updating data in  hive
+   update(String key, dynamic data){
+     box.put('$key',data);
    }
 
    // deleting data in hive
-   delete(){}
+   delete(String key){
+     box.delete(key);
+   }
 
    //deleting all data in hive
-   clearCache(){}
-
-   // updating data in  hive
-   update(){}
+   clearCache(){
+     box.deleteAll();
+   }
 
    // reading specified data from hive
    read(String what){
-     box.get(what);
+     return box.get(what);
    }
+
+
+
  }
