@@ -1,0 +1,322 @@
+ Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.greenAccent,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.greenAccent,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.transparent,
+                    color: Colors.transparent,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.transparent,
+                    color: Colors.transparent,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,right: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                SizedBox(width: 20,),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+                Card(
+                    elevation: 20,
+                    shadowColor: Colors.white,
+                    color: Color.fromRGBO(19, 41, 75, 1),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                    )
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 30,),
