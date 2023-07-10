@@ -1,5 +1,4 @@
 
-import 'package:hive/hive.dart';
 
 //@HiveField(0)
 // class booking extends HiveObject {
