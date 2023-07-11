@@ -274,7 +274,7 @@ class _BusPageState extends State<BusPage> {
                                   height: 15,
                                 ),
                                 Text(
-                                  'Seats Left: 18',
+                                  'Seats Left: 36',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
@@ -493,7 +493,7 @@ class _BusPageState extends State<BusPage> {
                                   height: 15,
                                 ),
                                 Text(
-                                  'Seats Left: 18',
+                                  'Seats Left: 36',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,

@@ -79,6 +79,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double totalPrice = selectedSeats.length * 80;
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: Colors.deepPurple[50],
@@ -218,7 +219,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                     height: 5,
                   ),
                   Text(
-                    'Price: Ghc ${selectedSeats.length * 80}',
+                    'Price: Ghc ${totalPrice.toStringAsFixed(2)}',
                     style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w500,
@@ -233,7 +234,10 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PassengerDetailsPage()));
+                                builder: (context) => PassengerDetailsPage(
+                                      totalPrice: totalPrice,
+                                      selectedSeats: selectedSeats,
+                                    )));
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color.fromRGBO(19, 41, 75, 1),
