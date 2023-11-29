@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cawil/constants/colors.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [const Color.fromRGBO(0, 7, 240,0.5),Color.fromRGBO(0, 7, 240,0.5), Color.fromRGBO(127,0,255,100)],
+              colors: [shade1,shade1, shade2],
               tileMode: TileMode.clamp,
             ),
 
@@ -73,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text('Ca',
                   style: TextStyle(
                       fontSize: 70,
-                      color: Colors.greenAccent,
+                      color: primaryColor,
                       fontWeight: FontWeight.bold
                   ),),
                 Text('Wil',
