@@ -2,6 +2,7 @@
 
 import 'dart:typed_data';
 
+import 'package:cawil/constants/colors.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/login.dart';
@@ -20,8 +21,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  
-
   String username = '';
   String email = '';
 
@@ -31,9 +30,10 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
   }
 
-  void getData() async{
-    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').
-    doc(FirebaseAuth.instance.currentUser!.uid)
+  void getData() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     setState(() {
@@ -50,236 +50,139 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 35,vertical: 20),
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.0001),
+              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.0001),
               width: double.infinity,
               height: 250,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [const Color.fromRGBO(0, 7, 240,0.5),Color.fromRGBO(0, 7, 240,0.5), Color.fromRGBO(127,0,255,100)],
+                  colors: [shade1, shade1, shade2],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.only(bottomRight: Radius.elliptical(50, 50),bottomLeft:Radius.elliptical(50, 50) ),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.elliptical(50, 50),
+                    bottomLeft: Radius.elliptical(50, 50)),
               ),
               child: Column(
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:[
-
+                    children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 30.0),
-                        child: IconButton(onPressed: (){
-                        Navigator.pop(context, MaterialPageRoute(builder: (context) => HomepageScreen()));
-                    },
-                          icon: Icon(Icons.notes_sharp,size: 30,color: Colors.white,)
-                    ),
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.notes_sharp,
+                              size: 30,
+                              color: Colors.white,
+                            )),
                       ),
-                      SizedBox(width: 70,),
+                      SizedBox(
+                        width: 70,
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 45.0),
                         child: Align(
                           alignment: Alignment.topCenter,
-                          child: Text('SETTINGS',
-                          style: TextStyle(
-                            letterSpacing: 3,
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                          ),),
+                          child: Text(
+                            'SETTINGS',
+                            style: TextStyle(
+                                letterSpacing: 3,
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      )
-      ]
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 30,),
-
+                  SizedBox(height: 30),
                   Row(
                     children: [
-                       CircleAvatar(
-                            radius: 30,
-                            backgroundImage: AssetImage('assets/defaultProfile.jpeg'),
-                          ),
-                          // Positioned(
-                          //   bottom: -10,
-                          //     left: 40,
-                          //     child: IconButton(
-                          //   onPressed: selectImage,
-                          //   icon: Icon(Icons.add_a_photo,color: Colors.white,size: 22,),
-                          // )
-                          // )
-                        
-                      SizedBox(width: 10,),
-
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage:
+                            AssetImage('assets/defaultProfile.jpeg'),
+                      ),
+                      SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('$username',
+                          Text(
+                            '$username',
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                              letterSpacing: 2.5
-                            ),
+                                letterSpacing: 2.5),
                           ),
-                          SizedBox(height: 1,),
-
-                          Text('$email',
+                          SizedBox(
+                            height: 1,
+                          ),
+                          Text(
+                            '$email',
                             style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w200
-                            ),
+                                fontWeight: FontWeight.w200),
                           ),
                         ],
                       ),
                     ],
                   )
-
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 35),
-            child: Column(
+            SizedBox(height: 30),
+            Column(
               children: [
-                InkWell(
-                   onTap: (){},
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.asset('assets/person1.png'),
-                          ),
-                      ),
-                      title: Text('Account',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-                SizedBox(height: 20,),
-                InkWell(
-                    onTap: (){},
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Image.asset('assets/bell.png',),
-                        ),
-                      ),
-                      title: Text('Notifications',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-                SizedBox(height: 20,),
-                InkWell(
-                    onTap: (){},
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Image.asset('assets/location.png'),
-                        ),
-                      ),
-                      title: Text('Location',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-                SizedBox(height: 20,),
-                InkWell(
-                    onTap: (){},
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Image.asset('assets/person1.png'),
-                        ),
-                      ),
-                      title: Text('Support',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-                SizedBox(height: 20,),
-                InkWell(
-                    onTap: (){},
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Image.asset('assets/share.png'),
-                        ),
-                      ),
-                      title: Text('Share',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-                SizedBox(height: 20,),
-                InkWell(
-                    onTap: () async{
-                      await AuthMethods().signOut();
-                      Navigator.of(context).pushReplacement( MaterialPageRoute(builder: (context) => LoginScreen()));
-                    },
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.deepPurple[300],
-                        child: Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Image.asset('assets/loggg.png'),
-                        ),
-                      ),
-                      title: Text('Logout',
-                        style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black54
-                        ),),
-
-                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.deepPurple[300],size: 18,),
-
-                    )
-                ),
-
+                settingsTab(() {}, 'assets/person1.png', 'Account'),
+                SizedBox(height: 20),
+                settingsTab(() {}, 'assets/bell.png', 'Notifications'),
+                SizedBox(height: 20),
+                settingsTab(() {}, 'assets/location.png', 'Location'),
+                SizedBox(height: 20),
+                settingsTab(() {}, 'assets/person1.png', 'Support'),
+                SizedBox(height: 20),
+                settingsTab(() {}, 'assets/share.png', 'Share'),
+                SizedBox(height: 20),
+                settingsTab(() async {
+                  await AuthMethods().signOut();
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }, 'assets/loggg.png', 'Logout'),
               ],
-            ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  InkWell settingsTab(VoidCallback, String imageText, String title) {
+    return InkWell(
+      onTap: VoidCallback,
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 18,
+          backgroundColor: Colors.deepPurple[300],
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Image.asset(imageText),
+          ),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 19, color: Colors.black54),
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.deepPurple[300],
+          size: 18,
         ),
       ),
     );
