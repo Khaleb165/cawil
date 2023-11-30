@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
-
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/screens/bus_page.dart';
 import 'package:cawil/screens/settings.dart';
@@ -174,54 +172,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
-                        child: Text(
-                          'From',
-                          style: TextStyle(color: Colors.black38),
-                        ),
+                      headerText('From'),
+                      buildCardFields(
+                        sourceController,
+                        TextInputAction.next,
+                        primary1,
                       ),
-                      TextField(
-                        controller: sourceController,
-                        textInputAction: TextInputAction.next,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                            color: primary1),
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: colorWhite,
-                            ),
-                          ),
-                        ),
+                      const Divider(thickness: 1),
+                      headerText('To'),
+                      buildCardFields(
+                        destinationController,
+                        TextInputAction.done,
+                        primary2,
                       ),
-                      Divider(
-                        thickness: 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'To',
-                          style: TextStyle(color: Colors.black38),
-                        ),
-                      ),
-                      TextField(
-                        controller: destinationController,
-                        textInputAction: TextInputAction.done,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: primary2,
-                        ),
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: colorWhite,
-                            ),
-                          ),
-                        ),
-                      ),
+                      SizedBox(height: 5)
                     ],
                   ),
                 ),
@@ -296,6 +260,33 @@ class _HomepageScreenState extends State<HomepageScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  TextField buildCardFields(TextEditingController controller,
+      TextInputAction inputAction, Color textColor) {
+    return TextField(
+      controller: controller,
+      textInputAction: TextInputAction.next,
+      style: TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 25, color: textColor),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorWhite,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding headerText(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.black38),
       ),
     );
   }
