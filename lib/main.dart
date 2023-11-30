@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:cawil/screens/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
