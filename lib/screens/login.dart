@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Ca',
                       style: TextStyle(
                           fontSize: 70,
-                          color: primaryColor,
+                          color: primary1,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     CircleAvatar(
                       radius: 25,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(12), // Border radius
                         child: Image.asset('assets/facebook1.png'),
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     CircleAvatar(
                       radius: 25,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(12), // Border radius
                         child: Image.asset('assets/images.png'),
@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: colorWhite),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -260,14 +260,14 @@ class _LoginScreenState extends State<LoginScreen> {
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white, width: 0.0),
+            borderSide: BorderSide(color: colorWhite, width: 0.0),
             borderRadius: BorderRadius.circular(30),
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.black38),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          fillColor: Colors.white,
+          fillColor: colorWhite,
           contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),

@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     'Ca',
                     style: TextStyle(
                         fontSize: 70,
-                        color: primaryColor,
+                        color: primary1,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
@@ -101,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Text(
                     'SignUp to Book',
                     style: TextStyle(
-                        color: Colors.white,
+                        color: colorWhite,
                         fontSize: 40,
                         fontWeight: FontWeight.bold),
                   ),
@@ -128,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: selectImage,
                           icon: Icon(
                             Icons.add_a_photo,
-                            color: Colors.white,
+                            color: colorWhite,
                             size: 22,
                           ),
                         ))
@@ -176,13 +176,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: _isLoading
                         ? Center(
                             child: CircularProgressIndicator(
-                              color: Colors.white,
+                              color: colorWhite,
                             ),
                           )
                         : Text(
                             'SIGN UP',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: colorWhite,
                             ),
                           ),
                   ),
@@ -193,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Center(
                   child: Text(
                     'or login with',
-                    style: TextStyle(fontSize: 15, color: Colors.white),
+                    style: TextStyle(fontSize: 15, color: colorWhite),
                   ),
                 ),
                 SizedBox(
@@ -204,29 +204,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     CircleAvatar(
                       radius: 25,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(12), // Border radius
                         child: Image.asset('assets/google.png'),
                       ),
                     ),
-                    SizedBox(
-                      width: 25,
-                    ),
+                    SizedBox(width: 25),
                     CircleAvatar(
                       radius: 25,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(12), // Border radius
                         child: Image.asset('assets/facebook1.png'),
                       ),
                     ),
-                    SizedBox(
-                      width: 25,
-                    ),
+                    SizedBox(width: 25),
                     CircleAvatar(
                       radius: 25,
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(12), // Border radius
                         child: Image.asset('assets/images.png'),
@@ -242,7 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     Text(
                       'Already have an account?',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 15, color: colorWhite),
                     ),
                     TextButton(
                       onPressed: () {
@@ -285,14 +281,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white, width: 0.0),
+            borderSide: BorderSide(color: colorWhite, width: 0.0),
             borderRadius: BorderRadius.circular(30),
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.black38),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          fillColor: Colors.white,
+          fillColor: colorWhite,
           contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
