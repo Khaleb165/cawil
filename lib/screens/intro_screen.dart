@@ -21,46 +21,47 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            AppName(),
-            SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: Container(
-                height: 400,
-                width: 300,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/caWil.png",
-                    ),
-                    //fit: BoxFit.cover,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 50),
+          AppName(),
+          SizedBox(
+            height: 40,
+          ),
+          Center(
+            child: Container(
+              height: 400,
+              width: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    "assets/caWil.png",
                   ),
+                  //fit: BoxFit.cover,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50, right: 18),
-              child: Text(
-                'Quick and easy way to reserve a seat.',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Color.fromRGBO(19, 41, 75, 1),
-                ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 50, right: 18),
+            child: Text(
+              'Quick and easy way to reserve a seat.',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromRGBO(19, 41, 75, 1),
               ),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.12),
+          ),
+          SizedBox(height: 70,),
+          Expanded(
+            child: Container(
+                // padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                // margin: EdgeInsets.only(
+                //     top: MediaQuery.of(context).size.height * 0.12),
                 width: double.infinity,
-                height: 125,
+                // height: 125,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(19, 41, 75, 1),
                   borderRadius: BorderRadius.only(
@@ -68,13 +69,10 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 18.0, horizontal: 50),
+                  padding: EdgeInsets.symmetric(vertical: 50,horizontal: 40),
                   child: SwipeableButtonView(
                     buttonText: 'Swipe to book',
-                    buttonWidget: Container(
-                      child: Icon(Icons.double_arrow_sharp, color: primary1),
-                    ),
+                    buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
                     activeColor: primary1,
                     isFinished: isFinished,
                     onWaitingProcess: () {
@@ -97,9 +95,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       });
                     },
                   ),
-                ))
-          ],
-        ),
+                )),
+          )
+        ],
       ),
     );
   }
