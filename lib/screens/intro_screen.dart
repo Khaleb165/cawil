@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
+import '../models/app_name.dart';
+
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
 
@@ -23,29 +25,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 90.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Ca',
-                    style: TextStyle(
-                        fontSize: 50,
-                        color: primary1,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Wil',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(19, 41, 75, 1),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            SizedBox(height: 50),
+            AppName(),
             SizedBox(
               height: 40,
             ),
@@ -123,3 +104,4 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     );
   }
 }
+
