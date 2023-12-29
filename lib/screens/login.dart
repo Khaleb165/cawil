@@ -1,5 +1,6 @@
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/models/app_name.dart';
+import 'package:cawil/models/textfield.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
@@ -51,211 +52,158 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [shade1, shade1, shade2],
-              tileMode: TileMode.clamp,
-            ),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [shade1, shade1, shade2],
+            tileMode: TileMode.clamp,
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 90.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-             AppName(fontSize: 70),
-                SizedBox(
-                  height: 90,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 50),
+            AppName(fontSize: 70),
+            SizedBox(height: 70),
+            Padding(
+              padding: const EdgeInsets.only(right: 38.0),
+              child: Text(
+                'Login to Book',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 50),
+            BuildTextField(
+              controller: _emailTextController,
+              keyboard: TextInputType.emailAddress,
+              inputAction: TextInputAction.next,
+              hintText: 'Email Address',
+              obscureText: false,
+            ),
+            SizedBox(height: 20),
+            BuildTextField(
+              controller: _passwordTextController,
+              keyboard: TextInputType.text,
+              inputAction: TextInputAction.done,
+              hintText: 'Password',
+              obscureText: hide,
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: loginUser,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.greenAccent[100],
+                  padding: EdgeInsets.symmetric(horizontal: 150, vertical: 18),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 38.0),
-                  child: Text(
-                    'Login to Book',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                buildTextField(
-                  _emailTextController,
-                  TextInputType.emailAddress,
-                  TextInputAction.next,
-                  'Email Address',
-                  false,
-                ),
-                SizedBox(height: 20),
-                buildTextField(
-                  _passwordTextController,
-                  TextInputType.text,
-                  TextInputAction.done,
-                  'Password',
-                  hide,
-                ),
-                SizedBox(height: 20),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: loginUser,
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.greenAccent[100],
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 150, vertical: 18),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                    ),
-                    child: _isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          )
-                        : Text(
-                            'LOGIN',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                child: _isLoading
+                    ? Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
                           ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 35.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPasswordPage()));
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.red[900]),
+                        ),
+                      )
+                    : Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                ),
-                Center(
+              ),
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(right: 35.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPasswordPage()));
+                  },
                   child: Text(
-                    'or login with',
-                    style: TextStyle(fontSize: 15, color: Colors.white),
+                    'Forgot Password?',
+                    style: TextStyle(color: Colors.red[900]),
                   ),
                 ),
-                SizedBox(
-                  height: 35,
+              ),
+            ),
+            SizedBox(height: 50),
+            Center(
+              child: Text(
+                'or login with',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+            ),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12), // Border radius
+                    child: Image.asset('assets/google.png'),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/google.png'),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/facebook1.png'),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/images.png'),
-                      ),
-                    ),
-                  ],
+                SizedBox(width: 25),
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: colorWhite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12), // Border radius
+                    child: Image.asset('assets/facebook1.png'),
+                  ),
                 ),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account? ",
-                      style: TextStyle(color: colorWhite),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()));
-                      },
-                      child: Text(
-                        'Register now',
-                        style: TextStyle(color: Colors.red[900]),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 90,
+                SizedBox(width: 25),
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: colorWhite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12), // Border radius
+                    child: Image.asset('assets/images.png'),
+                  ),
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-// method for the textfields
-  Padding buildTextField(
-    TextEditingController controller,
-    TextInputType keyboard,
-    TextInputAction inputAction,
-    String hintText,
-    bool obscureText,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35.0, right: 35),
-      child: TextField(
-        style: TextStyle(color: Colors.black38),
-        controller: controller,
-        keyboardType: keyboard,
-        textInputAction: inputAction,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorWhite, width: 0.0),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black38),
-          filled: true,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          fillColor: colorWhite,
-          contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-                width: 1, style: BorderStyle.solid, color: Colors.black38),
-          ),
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account? ",
+                  style: TextStyle(color: colorWhite),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUpScreen()));
+                  },
+                  child: Text(
+                    'Register now',
+                    style: TextStyle(color: Colors.red[900]),
+                  ),
+                )
+              ],
+            ),
+            // SizedBox(
+            //   height: 50,
+            // ),
+          ],
         ),
       ),
     );
