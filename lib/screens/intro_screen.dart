@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers
-
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +15,7 @@ class IntroductionScreen extends StatefulWidget {
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
   bool isFinished = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +24,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 50),
-          AppName(),
+          AppName(fontSize: 50),
           SizedBox(
             height: 40,
           ),
@@ -54,52 +53,51 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               ),
             ),
           ),
-          SizedBox(height: 70,),
+          SizedBox(
+            height: 70,
+          ),
           Expanded(
             child: Container(
-                // padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                // margin: EdgeInsets.only(
-                //     top: MediaQuery.of(context).size.height * 0.12),
-                width: double.infinity,
-                // height: 125,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(19, 41, 75, 1),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.elliptical(70, 70),
-                  ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(19, 41, 75, 1),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.elliptical(70, 70),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50,horizontal: 40),
-                  child: SwipeableButtonView(
-                    buttonText: 'Swipe to book',
-                    buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
-                    activeColor: primary1,
-                    isFinished: isFinished,
-                    onWaitingProcess: () {
-                      Future.delayed(Duration(seconds: 1), () {
-                        setState(() {
-                          isFinished = true;
-                        });
-                      });
-                    },
-                    onFinish: () async {
-                      await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.fade,
-                            child: LoginScreen(),
-                          ));
-
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+                child: SwipeableButtonView(
+                  buttonText: 'Swipe to book',
+                  buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
+                  activeColor: primary1,
+                  isFinished: isFinished,
+                  onWaitingProcess: () {
+                    Future.delayed(Duration(seconds: 1), () {
                       setState(() {
-                        isFinished = false;
+                        isFinished = true;
                       });
-                    },
-                  ),
-                )),
-          )
+                    });
+                  },
+                  onFinish: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: LoginScreen(),
+                      ),
+                    );
+
+                    setState(() {
+                      isFinished = false;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
