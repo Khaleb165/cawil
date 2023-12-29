@@ -65,7 +65,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: Expanded(
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -134,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: false,
               ),
               SizedBox(height: 10),
-
+        
               BuildTextField(
                 controller: _passwordTextController,
                 keyboard: TextInputType.text,
@@ -155,8 +156,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   child: _isLoading
                       ? Center(
-                          child: CircularProgressIndicator(
-                            color: colorWhite,
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: colorWhite,
+                            ),
                           ),
                         )
                       : Text(
@@ -168,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 40
               ),
               Center(
                 child: Text(
@@ -177,7 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(
-                height: 35,
+                height: 30
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -211,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 20
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 50)
+              // SizedBox(height: 50)
             ],
           ),
         ),

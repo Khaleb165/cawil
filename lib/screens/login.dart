@@ -53,157 +53,159 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [shade1, shade1, shade2],
-            tileMode: TileMode.clamp,
+      body: Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [shade1, shade1, shade2],
+              tileMode: TileMode.clamp,
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            AppName(fontSize: 70),
-            SizedBox(height: 70),
-            Padding(
-              padding: const EdgeInsets.only(right: 38.0),
-              child: Text(
-                'Login to Book',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 50),
-            BuildTextField(
-              controller: _emailTextController,
-              keyboard: TextInputType.emailAddress,
-              inputAction: TextInputAction.next,
-              hintText: 'Email Address',
-              obscureText: false,
-            ),
-            SizedBox(height: 20),
-            BuildTextField(
-              controller: _passwordTextController,
-              keyboard: TextInputType.text,
-              inputAction: TextInputAction.done,
-              hintText: 'Password',
-              obscureText: hide,
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: loginUser,
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[100],
-                  padding: EdgeInsets.symmetric(horizontal: 150, vertical: 18),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              AppName(fontSize: 70),
+              SizedBox(height: 70),
+              Padding(
+                padding: const EdgeInsets.only(right: 38.0),
+                child: Text(
+                  'Login to Book',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold),
                 ),
-                child: _isLoading
-                    ? Center(
-                        child: SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
+              ),
+              SizedBox(height: 50),
+              BuildTextField(
+                controller: _emailTextController,
+                keyboard: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
+                hintText: 'Email Address',
+                obscureText: false,
+              ),
+              SizedBox(height: 20),
+              BuildTextField(
+                controller: _passwordTextController,
+                keyboard: TextInputType.text,
+                inputAction: TextInputAction.done,
+                hintText: 'Password',
+                obscureText: hide,
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: loginUser,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.greenAccent[100],
+                    padding: EdgeInsets.symmetric(horizontal: 150, vertical: 18),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
+                  child: _isLoading
+                      ? Center(
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          'LOGIN',
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
-                      )
-                    : Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(right: 35.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgotPasswordPage()));
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.red[900]),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(right: 35.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPasswordPage()));
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.red[900]),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 50),
-            Center(
-              child: Text(
-                'or login with',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+              SizedBox(height: 50),
+              Center(
+                child: Text(
+                  'or login with',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
               ),
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12), // Border radius
-                    child: Image.asset('assets/google.png'),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/google.png'),
+                    ),
                   ),
-                ),
-                SizedBox(width: 25),
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: colorWhite,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12), // Border radius
-                    child: Image.asset('assets/facebook1.png'),
+                  SizedBox(width: 25),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: colorWhite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/facebook1.png'),
+                    ),
                   ),
-                ),
-                SizedBox(width: 25),
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: colorWhite,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12), // Border radius
-                    child: Image.asset('assets/images.png'),
+                  SizedBox(width: 25),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: colorWhite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/images.png'),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account? ",
-                  style: TextStyle(color: colorWhite),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen()));
-                  },
-                  child: Text(
-                    'Register now',
-                    style: TextStyle(color: Colors.red[900]),
+                ],
+              ),
+              SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: TextStyle(color: colorWhite),
                   ),
-                )
-              ],
-            ),
-            // SizedBox(
-            //   height: 50,
-            // ),
-          ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()));
+                    },
+                    child: Text(
+                      'Register now',
+                      style: TextStyle(color: Colors.red[900]),
+                    ),
+                  )
+                ],
+              ),
+              // SizedBox(
+              //   height: 50,
+              // ),
+            ],
+          ),
         ),
       ),
     );
