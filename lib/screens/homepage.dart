@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/app_name.dart';
 import 'package:cawil/screens/bus_page.dart';
 import 'package:cawil/screens/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -78,24 +79,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 55),
                   ),
-                  Text(
-                    'Ca',
-                    style: TextStyle(
-                        fontSize: 50,
-                        color: primary1,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Wil',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: primary2,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
+                  AppName(fontSize: 50),
+                  SizedBox(width: 50),
                   Align(
                     alignment: Alignment.topRight,
                     child: Padding(
@@ -122,9 +107,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+            SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(left: 45, right: 15),
               child: Row(
@@ -146,19 +129,15 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.only(left: 0, right: 85),
+              padding: EdgeInsets.only(right: 85),
               child: Text(
                 'what is your next trip?',
                 style: TextStyle(fontSize: 22, color: Colors.black38),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             Card(
               elevation: 15,
               borderOnForeground: true,
@@ -229,20 +208,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BusPage(
-                                source: sourceController.text,
-                                destination: destinationController.text,
-                                date: selectedDate,
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BusPage(
+                        source: sourceController.text,
+                        destination: destinationController.text,
+                        date: selectedDate,
+                      ),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primary2,

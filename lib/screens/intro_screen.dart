@@ -20,83 +20,85 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 50),
-          AppName(fontSize: 50),
-          SizedBox(
-            height: 40,
-          ),
-          Center(
-            child: Container(
-              height: 400,
-              width: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/caWil.png",
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 50),
+            AppName(fontSize: 50),
+            SizedBox(
+              height: 40,
+            ),
+            Center(
+              child: Container(
+                height: 400,
+                width: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      "assets/caWil.png",
+                    ),
+                    //fit: BoxFit.cover,
                   ),
-                  //fit: BoxFit.cover,
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 50, right: 18),
-            child: Text(
-              'Quick and easy way to reserve a seat.',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromRGBO(19, 41, 75, 1),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 70,
-          ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(19, 41, 75, 1),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.elliptical(70, 70),
+            Padding(
+              padding: const EdgeInsets.only(left: 50, right: 18),
+              child: Text(
+                'Quick and easy way to reserve a seat.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Color.fromRGBO(19, 41, 75, 1),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 50, horizontal: 40),
-                child: SwipeableButtonView(
-                  buttonText: 'Swipe to book',
-                  buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
-                  activeColor: primary1,
-                  isFinished: isFinished,
-                  onWaitingProcess: () {
-                    Future.delayed(Duration(seconds: 1), () {
-                      setState(() {
-                        isFinished = true;
+            ),
+            SizedBox(
+              height: 70,
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(19, 41, 75, 1),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.elliptical(70, 70),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+                  child: SwipeableButtonView(
+                    buttonText: 'Swipe to book',
+                    buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
+                    activeColor: primary1,
+                    isFinished: isFinished,
+                    onWaitingProcess: () {
+                      Future.delayed(Duration(seconds: 1), () {
+                        setState(() {
+                          isFinished = true;
+                        });
                       });
-                    });
-                  },
-                  onFinish: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: LoginScreen(),
-                      ),
-                    );
+                    },
+                    onFinish: () async {
+                      await Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          child: LoginScreen(),
+                        ),
+                      );
 
-                    setState(() {
-                      isFinished = false;
-                    });
-                  },
+                      setState(() {
+                        isFinished = false;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

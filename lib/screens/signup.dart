@@ -65,15 +65,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [shade1, shade1, shade2],
-              tileMode: TileMode.clamp,
-            ),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [shade1, shade1, shade2],
+            tileMode: TileMode.clamp,
           ),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: false,
               ),
               SizedBox(height: 10),
-        
+
               BuildTextField(
                 controller: _passwordTextController,
                 keyboard: TextInputType.text,
@@ -172,18 +172,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                 ),
               ),
-              SizedBox(
-                height: 40
-              ),
+              SizedBox(height: 40),
               Center(
                 child: Text(
                   'or login with',
                   style: TextStyle(fontSize: 15, color: colorWhite),
                 ),
               ),
-              SizedBox(
-                height: 30
-              ),
+              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -215,9 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20
-              ),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -241,43 +235,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               // SizedBox(height: 50)
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-// method for the textfields
-  Padding buildTextField(
-    TextEditingController controller,
-    TextInputType keyboard,
-    TextInputAction inputAction,
-    String hintText,
-    bool obscureText,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35.0, right: 35),
-      child: TextField(
-        style: TextStyle(color: Colors.black38),
-        controller: controller,
-        keyboardType: keyboard,
-        textInputAction: inputAction,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorWhite, width: 0.0),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black38),
-          filled: true,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          fillColor: colorWhite,
-          contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-                width: 1, style: BorderStyle.solid, color: Colors.black38),
           ),
         ),
       ),

@@ -18,78 +18,80 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [shade1, shade1, shade2],
             tileMode: TileMode.clamp,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            AppName(fontSize: 70),
-            SizedBox(height: 150),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'Enter your e-mail and we will send you a reset link',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(height: 40),
-            BuildTextField(
-              controller: _emailTextController,
-              keyboard: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
-              hintText: 'Email Address',
-              obscureText: false,
-            ),
-            SizedBox(height: 25),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[100],
-                  padding: EdgeInsets.symmetric(horizontal: 130, vertical: 18),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
-                ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              AppName(fontSize: 70),
+              SizedBox(height: 150),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'RESET',
+                  'Enter your e-mail and we will send you a reset link',
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
+              SizedBox(height: 40),
+              BuildTextField(
+                controller: _emailTextController,
+                keyboard: TextInputType.emailAddress,
+                inputAction: TextInputAction.done,
+                hintText: 'Email Address',
+                obscureText: false,
+              ),
+              SizedBox(height: 25),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.greenAccent[100],
+                    padding: EdgeInsets.symmetric(horizontal: 130, vertical: 18),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
                   child: Text(
-                    'Back',
+                    'RESET',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.greenAccent[100],
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context,
+                          MaterialPageRoute(builder: (context) => LoginScreen()));
+                    },
+                    child: Text(
+                      'Back',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.greenAccent[100],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
