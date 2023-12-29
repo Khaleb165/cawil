@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/app_name.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
@@ -63,26 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Ca',
-                      style: TextStyle(
-                          fontSize: 70,
-                          color: primary1,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Wil',
-                      style: TextStyle(
-                        fontSize: 70,
-                        fontWeight: FontWeight.bold,
-                        color: primary2,
-                      ),
-                    ),
-                  ],
-                ),
+             AppName(fontSize: 70),
                 SizedBox(
                   height: 90,
                 ),
