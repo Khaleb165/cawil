@@ -1,4 +1,6 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/app_name.dart';
+import 'package:cawil/models/textfield.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/login.dart';
@@ -71,192 +73,169 @@ class _SignUpScreenState extends State<SignUpScreen> {
               tileMode: TileMode.clamp,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 90.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    'Ca',
-                    style: TextStyle(
-                        fontSize: 70,
-                        color: primary1,
-                        fontWeight: FontWeight.bold),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              AppName(fontSize: 70),
+              SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.only(right: 38.0),
+                child: Text(
+                  'SignUp to Book',
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    'Wil',
-                    style: TextStyle(
-                      fontSize: 70,
-                      fontWeight: FontWeight.bold,
-                      color: primary2,
-                    ),
-                  ),
-                ]),
-                SizedBox(
-                  height: 90,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 38.0),
-                  child: Text(
-                    'SignUp to Book',
-                    style: TextStyle(
+              ),
+              SizedBox(height: 10),
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 40,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              AssetImage('assets/defaultProfile.jpeg'),
+                        ),
+                  Positioned(
+                    bottom: -10,
+                    left: 40,
+                    child: IconButton(
+                      onPressed: selectImage,
+                      icon: Icon(
+                        Icons.add_a_photo,
                         color: colorWhite,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Stack(
-                  children: [
-                    _image != null
-                        ? CircleAvatar(
-                            radius: 40,
-                            backgroundImage: MemoryImage(_image!),
-                          )
-                        : CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                AssetImage('assets/defaultProfile.jpeg'),
-                          ),
-                    Positioned(
-                        bottom: -10,
-                        left: 40,
-                        child: IconButton(
-                          onPressed: selectImage,
-                          icon: Icon(
-                            Icons.add_a_photo,
-                            color: colorWhite,
-                            size: 22,
-                          ),
-                        ))
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                buildTextField(
-                  _usernameTextController,
-                  TextInputType.name,
-                  TextInputAction.next,
-                  'Username',
-                  false,
-                ),
-                SizedBox(height: 20),
-                buildTextField(
-                  _emailTextController,
-                  TextInputType.emailAddress,
-                  TextInputAction.next,
-                  'Email Address',
-                  false,
-                ),
-                SizedBox(height: 20),
-                buildTextField(
-                  _passwordTextController,
-                  TextInputType.text,
-                  TextInputAction.done,
-                  'Password',
-                  hide,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: signUpUser,
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.greenAccent[100],
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 150, vertical: 18),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
+                        size: 22,
+                      ),
                     ),
-                    child: _isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: colorWhite,
-                            ),
-                          )
-                        : Text(
-                            'SIGN UP',
-                            style: TextStyle(
-                              color: colorWhite,
-                            ),
-                          ),
                   ),
+                ],
+              ),
+              SizedBox(height: 10),
+              BuildTextField(
+                controller: _usernameTextController,
+                keyboard: TextInputType.name,
+                inputAction: TextInputAction.next,
+                hintText: 'Username',
+                obscureText: false,
+              ),
+              SizedBox(height: 10),
+              BuildTextField(
+                controller: _emailTextController,
+                keyboard: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
+                hintText: 'Email Address',
+                obscureText: false,
+              ),
+              SizedBox(height: 10),
+
+              BuildTextField(
+                controller: _passwordTextController,
+                keyboard: TextInputType.text,
+                inputAction: TextInputAction.done,
+                hintText: 'Password',
+                obscureText: hide,
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: signUpUser,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.greenAccent[100],
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 150, vertical: 18),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
+                  child: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: colorWhite,
+                          ),
+                        )
+                      : Text(
+                          'SIGN UP',
+                          style: TextStyle(
+                            color: colorWhite,
+                          ),
+                        ),
                 ),
-                SizedBox(
-                  height: 40,
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Center(
+                child: Text(
+                  'or login with',
+                  style: TextStyle(fontSize: 15, color: colorWhite),
                 ),
-                Center(
-                  child: Text(
-                    'or login with',
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: colorWhite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/google.png'),
+                    ),
+                  ),
+                  SizedBox(width: 25),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: colorWhite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/facebook1.png'),
+                    ),
+                  ),
+                  SizedBox(width: 25),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: colorWhite,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12), // Border radius
+                      child: Image.asset('assets/images.png'),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account?',
                     style: TextStyle(fontSize: 15, color: colorWhite),
                   ),
-                ),
-                SizedBox(
-                  height: 35,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/google.png'),
-                      ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: Text(
+                      'Log in',
+                      style: TextStyle(color: Colors.red[900], fontSize: 15),
                     ),
-                    SizedBox(width: 25),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/facebook1.png'),
-                      ),
-                    ),
-                    SizedBox(width: 25),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12), // Border radius
-                        child: Image.asset('assets/images.png'),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Already have an account?',
-                      style: TextStyle(fontSize: 15, color: colorWhite),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      child: Text(
-                        'Log in',
-                        style: TextStyle(color: Colors.red[900], fontSize: 15),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 50)
-              ],
-            ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 50)
+            ],
           ),
         ),
       ),
