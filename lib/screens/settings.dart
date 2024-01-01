@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 
 class SettingsPage extends StatefulWidget {
   final String uid;
+
   const SettingsPage({Key? key, required this.uid}) : super(key: key);
 
   @override
@@ -51,18 +52,18 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.0001),
+              // margin: EdgeInsets.only(
+              //     top: MediaQuery.of(context).size.height * 0.0001),
               width: double.infinity,
-              height: 250,
+              // height: 250,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [shade1, shade1, shade2],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.elliptical(50, 50),
-                    bottomLeft: Radius.elliptical(50, 50)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.elliptical(50, 50),
+                ),
               ),
               child: Column(
                 children: [
@@ -81,9 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: Colors.white,
                             )),
                       ),
-                      SizedBox(
-                        width: 70,
-                      ),
+                      SizedBox(width: 70),
                       Padding(
                         padding: const EdgeInsets.only(top: 45.0),
                         child: Align(
@@ -120,15 +119,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 2.5),
                           ),
-                          SizedBox(
-                            height: 1,
-                          ),
+                          SizedBox(height: 1),
                           Text(
                             '$email',
                             style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w200),
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w200,
+                            ),
                           ),
                         ],
                       ),
@@ -140,17 +138,17 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(height: 30),
             Column(
               children: [
-                settingsTab(() {}, 'assets/person1.png', 'Account'),
+                settingsListTile(() {}, 'assets/person1.png', 'Account'),
                 SizedBox(height: 20),
-                settingsTab(() {}, 'assets/bell.png', 'Notifications'),
+                settingsListTile(() {}, 'assets/bell.png', 'Notifications'),
                 SizedBox(height: 20),
-                settingsTab(() {}, 'assets/location.png', 'Location'),
+                settingsListTile(() {}, 'assets/location.png', 'Location'),
                 SizedBox(height: 20),
-                settingsTab(() {}, 'assets/person1.png', 'Support'),
+                settingsListTile(() {}, 'assets/person1.png', 'Support'),
                 SizedBox(height: 20),
-                settingsTab(() {}, 'assets/share.png', 'Share'),
+                settingsListTile(() {}, 'assets/share.png', 'Share'),
                 SizedBox(height: 20),
-                settingsTab(() async {
+                settingsListTile(() async {
                   await AuthMethods().signOut();
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -163,7 +161,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  InkWell settingsTab(VoidCallback, String imageText, String title) {
+  InkWell settingsListTile(VoidCallback, String imageText, String title) {
     return InkWell(
       onTap: VoidCallback,
       child: ListTile(
