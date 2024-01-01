@@ -1,3 +1,4 @@
+import 'package:cawil/constants/colors.dart';
 import 'package:cawil/screens/passenger_details.dart';
 import 'package:flutter/material.dart';
 
@@ -96,15 +97,13 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    const Color.fromRGBO(0, 7, 240, 0.5),
-                    Color.fromRGBO(0, 7, 240, 0.5),
-                    Color.fromRGBO(127, 0, 255, 100)
+                    shade1,shade1,shade2
                   ],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.elliptical(50, 50),
-                    bottomLeft: Radius.elliptical(50, 50)),
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(50, 50),
+                    ),
               ),
               child: Align(
                 alignment: Alignment.center,

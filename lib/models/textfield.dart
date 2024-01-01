@@ -9,13 +9,14 @@ class BuildTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
 
-  const BuildTextField(
-      {super.key,
-      required this.controller,
-      required this.keyboard,
-      required this.inputAction,
-      required this.hintText,
-      required this.obscureText});
+  const BuildTextField({
+    super.key,
+    required this.controller,
+    required this.keyboard,
+    required this.inputAction,
+    required this.hintText,
+    required this.obscureText,
+  });
 
   @override
   Widget build(BuildContext context) {
