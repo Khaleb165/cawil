@@ -13,16 +13,7 @@ import 'package:intl/intl.dart';
 import '../models/bus_card.dart';
 
 class BusPage extends StatefulWidget {
-  final String source;
-  final String destination;
-  final DateTime date;
-
-  const BusPage({
-    Key? key,
-    required this.source,
-    required this.destination,
-    required this.date,
-  }) : super(key: key);
+  const BusPage({Key? key}) : super(key: key);
 
   @override
   State<BusPage> createState() => _BusPageState();
