@@ -1,3 +1,4 @@
+import 'package:cawil/models/available_bus_model.dart';
 import 'package:cawil/models/bus_data.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ class BusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AvailableBusModel bus1 =
+        AvailableBusModel('First Bus', '9am', 'departureTime', '2pm', 36);
+
     return ClipPath(
       clipper: SideCutClipper(),
       child: Container(
@@ -21,25 +25,22 @@ class BusCard extends StatelessWidget {
           elevation: 15,
           borderOnForeground: false,
           color: Colors.white,
-          margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 0),
+            padding: const EdgeInsets.only(left: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                    ),
+                    SizedBox(height: 10),
                     Text(
-                      'First Bus',
+                      bus1.busNumber,
                       style: TextStyle(
-                        letterSpacing: 1,
                         fontWeight: FontWeight.w600,
                         fontSize: 25,
                         color: primary2,
@@ -67,8 +68,7 @@ class BusCard extends StatelessWidget {
                               '${Provider.of<BusData>(context).fromTextField}',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w500),
+                                  fontSize: 25, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -82,9 +82,7 @@ class BusCard extends StatelessWidget {
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -105,7 +103,6 @@ class BusCard extends StatelessWidget {
                                   '${Provider.of<BusData>(context).toTextField}',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      letterSpacing: 1,
                                       fontSize: 25,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -133,7 +130,7 @@ class BusCard extends StatelessWidget {
                   children: [
                     Padding(padding: EdgeInsets.only(top: 15)),
                     Text(
-                      'Report Time: 9am',
+                      'Report Time: ${bus1.reportTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
@@ -141,7 +138,7 @@ class BusCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Departure: 10am',
+                      'Departure: ${bus1.departureTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
@@ -149,43 +146,44 @@ class BusCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Arrival: 2pm',
+                      'Arrival: ${bus1.arrival}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
                         color: primary2,
                       ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    SizedBox(height: 15),
                     Text(
-                      'Seats Left: 36',
+                      'Seats Left: ${bus1.seatsLeft}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
                         color: Colors.deepPurple[400],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Price: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: primary2,
+
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Price',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: primary2,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Ghc 80',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Colors.red[900],
+                          TextSpan(
+                            text: 'Ghc 80',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Colors.red[900],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
