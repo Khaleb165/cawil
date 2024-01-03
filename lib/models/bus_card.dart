@@ -6,16 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
-import '../screens/bus_page.dart';
 import '../screens/seat_select.dart';
 
 class BusCard extends StatelessWidget {
-  const BusCard({
-    super.key,
-    required this.widget,
-  });
-
-  final BusPage widget;
+  const BusCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +67,6 @@ class BusCard extends StatelessWidget {
                               '${Provider.of<BusData>(context).fromTextField}',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  letterSpacing: 1,
                                   fontSize: 25,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -197,7 +190,8 @@ class BusCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await context.read<BusData>().clearData();
                           Navigator.push(
                               context,
                               MaterialPageRoute(

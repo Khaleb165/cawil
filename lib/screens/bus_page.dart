@@ -61,7 +61,7 @@ class _BusPageState extends State<BusPage> {
           Expanded(
             child: ListView.builder(
               itemCount: 3,
-              itemBuilder: (_, __) => BusCard(widget: widget),
+              itemBuilder: (_, __) => BusCard(),
             ),
           ),
         ],

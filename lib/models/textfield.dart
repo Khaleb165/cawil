@@ -8,14 +8,16 @@ class BuildTextField extends StatelessWidget {
   final TextInputAction inputAction;
   final String hintText;
   final bool obscureText;
+  final void Function(String)? onChanged;
 
-  const BuildTextField({
+  BuildTextField({
     super.key,
     required this.controller,
     required this.keyboard,
     required this.inputAction,
     required this.hintText,
     required this.obscureText,
+    this.onChanged,
   });
 
   @override
@@ -23,6 +25,7 @@ class BuildTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 35.0, right: 35),
       child: TextField(
+        onChanged: onChanged,
         style: TextStyle(color: Colors.black38),
         controller: controller,
         keyboardType: keyboard,

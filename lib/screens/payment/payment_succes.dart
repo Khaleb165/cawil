@@ -2,14 +2,12 @@ import 'package:cawil/screens/payment/ticket_details.dart';
 import 'package:flutter/material.dart';
 
 class PaymentSuccessPage extends StatelessWidget {
-  final String name;
-  final String contactNumber;
-  final List<String> selectedSeats;
-  const PaymentSuccessPage(
-      {super.key,
-      required this.name,
-      required this.contactNumber,
-      required this.selectedSeats});
+
+
+  const PaymentSuccessPage({
+    super.key,
+
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +68,7 @@ class PaymentSuccessPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => TicketDetailsPage(
-                            name: name,
-                            contactNumber: contactNumber,
-                            selectedSeats: selectedSeats)));
+                        builder: (context) => TicketDetailsPage()));
               },
               child: Text(
                 'See Ticket Details',

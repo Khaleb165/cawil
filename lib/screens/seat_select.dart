@@ -1,6 +1,8 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/bus_data.dart';
 import 'package:cawil/screens/passenger_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SeatSelectPage extends StatefulWidget {
   const SeatSelectPage({Key? key}) : super(key: key);
@@ -10,20 +12,22 @@ class SeatSelectPage extends StatefulWidget {
 }
 
 class _SeatSelectPageState extends State<SeatSelectPage> {
-  List<String> selectedSeats = [];
+  // List<String> selectedSeats = []
 
   void _toggleSeatSelection(String seatNumber) {
+    final busData = Provider.of<BusData>(context, listen: false);
     setState(() {
-      if (selectedSeats.contains(seatNumber)) {
-        selectedSeats.remove(seatNumber);
+      if (busData.containSeat(seatNumber)) {
+        busData.removeSeatSelection(seatNumber);
       } else {
-        selectedSeats.add(seatNumber);
+        busData.addSeatSelection(seatNumber);
       }
     });
   }
 
   Widget _buildSeat(String seatNumber) {
-    final isSelected = selectedSeats.contains(seatNumber);
+    final isSelected =
+        Provider.of<BusData>(context, listen: false).containSeat(seatNumber);
 
     return GestureDetector(
       onTap: () {
@@ -80,7 +84,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double totalPrice = selectedSeats.length * 80;
+    final double totalPrice = Provider.of<BusData>(context).totalPrice;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.deepPurple[50],
@@ -96,14 +100,12 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
               height: 200,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    shade1,shade1,shade2
-                  ],
+                  colors: [shade1, shade1, shade2],
                   tileMode: TileMode.clamp,
                 ),
                 borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(50, 50),
-                    ),
+                  bottom: Radius.elliptical(50, 50),
+                ),
               ),
               child: Align(
                 alignment: Alignment.center,
@@ -210,7 +212,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         ),
                         Expanded(
                           child: Text(
-                            ' ${selectedSeats.join(', ')}',
+                            ' ${Provider.of<BusData>(context).joinedSeats}',
                             style: TextStyle(
                               color: Colors.deepPurple[300],
                               fontSize: 20,
@@ -236,9 +238,9 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => PassengerDetailsPage(
-                                totalPrice: totalPrice,
-                                selectedSeats: selectedSeats,
-                              ),
+                                  // totalPrice: totalPrice,
+                                  // selectedSeats: selectedSeats,
+                                  ),
                             ),
                           );
                         },

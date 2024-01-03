@@ -19,10 +19,11 @@ class HomepageScreen extends StatefulWidget {
 class _HomepageScreenState extends State<HomepageScreen> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
+
   // DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
-    final busData = Provider.of<BusData>(context,listen: false);
+    final busData = Provider.of<BusData>(context, listen: false);
 
     final DateTime? date = await showDatePicker(
       context: context,
@@ -59,207 +60,201 @@ class _HomepageScreenState extends State<HomepageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple[50],
-      body: Consumer<BusData>(
-        builder: (context, busData, child){
-          return  SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.0001),
-                  width: double.infinity,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [shade1, shade1, shade2],
-                      tileMode: TileMode.clamp,
-                    ),
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.elliptical(50, 50),
-                        bottomLeft: Radius.elliptical(50, 50)),
+      body: Consumer<BusData>(builder: (context, busData, _) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.0001),
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [shade1, shade1, shade2],
+                    tileMode: TileMode.clamp,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 55),
-                      ),
-                      AppName(fontSize: 50),
-                      SizedBox(width: 50),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SettingsPage(
-                                    uid: '',
-                                  ),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.elliptical(50, 50),
+                      bottomLeft: Radius.elliptical(50, 50)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 55),
+                    ),
+                    AppName(fontSize: 50),
+                    SizedBox(width: 50),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsPage(
+                                  uid: '',
                                 ),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.notes_sharp,
-                              size: 30,
-                              color: colorWhite,
-                            ),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.notes_sharp,
+                            size: 30,
+                            color: colorWhite,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 50),
-                Padding(
-                  padding: EdgeInsets.only(left: 45, right: 15),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Hey ',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        '$username,',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 50),
+              Padding(
+                padding: EdgeInsets.only(left: 45, right: 15),
+                child: Row(
+                  children: [
+                    Text(
+                      'Hey ',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '$username,',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.only(right: 85),
+                child: Text(
+                  'what is your next trip?',
+                  style: TextStyle(fontSize: 22, color: Colors.black38),
+                ),
+              ),
+              SizedBox(height: 30),
+              Card(
+                elevation: 15,
+                borderOnForeground: true,
+                margin: EdgeInsets.fromLTRB(25, 25, 25, 25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30.0, right: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headerText('From'),
+                        buildCardFields(
+                            sourceController, TextInputAction.next, primary1,
+                            (newText) {
+                          busData.updateFromTextField(newText);
+                        }),
+                        const Divider(thickness: 1),
+                        headerText('To'),
+                        buildCardFields(destinationController,
+                            TextInputAction.done, primary2, (newText) {
+                          busData.updateToTextField(newText);
+                        }),
+                        SizedBox(height: 5)
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.only(right: 85),
-                  child: Text(
-                    'what is your next trip?',
-                    style: TextStyle(fontSize: 22, color: Colors.black38),
-                  ),
-                ),
-                SizedBox(height: 30),
-                Card(
-                  elevation: 15,
-                  borderOnForeground: true,
-                  margin: EdgeInsets.fromLTRB(25, 25, 25, 25),
+              ),
+              SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30),
+                child: Material(
+                  elevation: 5,
+                  color: const Color.fromARGB(255, 253, 251, 255),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Container(
+                      borderRadius: BorderRadius.circular(25)),
+                  child: SizedBox(
+                    height: 50,
+                    width: 350,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: const EdgeInsets.only(left: 40, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          headerText('From'),
-                          buildCardFields(
-                            sourceController,
-                            TextInputAction.next,
-                            primary1,
-                              (newText){
-                              busData.updateFromTextField(newText);
-                              }
+                          Text(
+                            DateFormat('dd/MM/yyyy').format(
+                                Provider.of<BusData>(context).selectedDate),
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 1.5,
+                                fontStyle: FontStyle.normal),
                           ),
-                          const Divider(thickness: 1),
-                          headerText('To'),
-                          buildCardFields(
-                            destinationController,
-                            TextInputAction.done,
-                            primary2,
-                              (newText){
-                              busData.updateToTextField(newText);
-                              }
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(
+                              Icons.calendar_month_outlined,
+                              color: primary2,
+                            ),
+                            onPressed: () => _selectDate(context),
                           ),
-                          SizedBox(height: 5)
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 30),
-                  child: Material(
-                    elevation: 5,
-                    color: const Color.fromARGB(255, 253, 251, 255),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    child: SizedBox(
-                      height: 50,
-                      width: 350,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate),
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 1.5,
-                                  fontStyle: FontStyle.normal),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.calendar_month_outlined,
-                                color: primary2,
-                              ),
-                              onPressed: () => _selectDate(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 40),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BusPage(
+              ),
+              SizedBox(height: 40),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BusPage(
                             // source: sourceController.text,
                             // destination: destinationController.text,
                             // date: ,
-                          ),
-                        ),
-                      );
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: primary2,
-                      padding: EdgeInsets.symmetric(horizontal: 80, vertical: 18),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                    ),
-                    child: Text(
-                      'FIND YOUR BUS',
-                      style: TextStyle(
-                        color: colorWhite,
+                            ),
                       ),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: primary2,
+                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 18),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
+                  child: Text(
+                    'FIND YOUR BUS',
+                    style: TextStyle(
+                      color: colorWhite,
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-        }
-
-      ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 
-  TextField buildCardFields(TextEditingController controller,
-      TextInputAction inputAction, Color textColor,void Function(String) onChanged) {
+  TextField buildCardFields(
+      TextEditingController controller,
+      TextInputAction inputAction,
+      Color textColor,
+      void Function(String) onChanged) {
     return TextField(
       controller: controller,
       onChanged: onChanged,

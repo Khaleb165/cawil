@@ -1,15 +1,12 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/bus_data.dart';
 import 'package:cawil/models/textfield.dart';
 import 'package:cawil/screens/payment/payment_method.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PassengerDetailsPage extends StatefulWidget {
-  final double totalPrice;
-  final List<String> selectedSeats;
-
-  const PassengerDetailsPage(
-      {Key? key, required this.totalPrice, required this.selectedSeats})
-      : super(key: key);
+  const PassengerDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<PassengerDetailsPage> createState() => _PassengerDetailsPageState();
@@ -29,8 +26,6 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.0001),
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
@@ -39,8 +34,8 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                   tileMode: TileMode.clamp,
                 ),
                 borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(50, 50),
-                    ),
+                  bottom: Radius.elliptical(50, 50),
+                ),
               ),
               child: Align(
                 alignment: Alignment.center,
@@ -58,6 +53,9 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
               inputAction: TextInputAction.next,
               hintText: 'Name of traveller',
               obscureText: false,
+              onChanged: (newText){
+                Provider.of<BusData>(context,listen: false).updateNameTextField(newText);
+              },
             ),
             SizedBox(height: 15),
             BuildTextField(
@@ -66,6 +64,9 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
               inputAction: TextInputAction.next,
               hintText: 'Phone Number',
               obscureText: false,
+              onChanged: (newNumber){
+                Provider.of<BusData>(context,listen: false).updatePhoneTextField(newNumber);
+              },
             ),
             SizedBox(height: 15),
             BuildTextField(
@@ -99,10 +100,8 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PaymentMethodPage(
-                          name: nameController.text,
-                          contactNumber: contactNumberController.text,
-                          totalPrice: widget.totalPrice,
-                          selectedSeats: widget.selectedSeats),
+
+                      ),
                     ),
                   );
                 },

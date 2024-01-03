@@ -1,20 +1,18 @@
 import 'package:cawil/screens/payment/payment_succes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/bus_data.dart';
 
 class PaymentDetailsPage extends StatelessWidget {
-  final String name;
-  final String contactNumber;
-  final String paymentMethod;
-  final double totalPrice;
-  final List<String> selectedSeats;
 
-  const PaymentDetailsPage(
-      {super.key,
-      required this.name,
-      required this.contactNumber,
-      required this.paymentMethod,
-      required this.totalPrice,
-      required this.selectedSeats});
+  final String paymentMethod;
+
+  const PaymentDetailsPage({
+    super.key,
+
+    required this.paymentMethod,
+  });
 
   double _calculateCharges(double totalPrice) {
     double charges = totalPrice * 0.01; // 1% charges
@@ -28,7 +26,7 @@ class PaymentDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final charges = _calculateCharges(totalPrice);
+    final charges = _calculateCharges(Provider.of<BusData>(context).totalPrice);
     return Scaffold(
       backgroundColor: Colors.deepPurple[50],
       body: SingleChildScrollView(
@@ -95,7 +93,7 @@ class PaymentDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.w500, fontSize: 18)),
                       SizedBox(height: 16.0),
                       Text(
-                        'Mobile Number',
+                        'Mobile Number: ${Provider.of<BusData>(context).phoneNumber}',
                         style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 15,
@@ -104,7 +102,7 @@ class PaymentDetailsPage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('$contactNumber',
+                      Text('${Provider.of<BusData>(context).phoneNumber}',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 18)),
                       SizedBox(height: 20.0),
@@ -121,9 +119,10 @@ class PaymentDetailsPage extends StatelessWidget {
                                     color: Colors.black45),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 5
                               ),
-                              Text('Ghc ${totalPrice.toStringAsFixed(2)}',
+                              Text(
+                                  'Ghc ${Provider.of<BusData>(context).totalPrice.toStringAsFixed(2)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18))
@@ -141,7 +140,7 @@ class PaymentDetailsPage extends StatelessWidget {
                                     color: Colors.black45),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 5
                               ),
                               Text('Ghc ${charges.toStringAsFixed(2)}',
                                   style: TextStyle(
@@ -152,7 +151,7 @@ class PaymentDetailsPage extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 30
                       )
                     ],
                   ),
@@ -172,9 +171,7 @@ class PaymentDetailsPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PaymentSuccessPage(
-                              name: name,
-                              contactNumber: contactNumber,
-                              selectedSeats: selectedSeats,
+
                             )));
               }),
               style: TextButton.styleFrom(

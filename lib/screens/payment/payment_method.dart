@@ -2,17 +2,12 @@ import 'package:cawil/screens/payment/payment_details.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatefulWidget {
-  final String name;
-  final String contactNumber;
-  final double totalPrice;
-  final List<String> selectedSeats;
 
-  const PaymentMethodPage(
-      {super.key,
-      required this.name,
-      required this.contactNumber,
-      required this.totalPrice,
-      required this.selectedSeats});
+
+  const PaymentMethodPage({
+    super.key,
+
+  });
 
   @override
   State<PaymentMethodPage> createState() => _PaymentMethodPageState();
@@ -112,14 +107,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                 onPressed: selectedPaymentMethod != null
                     ? () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PaymentDetailsPage(
-                                    name: widget.name,
-                                    contactNumber: widget.contactNumber,
-                                    paymentMethod: selectedPaymentMethod!,
-                                    totalPrice: widget.totalPrice,
-                                    selectedSeats: widget.selectedSeats)));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentDetailsPage(
+
+                              paymentMethod: selectedPaymentMethod!,
+                            ),
+                          ),
+                        );
                       }
                     : null,
                 style: TextButton.styleFrom(
