@@ -15,7 +15,7 @@ class BusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AvailableBusModel bus1 =
-        AvailableBusModel('First Bus', '9am', 'departureTime', '2pm', 36);
+        AvailableBusModel('First Bus', '9am', '10am', '2pm', 36);
 
     return ClipPath(
       clipper: SideCutClipper(),
@@ -146,7 +146,7 @@ class BusCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Arrival: ${bus1.arrival}',
+                      'Arrival: ${bus1.arrivalTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
