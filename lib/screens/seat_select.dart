@@ -116,9 +116,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

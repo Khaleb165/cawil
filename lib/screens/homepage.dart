@@ -115,24 +115,27 @@ class _HomepageScreenState extends State<HomepageScreen> {
               ),
               SizedBox(height: 50),
               Padding(
-                padding: EdgeInsets.only(left: 45, right: 15),
-                child: Row(
-                  children: [
-                    Text(
-                      'Hey ',
-                      style: TextStyle(
+                padding: const EdgeInsets.only(right: 110),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Hey ',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: '$username,',
+                        style: TextStyle(
                           fontSize: 30,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      '$username,',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -140,38 +143,40 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 padding: EdgeInsets.only(right: 85),
                 child: Text(
                   'what is your next trip?',
-                  style: TextStyle(fontSize: 22, color: Colors.black38),
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.black38,
+                  ),
                 ),
               ),
               SizedBox(height: 30),
               Card(
                 elevation: 15,
                 borderOnForeground: true,
-                margin: EdgeInsets.fromLTRB(25, 25, 25, 25),
+                margin: EdgeInsets.all(25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 30.0, right: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        headerText('From'),
-                        buildCardFields(
-                            sourceController, TextInputAction.next, primary1,
-                            (newText) {
-                          busData.updateFromTextField(newText);
-                        }),
-                        const Divider(thickness: 1),
-                        headerText('To'),
-                        buildCardFields(destinationController,
-                            TextInputAction.done, primary2, (newText) {
-                          busData.updateToTextField(newText);
-                        }),
-                        SizedBox(height: 5)
-                      ],
-                    ),
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      headerText('From'),
+                      buildCardFields(
+                          sourceController, TextInputAction.next, primary1,
+                          (newText) {
+                        busData.updateFromTextField(newText);
+                      }),
+                      const Divider(thickness: 1),
+                      headerText('To'),
+                      buildCardFields(
+                          destinationController, TextInputAction.done, primary2,
+                          (newText) {
+                        busData.updateToTextField(newText);
+                      }),
+                      SizedBox(height: 5)
+                    ],
                   ),
                 ),
               ),
