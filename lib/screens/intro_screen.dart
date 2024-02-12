@@ -58,21 +58,20 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                // width: double.infinity,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: primary2,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.elliptical(70, 70),
                   ),
                 ),
-
                 child: SwipeableButtonView(
                   buttonText: 'Swipe to book',
                   buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
                   activeColor: primary1,
                   isFinished: isFinished,
                   onWaitingProcess: () {
-                    Future.delayed(Duration(seconds: 1), () {
+                    Future.delayed(Duration(milliseconds: 500), () {
                       setState(() {
                         isFinished = true;
                       });
