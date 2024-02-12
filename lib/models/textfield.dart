@@ -22,31 +22,28 @@ class BuildTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 35.0, right: 35),
-      child: TextField(
-        onChanged: onChanged,
-        style: TextStyle(color: Colors.black38),
-        controller: controller,
-        keyboardType: keyboard,
-        textInputAction: inputAction,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorWhite, width: 0.0),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black38),
-          filled: true,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          fillColor: colorWhite,
-          contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-                width: 1, style: BorderStyle.solid, color: Colors.black38),
-          ),
+    return TextField(
+      onChanged: onChanged,
+      style: TextStyle(color: Colors.black38),
+      controller: controller,
+      keyboardType: keyboard,
+      textInputAction: inputAction,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorWhite, width: 0.0),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.black38),
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        fillColor: colorWhite,
+        contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+              width: 1, style: BorderStyle.solid, color: Colors.black38),
         ),
       ),
     );
