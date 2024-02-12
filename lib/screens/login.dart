@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 25),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -65,19 +66,18 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 50),
               AppName(fontSize: 70),
               SizedBox(height: 70),
-              Padding(
-                padding: const EdgeInsets.only(right: 38.0),
-                child: Text(
-                  'Login to Book',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
+              Text(
+                'Login to Book',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 50),
@@ -97,33 +97,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: hide,
               ),
               SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  onPressed: loginUser,
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.greenAccent[100],
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 150, vertical: 18),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
+              ElevatedButton(
+                onPressed: loginUser,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.greenAccent[100],
+                  // padding: EdgeInsets.symmetric(horizontal: 150, vertical: 18),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                  child: _isLoading
-                      ? Center(
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      : Text(
-                          'LOGIN',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
                 ),
+                child: _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
               ),
               SizedBox(height: 15),
               Padding(
@@ -148,7 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: Text(
                   'or login with',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SizedBox(height: 30),
