@@ -50,50 +50,47 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
-                  color: Color.fromRGBO(19, 41, 75, 1),
+                  color: primary2,
                 ),
               ),
             ),
-            SizedBox(
-              height: 70,
-            ),
+            SizedBox(height: 70),
             Expanded(
               child: Container(
-                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                // width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(19, 41, 75, 1),
+                  color: primary2,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.elliptical(70, 70),
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 40),
-                  child: SwipeableButtonView(
-                    buttonText: 'Swipe to book',
-                    buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
-                    activeColor: primary1,
-                    isFinished: isFinished,
-                    onWaitingProcess: () {
-                      Future.delayed(Duration(seconds: 1), () {
-                        setState(() {
-                          isFinished = true;
-                        });
-                      });
-                    },
-                    onFinish: () async {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: LoginScreen(),
-                        ),
-                      );
 
+                child: SwipeableButtonView(
+                  buttonText: 'Swipe to book',
+                  buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
+                  activeColor: primary1,
+                  isFinished: isFinished,
+                  onWaitingProcess: () {
+                    Future.delayed(Duration(seconds: 1), () {
                       setState(() {
-                        isFinished = false;
+                        isFinished = true;
                       });
-                    },
-                  ),
+                    });
+                  },
+                  onFinish: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: LoginScreen(),
+                      ),
+                    );
+
+                    setState(() {
+                      isFinished = false;
+                    });
+                  },
                 ),
               ),
             ),
