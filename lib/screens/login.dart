@@ -8,6 +8,8 @@ import 'package:cawil/screens/signup.dart';
 import 'package:cawil/utilities/utils.dart';
 import 'package:flutter/material.dart';
 
+import 'components/social_login_button.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -100,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: loginUser,
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.greenAccent[100],
-                    padding: EdgeInsets.symmetric(horizontal: 150, vertical: 18),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 150, vertical: 18),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
@@ -152,32 +155,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12), // Border radius
-                      child: Image.asset('assets/google.png'),
-                    ),
-                  ),
+                  SocialLoginButton(imageUrl: 'assets/google.png'),
                   SizedBox(width: 25),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: colorWhite,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12), // Border radius
-                      child: Image.asset('assets/facebook1.png'),
-                    ),
-                  ),
+                  SocialLoginButton(imageUrl: 'assets/facebook1.png'),
                   SizedBox(width: 25),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: colorWhite,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12), // Border radius
-                      child: Image.asset('assets/images.png'),
-                    ),
-                  ),
+                  SocialLoginButton(imageUrl: 'assets/images.png'),
                 ],
               ),
               SizedBox(height: 40),
@@ -202,9 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-              // SizedBox(
-              //   height: 50,
-              // ),
             ],
           ),
         ),
