@@ -1,10 +1,10 @@
 import 'package:cawil/constants/colors.dart';
-import 'package:cawil/screens/login.dart';
+import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
-import '../models/app_name.dart';
+import '../widgets/app_name.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:cawil/constants/colors.dart';
-import 'package:cawil/models/app_name.dart';
-import 'package:cawil/models/bus_data.dart';
-import 'package:cawil/screens/bus_page.dart';
+import 'package:cawil/widgets/app_name.dart';
+import 'package:cawil/providers/bus_data.dart';
+import 'package:cawil/screens/available_bus_page.dart';
 import 'package:cawil/screens/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class HomepageScreen extends StatefulWidget {
-  const HomepageScreen({Key? key}) : super(key: key);
+class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<HomepageScreen> createState() => _HomepageScreenState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageScreenState extends State<HomepageScreen> {
+class _HomepageState extends State<Homepage> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
 
@@ -75,9 +75,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
                     colors: [shade1, shade1, shade2],
                     tileMode: TileMode.clamp,
                   ),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.elliptical(50, 50),
-                      bottomLeft: Radius.elliptical(50, 50)),
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(50, 50),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +158,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Container(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -182,7 +182,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               ),
               SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.only(left: 30.0, right: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Material(
                   elevation: 5,
                   color: const Color.fromARGB(255, 253, 251, 255),
@@ -200,10 +200,11 @@ class _HomepageScreenState extends State<HomepageScreen> {
                             DateFormat('dd/MM/yyyy').format(
                                 Provider.of<BusData>(context).selectedDate),
                             style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: 1.5,
-                                fontStyle: FontStyle.normal),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.5,
+                              fontStyle: FontStyle.normal,
+                            ),
                           ),
                           Spacer(),
                           IconButton(
@@ -226,11 +227,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BusPage(
-                            // source: sourceController.text,
-                            // destination: destinationController.text,
-                            // date: ,
-                            ),
+                        builder: (context) => AvailableBusPage(),
                       ),
                     );
                   },
