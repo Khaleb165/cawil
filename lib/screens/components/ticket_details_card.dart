@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/bus_data.dart';
+import '../../providers/bus_data.dart';
 
 class TicketDetailsCard extends StatelessWidget {
   const TicketDetailsCard({
@@ -26,14 +26,6 @@ class TicketDetailsCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text(
-                    //   'Ticket ${index + 1}',
-                    //   style: TextStyle(
-                    //     fontSize: 18,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    // SizedBox(height: 8.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -69,7 +61,6 @@ class TicketDetailsCard extends StatelessWidget {
                         )
                       ],
                     ),
-
                     SizedBox(height: 8.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
