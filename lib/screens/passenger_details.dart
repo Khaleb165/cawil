@@ -1,6 +1,6 @@
 import 'package:cawil/constants/colors.dart';
-import 'package:cawil/models/bus_data.dart';
-import 'package:cawil/models/textfield.dart';
+import 'package:cawil/providers/bus_data.dart';
+import 'package:cawil/widgets/custom_textfield.dart';
 import 'package:cawil/screens/payment/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,6 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.deepPurple[50],
       body: SingleChildScrollView(
         child: Column(
@@ -42,55 +41,47 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                 child: Text(
                   'Passenger Details',
                   style: TextStyle(
-                      color: Colors.white, fontSize: 35, letterSpacing: 1),
+                    color: Colors.white,
+                    fontSize: 35,
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 90),
-            BuildTextField(
+            CustomTextfield(
               controller: nameController,
-              keyboard: TextInputType.text,
-              inputAction: TextInputAction.next,
               hintText: 'Name of traveller',
-              obscureText: false,
-              onChanged: (newText){
-                Provider.of<BusData>(context,listen: false).updateNameTextField(newText);
+              onChanged: (newText) {
+                Provider.of<BusData>(context, listen: false)
+                    .updateNameTextField(newText);
               },
             ),
             SizedBox(height: 15),
-            BuildTextField(
+            CustomTextfield(
               controller: contactNumberController,
               keyboard: TextInputType.phone,
-              inputAction: TextInputAction.next,
               hintText: 'Phone Number',
-              obscureText: false,
-              onChanged: (newNumber){
-                Provider.of<BusData>(context,listen: false).updatePhoneTextField(newNumber);
+              onChanged: (newNumber) {
+                Provider.of<BusData>(context, listen: false)
+                    .updatePhoneTextField(newNumber);
               },
             ),
             SizedBox(height: 15),
-            BuildTextField(
+            CustomTextfield(
               controller: TextEditingController(),
-              keyboard: TextInputType.text,
-              inputAction: TextInputAction.next,
               hintText: 'Gender',
-              obscureText: false,
             ),
             SizedBox(height: 15),
-            BuildTextField(
+            CustomTextfield(
               controller: TextEditingController(),
-              keyboard: TextInputType.text,
-              inputAction: TextInputAction.next,
               hintText: 'Guardian Name',
-              obscureText: false,
             ),
             SizedBox(height: 15),
-            BuildTextField(
+            CustomTextfield(
               controller: TextEditingController(),
               keyboard: TextInputType.phone,
               inputAction: TextInputAction.done,
               hintText: 'Guardian Phone Number',
-              obscureText: false,
             ),
             SizedBox(height: 40),
             Center(
@@ -99,9 +90,7 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentMethodPage(
-
-                      ),
+                      builder: (context) => PaymentMethodPage(),
                     ),
                   );
                 },
