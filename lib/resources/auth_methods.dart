@@ -50,6 +50,8 @@ class AuthMethods {
           'photoUrl': photoUrl,
         });
         res = 'success';
+      } else {
+        res = 'Please fill all the fields';
       }
     } catch (error) {
       res = error.toString();
