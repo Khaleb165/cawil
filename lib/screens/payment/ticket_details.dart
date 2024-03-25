@@ -3,15 +3,13 @@ import 'package:cawil/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/bus_data.dart';
+import '../../providers/bus_data.dart';
 import '../components/ticket_details_card.dart';
 
 class TicketDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final busData = Provider
-        .of<BusData>(context)
-        .selectedSeats;
+    final busData = Provider.of<BusData>(context).selectedSeats;
     return Scaffold(
       backgroundColor: Colors.deepPurple[50],
       body: ListView(
@@ -33,8 +31,7 @@ class TicketDetailsPage extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 'Ticket Details',
-                style: TextStyle(
-                    color: Colors.white, fontSize: 25),
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
             ),
           ),
@@ -55,8 +52,8 @@ class TicketDetailsPage extends StatelessWidget {
                       .clearFieldsData();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => HomepageScreen()),
-                          (Route<dynamic> route) => false);
+                      MaterialPageRoute(builder: (context) => Homepage()),
+                      (Route<dynamic> route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent,
@@ -81,7 +78,3 @@ class TicketDetailsPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
