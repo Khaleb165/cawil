@@ -1,5 +1,5 @@
 import 'package:cawil/constants/colors.dart';
-import 'package:cawil/models/bus_data.dart';
+import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/passenger_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +86,6 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
   Widget build(BuildContext context) {
     final double totalPrice = Provider.of<BusData>(context).totalPrice;
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.deepPurple[50],
       body: SingleChildScrollView(
         child: Column(
@@ -94,8 +93,6 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              // margin: EdgeInsets.only(
-              //     top: MediaQuery.of(context).size.height * 0.0001),
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
@@ -184,15 +181,12 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
             Flexible(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                // margin: EdgeInsets.only(
-                // top: MediaQuery.of(context).size.height * 0.05),
                 width: double.infinity,
-                // height: 220,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.elliptical(20, 20),
-                      topLeft: Radius.elliptical(20, 20)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.elliptical(20, 20),
+                  ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -235,11 +229,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PassengerDetailsPage(
-                                  // totalPrice: totalPrice,
-                                  // selectedSeats: selectedSeats,
-                                  ),
-                            ),
+                                builder: (context) => PassengerDetailsPage()),
                           );
                         },
                         style: TextButton.styleFrom(

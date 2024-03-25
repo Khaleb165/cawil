@@ -1,16 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-
-import 'dart:typed_data';
-
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/resources/auth_methods.dart';
-import 'package:cawil/screens/homepage.dart';
-import 'package:cawil/screens/login.dart';
-import 'package:cawil/utilities/utils.dart';
+import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SettingsPage extends StatefulWidget {
   final String uid;
@@ -52,10 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              // margin: EdgeInsets.only(
-              //     top: MediaQuery.of(context).size.height * 0.0001),
               width: double.infinity,
-              // height: 250,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [shade1, shade1, shade2],
@@ -90,10 +80,11 @@ class _SettingsPageState extends State<SettingsPage> {
                           child: Text(
                             'SETTINGS',
                             style: TextStyle(
-                                letterSpacing: 3,
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                              letterSpacing: 3,
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
