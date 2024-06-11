@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -67,15 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              AppName(fontSize: 50),
               SizedBox(height: 50),
-              AppName(fontSize: 70),
-              SizedBox(height: 70),
               Text(
                 'Login to Book',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
