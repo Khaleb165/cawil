@@ -20,18 +20,16 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // shrinkWrap: true,
           children: [
-            SizedBox(height: 50),
+            // SizedBox(height: 50),
             AppName(fontSize: 50),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 50),
             Center(
               child: Container(
-                height: 400,
+                height: 300,
                 width: 300,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -44,53 +42,51 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 50, right: 18),
+              padding: const EdgeInsets.only(left: 50, right: 18, top: 30),
               child: Text(
                 'Quick and easy way to reserve a seat.',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 25,
+                  fontSize: 20,
                   color: primary2,
                 ),
               ),
             ),
-            SizedBox(height: 70),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: primary2,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.elliptical(70, 70),
-                  ),
+            Spacer(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: primary2,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.elliptical(50, 50),
                 ),
-                child: SwipeableButtonView(
-                  buttonText: 'Swipe to book',
-                  buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
-                  activeColor: primary1,
-                  isFinished: isFinished,
-                  onWaitingProcess: () {
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      setState(() {
-                        isFinished = true;
-                      });
-                    });
-                  },
-                  onFinish: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: LoginScreen(),
-                      ),
-                    );
-
+              ),
+              child: SwipeableButtonView(
+                buttonText: 'Swipe to book',
+                buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
+                activeColor: primary1,
+                isFinished: isFinished,
+                onWaitingProcess: () {
+                  Future.delayed(Duration(milliseconds: 500), () {
                     setState(() {
-                      isFinished = false;
+                      isFinished = true;
                     });
-                  },
-                ),
+                  });
+                },
+                onFinish: () async {
+                  await Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      child: LoginScreen(),
+                    ),
+                  );
+
+                  setState(() {
+                    isFinished = false;
+                  });
+                },
               ),
             ),
           ],
