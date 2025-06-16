@@ -22,7 +22,7 @@ class AvailableBusPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
             width: double.infinity,
             height: 200,
             decoration: BoxDecoration(
@@ -31,18 +31,18 @@ class AvailableBusPage extends StatelessWidget {
                 tileMode: TileMode.clamp,
               ),
               borderRadius:
-                  BorderRadius.vertical(bottom: Radius.elliptical(50, 50)),
+                  const BorderRadius.vertical(bottom: Radius.elliptical(50, 50)),
             ),
-            child: AppName(fontSize: 50),
+            child: const AppName(fontSize: 50),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Column(
             children: [
               Image.asset(
                 'assets/bus-logo.png',
                 scale: 4,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Buses Available',
                 style: TextStyle(
@@ -53,11 +53,11 @@ class AvailableBusPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Expanded(
             child: ListView.builder(
               itemCount: 3,
-              itemBuilder: (_, __) => BusCard(),
+              itemBuilder: (_, __) => const BusCard(),
             ),
           ),
         ],

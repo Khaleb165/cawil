@@ -25,7 +25,7 @@ class BusCard extends StatelessWidget {
           elevation: 15,
           borderOnForeground: false,
           color: Colors.white,
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -37,7 +37,7 @@ class BusCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       bus1.busNumber,
                       style: TextStyle(
@@ -46,7 +46,7 @@ class BusCard extends StatelessWidget {
                         color: primary2,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -56,7 +56,7 @@ class BusCard extends StatelessWidget {
                           size: 35,
                           color: Colors.greenAccent[100],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         SingleChildScrollView(
@@ -65,9 +65,9 @@ class BusCard extends StatelessWidget {
                             // height: 30,
                             width: 100,
                             child: Text(
-                              '${Provider.of<BusData>(context).fromTextField}',
+                              Provider.of<BusData>(context).fromTextField,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -75,23 +75,23 @@ class BusCard extends StatelessWidget {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 40),
+                      padding: const EdgeInsets.only(left: 40),
                       child: Text(
-                        '${DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate)}',
-                        style: TextStyle(
+                        DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate),
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //  Image.asset('assets/locate.png',scale: 22,),
-                        Icon(
+                        const Icon(
                           Icons.place_outlined,
                           size: 35,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Column(
                           children: [
                             SingleChildScrollView(
@@ -100,17 +100,17 @@ class BusCard extends StatelessWidget {
                                 height: 30,
                                 width: 100,
                                 child: Text(
-                                  '${Provider.of<BusData>(context).toTextField}',
+                                  Provider.of<BusData>(context).toTextField,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
                             Text(
-                              '${DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate)}',
-                              style: TextStyle(
+                              DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate),
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                           ],
@@ -119,16 +119,16 @@ class BusCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(width: 30),
-                DottedLine(
+                const SizedBox(width: 30),
+                const DottedLine(
                   direction: Axis.vertical,
                   dashColor: Colors.black,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(padding: EdgeInsets.only(top: 15)),
+                    const Padding(padding: EdgeInsets.only(top: 15)),
                     Text(
                       'Report Time: ${bus1.reportTime}',
                       style: TextStyle(
@@ -153,7 +153,7 @@ class BusCard extends StatelessWidget {
                         color: primary2,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Text(
                       'Seats Left: ${bus1.seatsLeft}',
                       style: TextStyle(
@@ -193,9 +193,9 @@ class BusCard extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SeatSelectPage()));
+                                  builder: (context) => const SeatSelectPage()));
                         },
-                        child: Text('Buy ticket'),
+                        child: const Text('Buy ticket'),
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.greenAccent[100],
                           // padding: EdgeInsets.symmetric(horizontal: 150,vertical: 18),

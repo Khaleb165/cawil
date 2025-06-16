@@ -24,7 +24,7 @@ class CustomTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onChanged: onChanged,
-      style: TextStyle(color: Colors.black38),
+      style: const TextStyle(color: Colors.black38),
       controller: controller,
       keyboardType: keyboard,
       textInputAction: inputAction,
@@ -35,14 +35,14 @@ class CustomTextfield extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.black38),
+        hintStyle: const TextStyle(color: Colors.black38),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: colorWhite,
         contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
               width: 1, style: BorderStyle.solid, color: Colors.black38),
         ),
       ),

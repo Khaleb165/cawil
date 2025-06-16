@@ -36,7 +36,7 @@ class TicketCard extends StatelessWidget {
             elevation: 15,
             borderOnForeground: false,
             color: Colors.white,
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -49,17 +49,17 @@ class TicketCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           busnumber.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             letterSpacing: 2,
                             fontWeight: FontWeight.w600,
                             fontSize: 28,
                             color: Color.fromRGBO(19, 41, 75, 1),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             Icon(
@@ -67,10 +67,10 @@ class TicketCard extends StatelessWidget {
                               size: 35,
                               color: Colors.greenAccent[100],
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
                               start_location.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 letterSpacing: 2,
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class TicketCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 40),
                           child: Text(
                             '15-01-2023',
@@ -88,8 +88,8 @@ class TicketCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Row(
+                        const SizedBox(height: 20),
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Icon(
@@ -120,17 +120,17 @@ class TicketCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(width: 30),
-                    DottedLine(
+                    const SizedBox(width: 30),
+                    const DottedLine(
                       direction: Axis.vertical,
                       dashColor: Colors.black,
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15),
-                        Text(
+                        const SizedBox(height: 15),
+                        const Text(
                           'Report Time: 9am',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -138,7 +138,7 @@ class TicketCard extends StatelessWidget {
                             color: Color.fromRGBO(19, 41, 75, 1),
                           ),
                         ),
-                        Text(
+                        const Text(
                           'Departure: 10am',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -146,7 +146,7 @@ class TicketCard extends StatelessWidget {
                             color: Color.fromRGBO(19, 41, 75, 1),
                           ),
                         ),
-                        Text(
+                        const Text(
                           'Arrival: 2pm',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -154,7 +154,7 @@ class TicketCard extends StatelessWidget {
                             color: Color.fromRGBO(19, 41, 75, 1),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
@@ -167,7 +167,7 @@ class TicketCard extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Price: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -192,9 +192,9 @@ class TicketCard extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SeatSelectPage()));
+                                      builder: (context) => const SeatSelectPage()));
                             },
-                            child: Text('Buy ticket'),
+                            child: const Text('Buy ticket'),
                             style: TextButton.styleFrom(
                               backgroundColor: Colors.greenAccent[100],
                               shape: RoundedRectangleBorder(

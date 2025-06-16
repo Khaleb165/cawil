@@ -25,13 +25,13 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           // shrinkWrap: true,
           children: [
             // SizedBox(height: 50),
-            AppName(fontSize: 50),
-            SizedBox(height: 50),
+            const AppName(fontSize: 50),
+            const SizedBox(height: 50),
             Center(
               child: Container(
                 height: 300,
                 width: 300,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       "assets/caWil.png",
@@ -52,13 +52,13 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: primary2,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.elliptical(50, 50),
                 ),
               ),
@@ -68,7 +68,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 activeColor: primary1,
                 isFinished: isFinished,
                 onWaitingProcess: () {
-                  Future.delayed(Duration(milliseconds: 500), () {
+                  Future.delayed(const Duration(milliseconds: 500), () {
                     setState(() {
                       isFinished = true;
                     });
@@ -79,7 +79,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     context,
                     PageTransition(
                       type: PageTransitionType.fade,
-                      child: LoginScreen(),
+                      child: const LoginScreen(),
                     ),
                   );
 

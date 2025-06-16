@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
   }
 
-  void getData() async {
+  Future<void> getData() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -44,14 +44,14 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [shade1, shade1, shade2],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.elliptical(50, 50),
                 ),
               ),
@@ -66,15 +66,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.notes_sharp,
                               size: 30,
                               color: Colors.white,
                             )),
                       ),
-                      SizedBox(width: 70),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 45.0),
+                      const SizedBox(width: 70),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 45.0),
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Text(
@@ -90,30 +90,30 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 30,
                         backgroundImage:
                             AssetImage('assets/defaultProfile.jpeg'),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '$username',
-                            style: TextStyle(
+                            username,
+                            style: const TextStyle(
                                 fontSize: 25,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 2.5),
                           ),
-                          SizedBox(height: 1),
+                          const SizedBox(height: 1),
                           Text(
-                            '$email',
-                            style: TextStyle(
+                            email,
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w200,
@@ -126,23 +126,23 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Column(
               children: [
                 settingsListTile(() {}, 'assets/person1.png', 'Account'),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/bell.png', 'Notifications'),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/location.png', 'Location'),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/person1.png', 'Support'),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/share.png', 'Share'),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 settingsListTile(() async {
                   await AuthMethods().signOut();
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                      MaterialPageRoute(builder: (context) => const LoginScreen()));
                 }, 'assets/loggg.png', 'Logout'),
               ],
             )
@@ -166,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         title: Text(
           title,
-          style: TextStyle(fontSize: 19, color: Colors.black54),
+          style: const TextStyle(fontSize: 19, color: Colors.black54),
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,

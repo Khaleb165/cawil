@@ -29,7 +29,7 @@ class _HomepageState extends State<Homepage> {
       context: context,
       initialDate: busData.selectedDate,
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (date != null && date != busData.selectedDate)
       setState(() {
@@ -45,7 +45,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
   }
 
-  void getUsername() async {
+  Future<void> getUsername() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -65,7 +65,7 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.0001),
                 width: double.infinity,
@@ -75,18 +75,18 @@ class _HomepageState extends State<Homepage> {
                     colors: [shade1, shade1, shade2],
                     tileMode: TileMode.clamp,
                   ),
-                  borderRadius: BorderRadius.vertical(
+                  borderRadius: const BorderRadius.vertical(
                     bottom: Radius.elliptical(50, 50),
                   ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 55),
                     ),
-                    AppName(fontSize: 50),
-                    SizedBox(width: 50),
+                    const AppName(fontSize: 50),
+                    const SizedBox(width: 50),
                     Align(
                       alignment: Alignment.topRight,
                       child: Padding(
@@ -96,7 +96,7 @@ class _HomepageState extends State<Homepage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SettingsPage(
+                                builder: (context) => const SettingsPage(
                                   uid: '',
                                 ),
                               ),
@@ -113,13 +113,13 @@ class _HomepageState extends State<Homepage> {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Padding(
                 padding: const EdgeInsets.only(right: 110),
                 child: RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'Hey ',
                         style: TextStyle(
                             fontSize: 30,
@@ -128,7 +128,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       TextSpan(
                         text: '$username,',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -138,8 +138,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Padding(
+              const SizedBox(height: 10),
+              const Padding(
                 padding: EdgeInsets.only(right: 85),
                 child: Text(
                   'what is your next trip?',
@@ -149,11 +149,11 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Card(
                 elevation: 15,
                 borderOnForeground: true,
-                margin: EdgeInsets.all(25),
+                margin: const EdgeInsets.all(25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -175,12 +175,12 @@ class _HomepageState extends State<Homepage> {
                           (newText) {
                         busData.updateToTextField(newText);
                       }),
-                      SizedBox(height: 5)
+                      const SizedBox(height: 5)
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Material(
@@ -199,14 +199,14 @@ class _HomepageState extends State<Homepage> {
                           Text(
                             DateFormat('dd/MM/yyyy').format(
                                 Provider.of<BusData>(context).selectedDate),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               letterSpacing: 1.5,
                               fontStyle: FontStyle.normal,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             icon: Icon(
                               Icons.calendar_month_outlined,
@@ -220,20 +220,20 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AvailableBusPage(),
+                        builder: (context) => const AvailableBusPage(),
                       ),
                     );
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: primary2,
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 18),
+                    padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 18),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
@@ -278,7 +278,7 @@ class _HomepageState extends State<Homepage> {
       padding: const EdgeInsets.only(top: 18.0),
       child: Text(
         text,
-        style: TextStyle(color: Colors.black38),
+        style: const TextStyle(color: Colors.black38),
       ),
     );
   }

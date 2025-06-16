@@ -34,14 +34,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  void selectImage() async {
-    Uint8List image = await pickImage(ImageSource.gallery);
+  Future<void> selectImage() async {
+    Uint8List? image = await pickImage(ImageSource.gallery);
     setState(() {
       _image = image;
     });
   }
 
-  void signUpUser() async {
+  Future<void> signUpUser() async {
     setState(() {
       _isLoading = true;
     });
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (res == 'success') {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => Homepage()));
+          .pushReplacement(MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
       setState(() {
@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -79,9 +79,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 50),
-              AppName(fontSize: 70),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
+              const AppName(fontSize: 70),
+              const SizedBox(height: 50),
               Text(
                 'SignUp to Book',
                 style: TextStyle(
@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Center(
                 child: Stack(
                   children: [
@@ -99,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             radius: 40,
                             backgroundImage: MemoryImage(_image!),
                           )
-                        : CircleAvatar(
+                        : const CircleAvatar(
                             radius: 40,
                             backgroundImage:
                                 AssetImage('assets/defaultProfile.jpeg'),
@@ -119,26 +119,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomTextfield(
                 controller: _usernameTextController,
                 keyboard: TextInputType.name,
                 hintText: 'Username',
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomTextfield(
                 controller: _emailTextController,
                 keyboard: TextInputType.emailAddress,
                 hintText: 'Email Address',
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomTextfield(
                 controller: _passwordTextController,
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: signUpUser,
                 style: TextButton.styleFrom(
@@ -160,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Center(
                 child: Text(
                   'or login with',
@@ -170,8 +170,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
-              Row(
+              const SizedBox(height: 30),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialLoginButton(imageUrl: 'assets/google.png'),
@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SocialLoginButton(imageUrl: 'assets/images.png')
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -197,7 +197,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Navigator.pop(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                              builder: (context) => const LoginScreen()));
                     },
                     child: Text(
                       'Log in',

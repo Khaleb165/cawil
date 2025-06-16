@@ -36,7 +36,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
       child: Container(
         width: 40,
         height: 40,
-        margin: EdgeInsets.all(4),
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: isSelected ? Colors.greenAccent : Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -45,7 +45,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           child: Text(
             seatNumber,
             style: TextStyle(
-              color: isSelected ? Colors.white : Color.fromRGBO(19, 41, 75, 1),
+              color: isSelected ? Colors.white : const Color.fromRGBO(19, 41, 75, 1),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -70,7 +70,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
     for (int row = 1; row <= 8; row++) {
       seatRows.add(
         Padding(
-          padding: EdgeInsets.only(left: 40, right: 40),
+          padding: const EdgeInsets.only(left: 40, right: 40),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +92,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
@@ -100,11 +100,11 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                   colors: [shade1, shade1, shade2],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.elliptical(50, 50),
                 ),
               ),
-              child: Align(
+              child: const Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Select your Seat',
@@ -113,8 +113,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 10),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
@@ -173,16 +173,16 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Column(
               children: _buildSeatGrid(),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Flexible(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.elliptical(20, 20),
@@ -213,7 +213,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       'Price: Ghc ${totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
@@ -222,25 +222,25 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         color: Colors.deepPurple[300],
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PassengerDetailsPage()),
+                                builder: (context) => const PassengerDetailsPage()),
                           );
                         },
                         style: TextButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(19, 41, 75, 1),
-                          padding: EdgeInsets.symmetric(
+                          backgroundColor: const Color.fromRGBO(19, 41, 75, 1),
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 60, vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Continue',
                           style: TextStyle(
                             color: Colors.white,

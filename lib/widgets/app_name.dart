@@ -25,7 +25,7 @@ class AppName extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(19, 41, 75, 1),
+            color: const Color.fromRGBO(19, 41, 75, 1),
           ),
         ),
       ],

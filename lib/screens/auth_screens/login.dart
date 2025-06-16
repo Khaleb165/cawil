@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void loginUser() async {
+  Future<void> loginUser() async {
     setState(() {
       _isLoading = true;
     });
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (res == 'success') {
       Navigator.pop(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Homepage()));
+          context, MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
     }
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 50),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -67,9 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              AppName(fontSize: 50),
-              SizedBox(height: 50),
-              Text(
+              const AppName(fontSize: 50),
+              const SizedBox(height: 50),
+              const Text(
                 'Login to Book',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -78,20 +78,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               CustomTextfield(
                 controller: _emailTextController,
                 keyboard: TextInputType.emailAddress,
                 hintText: 'Email Address',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               CustomTextfield(
                 controller: _passwordTextController,
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: loginUser,
                 style: TextButton.styleFrom(
@@ -101,19 +101,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 child: _isLoading
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                           color: Colors.white,
                         ),
                       )
-                    : Text(
+                    : const Text(
                         'LOGIN',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(right: 35.0),
                 child: Align(
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ForgotPasswordPage()));
+                              builder: (context) => const ForgotPasswordPage()));
                     },
                     child: Text(
                       'Forgot Password?',
@@ -132,8 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
-              Center(
+              const SizedBox(height: 50),
+              const Center(
                 child: Text(
                   'or login with',
                   style: TextStyle(
@@ -142,8 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
-              Row(
+              const SizedBox(height: 30),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialLoginButton(imageUrl: 'assets/google.png'),
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SocialLoginButton(imageUrl: 'assets/images.png'),
                 ],
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignUpScreen()));
+                              builder: (context) => const SignUpScreen()));
                     },
                     child: Text(
                       'Register now',
