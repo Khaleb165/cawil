@@ -65,14 +65,15 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.0001),
                 width: double.infinity,
                 height: 200,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [shade1, shade1, shade2],
+                    colors: [deepBlueColor, deepBlueColor, purpleColor],
                     tileMode: TileMode.clamp,
                   ),
                   borderRadius: const BorderRadius.vertical(
@@ -105,7 +106,7 @@ class _HomepageState extends State<Homepage> {
                           icon: Icon(
                             Icons.notes_sharp,
                             size: 30,
-                            color: colorWhite,
+                            color: whiteColor,
                           ),
                         ),
                       ),
@@ -163,16 +164,14 @@ class _HomepageState extends State<Homepage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       headerText('From'),
-                      buildCardFields(
-                          sourceController, TextInputAction.next, primary1,
-                          (newText) {
+                      buildCardFields(sourceController, TextInputAction.next,
+                          greenAccentColor, (newText) {
                         busData.updateFromTextField(newText);
                       }),
                       const Divider(thickness: 1),
                       headerText('To'),
-                      buildCardFields(
-                          destinationController, TextInputAction.done, primary2,
-                          (newText) {
+                      buildCardFields(destinationController,
+                          TextInputAction.done, darkBlueColor, (newText) {
                         busData.updateToTextField(newText);
                       }),
                       const SizedBox(height: 5)
@@ -210,7 +209,7 @@ class _HomepageState extends State<Homepage> {
                           IconButton(
                             icon: Icon(
                               Icons.calendar_month_outlined,
-                              color: primary2,
+                              color: darkBlueColor,
                             ),
                             onPressed: () => _selectDate(context),
                           ),
@@ -232,15 +231,16 @@ class _HomepageState extends State<Homepage> {
                     );
                   },
                   style: TextButton.styleFrom(
-                    backgroundColor: primary2,
-                    padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 18),
+                    backgroundColor: darkBlueColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 18),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
                   child: Text(
                     'FIND YOUR BUS',
                     style: TextStyle(
-                      color: colorWhite,
+                      color: whiteColor,
                     ),
                   ),
                 ),
@@ -266,7 +266,7 @@ class _HomepageState extends State<Homepage> {
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: colorWhite,
+            color: whiteColor,
           ),
         ),
       ),

@@ -27,11 +27,11 @@ class AvailableBusPage extends StatelessWidget {
             height: 200,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [shade1, shade1, shade2],
+                colors: [deepBlueColor, deepBlueColor, purpleColor],
                 tileMode: TileMode.clamp,
               ),
-              borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.elliptical(50, 50)),
+              borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.elliptical(50, 50)),
             ),
             child: const AppName(fontSize: 50),
           ),
@@ -47,7 +47,7 @@ class AvailableBusPage extends StatelessWidget {
                 'Buses Available',
                 style: TextStyle(
                   fontSize: 35,
-                  color: primary2,
+                  color: darkBlueColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

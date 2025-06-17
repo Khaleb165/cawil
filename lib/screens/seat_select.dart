@@ -45,7 +45,9 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           child: Text(
             seatNumber,
             style: TextStyle(
-              color: isSelected ? Colors.white : const Color.fromRGBO(19, 41, 75, 1),
+              color: isSelected
+                  ? Colors.white
+                  : const Color.fromRGBO(19, 41, 75, 1),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -97,7 +99,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
               height: 200,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [shade1, shade1, shade2],
+                  colors: [deepBlueColor, deepBlueColor, purpleColor],
                   tileMode: TileMode.clamp,
                 ),
                 borderRadius: const BorderRadius.vertical(
@@ -180,7 +182,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
             const SizedBox(height: 20),
             Flexible(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -229,7 +232,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PassengerDetailsPage()),
+                                builder: (context) =>
+                                    const PassengerDetailsPage()),
                           );
                         },
                         style: TextButton.styleFrom(

@@ -53,8 +53,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     if (res == 'success') {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => const Homepage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
       setState(() {
@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [shade1, shade1, shade2],
+            colors: [deepBlueColor, deepBlueColor, purpleColor],
             tileMode: TileMode.clamp,
           ),
         ),
@@ -85,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Text(
                 'SignUp to Book',
                 style: TextStyle(
-                  color: colorWhite,
+                  color: whiteColor,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: selectImage,
                         icon: Icon(
                           Icons.add_a_photo,
-                          color: colorWhite,
+                          color: whiteColor,
                           size: 22,
                         ),
                       ),
@@ -150,13 +150,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: _isLoading
                     ? Center(
                         child: CircularProgressIndicator(
-                          color: colorWhite,
+                          color: whiteColor,
                         ),
                       )
                     : Text(
                         'SIGN UP',
                         style: TextStyle(
-                          color: colorWhite,
+                          color: whiteColor,
                         ),
                       ),
               ),
@@ -166,7 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   'or login with',
                   style: TextStyle(
                     fontSize: 15,
-                    color: colorWhite,
+                    color: whiteColor,
                   ),
                 ),
               ),
@@ -189,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     'Already have an account?',
                     style: TextStyle(
                       fontSize: 15,
-                      color: colorWhite,
+                      color: whiteColor,
                     ),
                   ),
                   TextButton(

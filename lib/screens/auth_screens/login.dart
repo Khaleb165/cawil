@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [shade1, shade1, shade2],
+            colors: [deepBlueColor, deepBlueColor, purpleColor],
             tileMode: TileMode.clamp,
           ),
         ),
@@ -123,7 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ForgotPasswordPage()));
+                              builder: (context) =>
+                                  const ForgotPasswordPage()));
                     },
                     child: Text(
                       'Forgot Password?',
@@ -159,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     "Don't have an account? ",
-                    style: TextStyle(color: colorWhite),
+                    style: TextStyle(color: whiteColor),
                   ),
                   GestureDetector(
                     onTap: () {

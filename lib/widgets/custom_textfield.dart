@@ -31,14 +31,14 @@ class CustomTextfield extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: colorWhite, width: 0.0),
+          borderSide: BorderSide(color: whiteColor, width: 0.0),
           borderRadius: BorderRadius.circular(30),
         ),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black38),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        fillColor: colorWhite,
+        fillColor: whiteColor,
         contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),

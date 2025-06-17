@@ -21,13 +21,13 @@ Future<Uint8List?> pickImage(ImageSource source) async {
 void showSnackBar(String content, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: primary1,
+      backgroundColor: greenAccentColor,
       behavior: SnackBarBehavior.floating,
       dismissDirection: DismissDirection.startToEnd,
       content: Text(
         content,
         style: TextStyle(
-          color: colorWhite,
+          color: whiteColor,
           fontSize: 16,
         ),
       ),

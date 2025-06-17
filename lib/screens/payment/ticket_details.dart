@@ -20,7 +20,7 @@ class TicketDetailsPage extends StatelessWidget {
             height: 180,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [shade1, shade1, shade2],
+                colors: [deepBlueColor, deepBlueColor, purpleColor],
                 tileMode: TileMode.clamp,
               ),
               borderRadius: const BorderRadius.only(
@@ -57,7 +57,8 @@ class TicketDetailsPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent,
-                  padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                 ),

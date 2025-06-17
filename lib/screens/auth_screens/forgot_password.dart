@@ -16,7 +16,7 @@ class ForgotPasswordPage extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [shade1, shade1, shade2],
+            colors: [deepBlueColor, deepBlueColor, purpleColor],
             tileMode: TileMode.clamp,
           ),
         ),
@@ -49,8 +49,8 @@ class ForgotPasswordPage extends StatelessWidget {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.greenAccent[100],
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 130, vertical: 18),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 130, vertical: 18),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
@@ -67,8 +67,10 @@ class ForgotPasswordPage extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pop(context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()));
+                    Navigator.pop(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   },
                   child: Text(
                     'Back',

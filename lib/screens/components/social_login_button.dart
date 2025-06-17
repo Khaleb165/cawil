@@ -10,7 +10,7 @@ class SocialLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: 25,
-      backgroundColor: colorWhite,
+      backgroundColor: whiteColor,
       child: Padding(
         padding: const EdgeInsets.all(12), // Border radius
         child: Image.asset(imageUrl),

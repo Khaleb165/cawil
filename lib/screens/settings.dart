@@ -48,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [shade1, shade1, shade2],
+                  colors: [deepBlueColor, deepBlueColor, purpleColor],
                   tileMode: TileMode.clamp,
                 ),
                 borderRadius: const BorderRadius.vertical(
@@ -141,8 +141,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 20),
                 settingsListTile(() async {
                   await AuthMethods().signOut();
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const LoginScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const LoginScreen()));
                 }, 'assets/loggg.png', 'Logout'),
               ],
             )

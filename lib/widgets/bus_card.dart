@@ -43,7 +43,7 @@ class BusCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 25,
-                        color: primary2,
+                        color: darkBlueColor,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -77,7 +77,8 @@ class BusCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 40),
                       child: Text(
-                        DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate),
+                        DateFormat('dd/MM/yyyy')
+                            .format(Provider.of<BusData>(context).selectedDate),
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
@@ -109,7 +110,8 @@ class BusCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              DateFormat('dd/MM/yyyy').format(Provider.of<BusData>(context).selectedDate),
+                              DateFormat('dd/MM/yyyy').format(
+                                  Provider.of<BusData>(context).selectedDate),
                               style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w400),
                             ),
@@ -134,7 +136,7 @@ class BusCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
-                        color: primary2,
+                        color: darkBlueColor,
                       ),
                     ),
                     Text(
@@ -142,7 +144,7 @@ class BusCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
-                        color: primary2,
+                        color: darkBlueColor,
                       ),
                     ),
                     Text(
@@ -150,7 +152,7 @@ class BusCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
-                        color: primary2,
+                        color: darkBlueColor,
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -162,7 +164,6 @@ class BusCard extends StatelessWidget {
                         color: Colors.deepPurple[400],
                       ),
                     ),
-
                     Text.rich(
                       TextSpan(
                         children: [
@@ -171,7 +172,7 @@ class BusCard extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 18,
-                              color: primary2,
+                              color: darkBlueColor,
                             ),
                           ),
                           TextSpan(
@@ -193,7 +194,8 @@ class BusCard extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SeatSelectPage()));
+                                  builder: (context) =>
+                                      const SeatSelectPage()));
                         },
                         child: const Text('Buy ticket'),
                         style: TextButton.styleFrom(

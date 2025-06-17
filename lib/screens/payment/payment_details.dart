@@ -37,7 +37,7 @@ class PaymentDetailsPage extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [shade1, shade1, shade2],
+                  colors: [deepBlueColor, deepBlueColor, purpleColor],
                   tileMode: TileMode.clamp,
                 ),
                 borderRadius: const BorderRadius.vertical(
@@ -164,12 +164,13 @@ class PaymentDetailsPage extends StatelessWidget {
                           builder: (context) => const PaymentSuccessPage()));
                 }),
                 style: TextButton.styleFrom(
-                    disabledBackgroundColor: Colors.greenAccent[100],
-                    backgroundColor: Colors.greenAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    ),
+                  disabledBackgroundColor: Colors.greenAccent[100],
+                  backgroundColor: Colors.greenAccent,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                ),
                 child: const Text(
                   'Confirm',
                   style: TextStyle(

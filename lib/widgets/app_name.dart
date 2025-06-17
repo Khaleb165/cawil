@@ -5,7 +5,8 @@ import '../constants/colors.dart';
 class AppName extends StatelessWidget {
   final double fontSize;
   const AppName({
-    super.key, required this.fontSize,
+    super.key,
+    required this.fontSize,
   });
 
   @override
@@ -17,7 +18,7 @@ class AppName extends StatelessWidget {
           'Ca',
           style: TextStyle(
               fontSize: fontSize,
-              color: primary1,
+              color: greenAccentColor,
               fontWeight: FontWeight.bold),
         ),
         Text(
