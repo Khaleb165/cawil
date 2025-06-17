@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -18,60 +19,70 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize().init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: SafeArea(
         child: Column(
-          // shrinkWrap: true,
           children: [
-            // SizedBox(height: 50),
-            const AppName(fontSize: 50),
-            const SizedBox(height: 50),
+            AppName(fontSize: getProportionateScreenHeight(50)),
+            SizedBox(height: getProportionateScreenHeight(50)),
             Center(
               child: Container(
-                height: 300,
-                width: 300,
+                height: getProportionateScreenHeight(300),
+                width: getProportionateScreenWidth(300),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       "assets/caWil.png",
                     ),
-                    //fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
+            SizedBox(height: getProportionateScreenHeight(30)),
             Padding(
-              padding: const EdgeInsets.only(left: 50, right: 18, top: 30),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(40)),
               child: Text(
                 'Quick and easy way to reserve a seat.',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: primary2,
+                  fontSize: getProportionateScreenHeight(20),
+                  color: darkBlueColor,
                 ),
               ),
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              padding: EdgeInsets.symmetric(
+                  vertical: getProportionateScreenHeight(20),
+                  horizontal: getProportionateScreenWidth(30)),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: primary2,
+                color: darkBlueColor,
                 borderRadius: const BorderRadius.only(
-                  topRight: Radius.elliptical(50, 50),
+                  topRight: Radius.elliptical(40, 40),
                 ),
               ),
               child: SwipeableButtonView(
                 buttonText: 'Swipe to book',
-                buttonWidget: Icon(Icons.double_arrow_sharp, color: primary1),
-                activeColor: primary1,
+                buttontextstyle: TextStyle(
+                  fontSize: getProportionateScreenHeight(15),
+                  fontWeight: FontWeight.bold,
+                  color: whiteColor,
+                ),
+                buttonWidget:
+                    Icon(Icons.double_arrow_sharp, color: greenAccentColor),
+                activeColor: greenAccentColor,
                 isFinished: isFinished,
                 onWaitingProcess: () {
                   Future.delayed(const Duration(milliseconds: 500), () {
-                    setState(() {
-                      isFinished = true;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isFinished = true;
+                      });
+                    }
                   });
                 },
                 onFinish: () async {
@@ -83,9 +94,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     ),
                   );
 
-                  setState(() {
-                    isFinished = false;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      isFinished = false;
+                    });
+                  }
                 },
               ),
             ),
