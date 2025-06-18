@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
 import 'package:cawil/resources/auth_methods.dart';
@@ -40,22 +41,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (res == 'success') {
-      Navigator.pop(context);
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
     }
-    setState(() {
-      _isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+        padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(25),
+            vertical: getProportionateScreenHeight(50)),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -67,100 +71,90 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const AppName(fontSize: 50),
-              const SizedBox(height: 50),
-              const Text(
+              AppName(fontSize: getProportionateScreenHeight(50)),
+              SizedBox(height: getProportionateScreenHeight(50)),
+              Text(
                 'Login to Book',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
+                  color: whiteColor,
+                  fontSize: getProportionateScreenHeight(30),
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: getProportionateScreenHeight(50)),
               CustomTextfield(
                 controller: _emailTextController,
-                keyboard: TextInputType.emailAddress,
+                keyboardType: TextInputType.emailAddress,
                 hintText: 'Email Address',
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: getProportionateScreenHeight(20)),
               CustomTextfield(
                 controller: _passwordTextController,
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: getProportionateScreenHeight(20)),
               ElevatedButton(
                 onPressed: loginUser,
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[100],
+                  backgroundColor: lightGreenColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Text(
+                    ? Center(
+                        child: CircularProgressIndicator(color: whiteColor))
+                    : Text(
                         'LOGIN',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: whiteColor,
+                          fontSize: getProportionateScreenHeight(16),
                         ),
                       ),
               ),
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(right: 35.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordPage()));
-                    },
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.red[900]),
+              SizedBox(height: getProportionateScreenHeight(10)),
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordPage()));
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: deepRedColor,
+                      fontSize: getProportionateScreenHeight(12),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
-              const Center(
-                child: Text(
-                  'or login with',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
+              SizedBox(height: getProportionateScreenHeight(50)),
+              Text(
+                'or login with',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: getProportionateScreenHeight(15),
+                  color: whiteColor,
                 ),
               ),
-              const SizedBox(height: 30),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SocialLoginButton(imageUrl: 'assets/google.png'),
-                  SizedBox(width: 25),
-                  SocialLoginButton(imageUrl: 'assets/facebook1.png'),
-                  SizedBox(width: 25),
-                  SocialLoginButton(imageUrl: 'assets/images.png'),
-                ],
-              ),
-              const SizedBox(height: 40),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              const SocialsLogin(),
+              SizedBox(height: getProportionateScreenHeight(40)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Don't have an account? ",
-                    style: TextStyle(color: whiteColor),
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: getProportionateScreenHeight(14),
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -171,7 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       'Register now',
-                      style: TextStyle(color: Colors.red[900]),
+                      style: TextStyle(
+                        color: deepRedColor,
+                        fontSize: getProportionateScreenHeight(14),
+                      ),
                     ),
                   )
                 ],

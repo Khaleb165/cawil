@@ -1,3 +1,4 @@
+import 'package:cawil/constants/size_config.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -14,6 +15,37 @@ class SocialLoginButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12), // Border radius
         child: Image.asset(imageUrl),
+      ),
+    );
+  }
+}
+
+class SocialsLogin extends StatelessWidget {
+  const SocialsLogin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(40)),
+      child: Row(
+        mainAxisAlignment: mainSpaceEvenly,
+        children: [
+          _buildSocialIcon('assets/google.png'),
+          _buildSocialIcon('assets/facebook1.png'),
+          _buildSocialIcon('assets/images.png'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialIcon(String assetPath) {
+    return CircleAvatar(
+      radius: getProportionateScreenWidth(20),
+      backgroundColor: whiteColor,
+      child: Padding(
+        padding: EdgeInsets.all(getProportionateScreenHeight(10)),
+        child: Image.asset(assetPath),
       ),
     );
   }

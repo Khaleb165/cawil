@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,12 @@ class ForgotPasswordPage extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(25),
+              vertical: getProportionateScreenHeight(50)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
               const AppName(fontSize: 70),
               const SizedBox(height: 150),
               const Text(
@@ -39,7 +41,7 @@ class ForgotPasswordPage extends StatelessWidget {
               const SizedBox(height: 40),
               CustomTextfield(
                 controller: _emailTextController,
-                keyboard: TextInputType.emailAddress,
+                keyboardType: TextInputType.emailAddress,
                 inputAction: TextInputAction.done,
                 hintText: 'Email Address',
               ),

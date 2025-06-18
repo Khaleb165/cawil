@@ -59,7 +59,7 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
             const SizedBox(height: 15),
             CustomTextfield(
               controller: contactNumberController,
-              keyboard: TextInputType.phone,
+              keyboardType: TextInputType.phone,
               hintText: 'Phone Number',
               onChanged: (newNumber) {
                 Provider.of<BusData>(context, listen: false)
@@ -79,7 +79,7 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
             const SizedBox(height: 15),
             CustomTextfield(
               controller: TextEditingController(),
-              keyboard: TextInputType.phone,
+              keyboardType: TextInputType.phone,
               inputAction: TextInputAction.done,
               hintText: 'Guardian Phone Number',
             ),
