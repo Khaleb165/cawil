@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/available_bus_page.dart';
@@ -51,47 +52,62 @@ class _HomepageState extends State<Homepage> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
-    setState(() {
-      username = (snap.data() as Map<String, dynamic>)['username'];
-    });
+    if (snap.data() != null) {
+      if (mounted) {
+        setState(() {
+          username = (snap.data() as Map<String, dynamic>)['username'];
+        });
+      }
+    } else {
+      // Handle the case where the document does not exist or has no data
+      if (mounted) {
+        setState(() {
+          username = 'User'; // Default value if no username is found
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize().init(context);
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: Consumer<BusData>(builder: (context, busData, _) {
         return SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20),
+                    vertical: getProportionateScreenHeight(20)),
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.0001),
                 width: double.infinity,
-                height: 200,
+                height: getProportionateScreenHeight(200),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [deepBlueColor, deepBlueColor, purpleColor],
                     tileMode: TileMode.clamp,
                   ),
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.elliptical(50, 50),
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(getProportionateScreenWidth(50),
+                        getProportionateScreenHeight(40)),
                   ),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: mainSpaceBetween,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 55),
-                    ),
-                    const AppName(fontSize: 50),
-                    const SizedBox(width: 50),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: getProportionateScreenWidth(50))),
+                    AppName(fontSize: getProportionateScreenHeight(50)),
+                    SizedBox(width: getProportionateScreenWidth(50)),
                     Align(
                       alignment: Alignment.topRight,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: EdgeInsets.only(
+                            top: getProportionateScreenHeight(20)),
                         child: IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -105,7 +121,7 @@ class _HomepageState extends State<Homepage> {
                           },
                           icon: Icon(
                             Icons.notes_sharp,
-                            size: 30,
+                            size: getProportionateScreenHeight(30),
                             color: whiteColor,
                           ),
                         ),
@@ -114,92 +130,113 @@ class _HomepageState extends State<Homepage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: getProportionateScreenHeight(40)),
               Padding(
-                padding: const EdgeInsets.only(right: 110),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: 'Hey ',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '$username,',
-                        style: const TextStyle(
-                          fontSize: 30,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Hey ',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(28),
+                            color: blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )
-                    ],
+                        TextSpan(
+                          text: '$username,',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(28),
+                            color: blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Padding(
-                padding: EdgeInsets.only(right: 85),
-                child: Text(
-                  'what is your next trip?',
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.black38,
+              SizedBox(height: getProportionateScreenHeight(5)),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'what is your next trip?',
+                    style: TextStyle(
+                      fontSize: getProportionateScreenHeight(20),
+                      color: lightBlackColor,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: getProportionateScreenHeight(20)),
               Card(
-                elevation: 15,
+                elevation: getProportionateScreenHeight(10),
                 borderOnForeground: true,
-                margin: const EdgeInsets.all(25),
+                margin: EdgeInsets.all(getProportionateScreenHeight(20)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenHeight(25)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       headerText('From'),
-                      buildCardFields(sourceController, TextInputAction.next,
-                          greenAccentColor, (newText) {
-                        busData.updateFromTextField(newText);
-                      }),
+                      buildCardFields(
+                        sourceController,
+                        TextInputAction.next,
+                        greenAccentColor,
+                        (newText) {
+                          busData.updateFromTextField(newText);
+                        },
+                      ),
                       const Divider(thickness: 1),
                       headerText('To'),
-                      buildCardFields(destinationController,
-                          TextInputAction.done, darkBlueColor, (newText) {
-                        busData.updateToTextField(newText);
-                      }),
-                      const SizedBox(height: 5)
+                      buildCardFields(
+                        destinationController,
+                        TextInputAction.done,
+                        darkBlueColor,
+                        (newText) {
+                          busData.updateToTextField(newText);
+                        },
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(15))
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: getProportionateScreenHeight(20)),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(30)),
                 child: Material(
                   elevation: 5,
-                  color: const Color.fromARGB(255, 253, 251, 255),
+                  color: lightWhiteColor,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
+                      borderRadius: BorderRadius.circular(20)),
                   child: SizedBox(
-                    height: 50,
-                    width: 350,
+                    height: getProportionateScreenHeight(50),
+                    width: getProportionateScreenWidth(250),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 40, right: 10),
+                      padding: EdgeInsets.only(
+                          left: getProportionateScreenWidth(30),
+                          right: getProportionateScreenWidth(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             DateFormat('dd/MM/yyyy').format(
                                 Provider.of<BusData>(context).selectedDate),
-                            style: const TextStyle(
-                              fontSize: 17,
+                            style: TextStyle(
+                              fontSize: getProportionateScreenHeight(15),
                               fontWeight: FontWeight.w400,
                               letterSpacing: 1.5,
                               fontStyle: FontStyle.normal,
@@ -219,7 +256,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: getProportionateScreenHeight(30)),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -232,8 +269,9 @@ class _HomepageState extends State<Homepage> {
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: darkBlueColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 80, vertical: 18),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(50),
+                        vertical: getProportionateScreenHeight(15)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
@@ -245,6 +283,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
+              SizedBox(height: getProportionateScreenHeight(20)),
             ],
           ),
         );
@@ -254,20 +293,21 @@ class _HomepageState extends State<Homepage> {
 
   TextField buildCardFields(
       TextEditingController controller,
-      TextInputAction inputAction,
+      TextInputAction textInputAction,
       Color textColor,
       void Function(String) onChanged) {
     return TextField(
       controller: controller,
       onChanged: onChanged,
-      textInputAction: TextInputAction.next,
+      textInputAction: textInputAction,
       style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 25, color: textColor),
+        fontWeight: FontWeight.bold,
+        fontSize: getProportionateScreenHeight(20),
+        color: textColor,
+      ),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: whiteColor,
-          ),
+          borderSide: BorderSide(color: whiteColor),
         ),
       ),
     );
@@ -275,10 +315,10 @@ class _HomepageState extends State<Homepage> {
 
   Padding headerText(String text) {
     return Padding(
-      padding: const EdgeInsets.only(top: 18.0),
+      padding: EdgeInsets.only(top: getProportionateScreenHeight(15)),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.black38),
+        style: TextStyle(color: lightBlackColor),
       ),
     );
   }

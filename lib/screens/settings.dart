@@ -30,10 +30,22 @@ class _SettingsPageState extends State<SettingsPage> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
-    setState(() {
-      username = (snap.data() as Map<String, dynamic>)['username'];
-      email = (snap.data() as Map<String, dynamic>)['email'];
-    });
+    if (snap.data() != null) {
+      if (mounted) {
+        setState(() {
+          username = (snap.data() as Map<String, dynamic>)['username'];
+          email = (snap.data() as Map<String, dynamic>)['email'];
+        });
+      }
+    } else {
+      // Handle the case where the document does not exist or has no data
+      if (mounted) {
+        setState(() {
+          username = 'User'; // Default value if no username is found
+          email = 'user@example.com'; // Default value if no email is found
+        });
+      }
+    }
   }
 
   @override
