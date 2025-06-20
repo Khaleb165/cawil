@@ -2,7 +2,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:cawil/models/user.dart';
-import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/services/auth_methods.dart';
 
 class UserProvider with ChangeNotifier {
   User? _user;

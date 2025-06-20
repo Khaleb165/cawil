@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../services/telemetry_service.dart';
+
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
 
@@ -43,6 +45,8 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     getUsername();
+    // TelemetryService().tracer.startSpan("Homepage loaded").end();
+
     super.initState();
   }
 

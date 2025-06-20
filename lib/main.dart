@@ -6,10 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/intro_screen.dart';
+import 'services/telemetry_service.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Initialize logging and telemetry
+  await TelemetryService().initialize();
+
+  TelemetryService().logInfo("App started");
   runApp(const MyApp());
 }
 

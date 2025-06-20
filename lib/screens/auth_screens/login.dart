@@ -2,13 +2,14 @@ import 'package:cawil/constants/colors.dart';
 import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
-import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/services/auth_methods.dart';
 import 'package:cawil/screens/auth_screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/auth_screens/signup.dart';
 import 'package:cawil/utilities/utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/telemetry_service.dart';
 import '../components/social_login_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,6 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // TelemetryService().tracer.startSpan("Login Screen loaded").end();
+  }
 
   @override
   void dispose() {
@@ -41,10 +48,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (res == 'success') {
+      TelemetryService().logInfo("${_emailTextController.text} logged in");
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
+      TelemetryService()
+          .logError("Login failed for ${_emailTextController.text} - ${res}");
     }
     if (mounted) {
       setState(() {

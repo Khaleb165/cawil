@@ -1,5 +1,5 @@
 import 'package:cawil/constants/colors.dart';
-import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/services/auth_methods.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

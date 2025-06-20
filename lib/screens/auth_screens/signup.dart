@@ -2,7 +2,7 @@ import 'package:cawil/constants/colors.dart';
 import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
-import 'package:cawil/resources/auth_methods.dart';
+import 'package:cawil/services/auth_methods.dart';
 import 'package:cawil/screens/components/social_login_button.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../services/telemetry_service.dart';
 import '../../utilities/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -54,10 +55,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     if (res == 'success') {
+      TelemetryService().logInfo("User logged in");
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
+
       if (mounted) {
         setState(() {
           _isLoading = false;
