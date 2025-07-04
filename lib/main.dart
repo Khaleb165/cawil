@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'screens/intro_screen.dart';
 import 'services/telemetry_service.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,7 +17,10 @@ Future<void> main() async {
   // Initialize logging and telemetry
   await TelemetryService().initialize();
 
-  TelemetryService().logInfo("App started");
+  TelemetryService()
+      .logInfo("App started - Device Info: ${"OS: ${Platform.operatingSystem}, "
+          "Version: ${Platform.operatingSystemVersion}, "}");
+
   runApp(const MyApp());
 }
 
