@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
 import 'package:cawil/resources/auth_methods.dart';
@@ -34,14 +35,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  void selectImage() async {
-    Uint8List image = await pickImage(ImageSource.gallery);
+  Future<void> selectImage() async {
+    Uint8List? image = await pickImage(ImageSource.gallery);
     setState(() {
       _image = image;
     });
   }
 
-  void signUpUser() async {
+  Future<void> signUpUser() async {
     setState(() {
       _isLoading = true;
     });
@@ -53,13 +54,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     if (res == 'success') {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => Homepage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Homepage()));
     } else {
       showSnackBar(res, context);
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -67,11 +70,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(25),
+            vertical: getProportionateScreenHeight(50)),
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [shade1, shade1, shade2],
+            colors: [deepBlueColor, deepBlueColor, purpleColor],
             tileMode: TileMode.clamp,
           ),
         ),
@@ -79,30 +84,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 50),
-              AppName(fontSize: 70),
-              SizedBox(height: 50),
+              AppName(fontSize: getProportionateScreenHeight(50)),
+              SizedBox(height: getProportionateScreenHeight(40)),
               Text(
                 'SignUp to Book',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: colorWhite,
-                  fontSize: 40,
+                  color: whiteColor,
+                  fontSize: getProportionateScreenHeight(30),
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: getProportionateScreenHeight(10)),
               Center(
                 child: Stack(
                   children: [
                     _image != null
                         ? CircleAvatar(
-                            radius: 40,
+                            radius: getProportionateScreenHeight(40),
                             backgroundImage: MemoryImage(_image!),
                           )
                         : CircleAvatar(
-                            radius: 40,
+                            radius: getProportionateScreenHeight(40),
                             backgroundImage:
-                                AssetImage('assets/defaultProfile.jpeg'),
+                                const AssetImage('assets/defaultProfile.jpeg'),
                           ),
                     Positioned(
                       bottom: -10,
@@ -111,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: selectImage,
                         icon: Icon(
                           Icons.add_a_photo,
-                          color: colorWhite,
+                          color: whiteColor,
                           size: 22,
                         ),
                       ),
@@ -119,77 +124,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: getProportionateScreenHeight(15)),
               CustomTextfield(
                 controller: _usernameTextController,
-                keyboard: TextInputType.name,
+                keyboardType: TextInputType.name,
                 hintText: 'Username',
               ),
-              SizedBox(height: 10),
+              SizedBox(height: getProportionateScreenHeight(15)),
               CustomTextfield(
                 controller: _emailTextController,
-                keyboard: TextInputType.emailAddress,
+                keyboardType: TextInputType.emailAddress,
                 hintText: 'Email Address',
               ),
-              SizedBox(height: 10),
+              SizedBox(height: getProportionateScreenHeight(15)),
               CustomTextfield(
                 controller: _passwordTextController,
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: getProportionateScreenHeight(20)),
               ElevatedButton(
                 onPressed: signUpUser,
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[100],
+                  backgroundColor: lightGreenColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: _isLoading
                     ? Center(
-                        child: CircularProgressIndicator(
-                          color: colorWhite,
-                        ),
+                        child: CircularProgressIndicator(color: whiteColor),
                       )
                     : Text(
                         'SIGN UP',
                         style: TextStyle(
-                          color: colorWhite,
+                          color: whiteColor,
+                          fontSize: getProportionateScreenHeight(16),
                         ),
                       ),
               ),
-              SizedBox(height: 40),
-              Center(
-                child: Text(
-                  'or login with',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: colorWhite,
-                  ),
+              SizedBox(height: getProportionateScreenHeight(40)),
+              Text(
+                'or login with',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: getProportionateScreenHeight(15),
+                  color: whiteColor,
                 ),
               ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SocialLoginButton(imageUrl: 'assets/google.png'),
-                  SizedBox(width: 25),
-                  SocialLoginButton(imageUrl: 'assets/facebook1.png'),
-                  SizedBox(width: 25),
-                  SocialLoginButton(imageUrl: 'assets/images.png')
-                ],
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              const SocialsLogin(),
+              SizedBox(height: getProportionateScreenHeight(20)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Already have an account?',
                     style: TextStyle(
-                      fontSize: 15,
-                      color: colorWhite,
+                      fontSize: getProportionateScreenHeight(14),
+                      color: whiteColor,
                     ),
                   ),
                   TextButton(
@@ -197,13 +191,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Navigator.pop(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                              builder: (context) => const LoginScreen()));
                     },
                     child: Text(
                       'Log in',
                       style: TextStyle(
-                        color: Colors.red[900],
-                        fontSize: 15,
+                        color: deepRedColor,
+                        fontSize: getProportionateScreenHeight(14),
                       ),
                     ),
                   ),

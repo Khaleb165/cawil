@@ -24,15 +24,15 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
           child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
             margin: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.0001),
             width: double.infinity,
             height: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color.fromRGBO(0, 7, 240, 0.5),
+                  Color.fromRGBO(0, 7, 240, 0.5),
                   Color.fromRGBO(0, 7, 240, 0.5),
                   Color.fromRGBO(127, 0, 255, 100)
                 ],
@@ -42,11 +42,11 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   bottomRight: Radius.elliptical(50, 50),
                   bottomLeft: Radius.elliptical(50, 50)),
             ),
-            child: Align(
+            child: const Align(
               alignment: Alignment.center,
               child: Text(
                 'Select Payment method',
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white, fontSize: 25, letterSpacing: 1),
               ),
             ),
@@ -56,15 +56,15 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Select Card:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 RadioListTile<String>(
-                  title: Text('Mastercard'),
+                  title: const Text('Mastercard'),
                   value: 'Mastercard',
                   groupValue: selectedPaymentMethod,
                   onChanged: (value) {
@@ -74,7 +74,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text('Mobile Wallet'),
+                  title: const Text('Mobile Wallet'),
                   value: 'Mobile Wallet',
                   groupValue: selectedPaymentMethod,
                   onChanged: (value) {
@@ -84,7 +84,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text('Cash on Delivery'),
+                  title: const Text('Cash on Delivery'),
                   value: 'Cash on Delivery',
                   groupValue: selectedPaymentMethod,
                   onChanged: (value) {
@@ -96,7 +96,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Center(
@@ -120,11 +120,11 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                 style: TextButton.styleFrom(
                     disabledBackgroundColor: Colors.greenAccent[100],
                     backgroundColor: Colors.greenAccent,
-                    padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     elevation: 0),
-                child: Text(
+                child: const Text(
                   'Proceed',
                   style: TextStyle(
                       color: Colors.white,

@@ -24,19 +24,19 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [shade1, shade1, shade2],
+                  colors: [deepBlueColor, deepBlueColor, purpleColor],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.elliptical(50, 50),
                 ),
               ),
-              child: Align(
+              child: const Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Passenger Details',
@@ -47,7 +47,7 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                 ),
               ),
             ),
-            SizedBox(height: 90),
+            const SizedBox(height: 90),
             CustomTextfield(
               controller: nameController,
               hintText: 'Name of traveller',
@@ -56,52 +56,53 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                     .updateNameTextField(newText);
               },
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CustomTextfield(
               controller: contactNumberController,
-              keyboard: TextInputType.phone,
+              keyboardType: TextInputType.phone,
               hintText: 'Phone Number',
               onChanged: (newNumber) {
                 Provider.of<BusData>(context, listen: false)
                     .updatePhoneTextField(newNumber);
               },
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CustomTextfield(
               controller: TextEditingController(),
               hintText: 'Gender',
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CustomTextfield(
               controller: TextEditingController(),
               hintText: 'Guardian Name',
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CustomTextfield(
               controller: TextEditingController(),
-              keyboard: TextInputType.phone,
+              keyboardType: TextInputType.phone,
               inputAction: TextInputAction.done,
               hintText: 'Guardian Phone Number',
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentMethodPage(),
+                      builder: (context) => const PaymentMethodPage(),
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent,
-                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Proceed to Payment',
                   style: TextStyle(
                     color: Colors.white,

@@ -15,19 +15,19 @@ class TicketDetailsPage extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
             width: double.infinity,
             height: 180,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [shade1, shade1, shade2],
+                colors: [deepBlueColor, deepBlueColor, purpleColor],
                 tileMode: TileMode.clamp,
               ),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomRight: Radius.elliptical(50, 50),
                   bottomLeft: Radius.elliptical(50, 50)),
             ),
-            child: Align(
+            child: const Align(
               alignment: Alignment.center,
               child: Text(
                 'Ticket Details',
@@ -35,12 +35,12 @@ class TicketDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: TicketDetailsCard(busData: busData),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25),
             child: SizedBox(
@@ -52,16 +52,17 @@ class TicketDetailsPage extends StatelessWidget {
                       .clearFieldsData();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => Homepage()),
+                      MaterialPageRoute(builder: (context) => const Homepage()),
                       (Route<dynamic> route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent,
-                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                 ),
-                child: Text(
+                child: const Text(
                   'Go to Home',
                   style: TextStyle(
                       color: Colors.white,
@@ -72,7 +73,7 @@ class TicketDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     );

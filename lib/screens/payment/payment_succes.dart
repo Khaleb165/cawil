@@ -17,15 +17,15 @@ class PaymentSuccessPage extends StatelessWidget {
           child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
             margin: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.0001),
             width: double.infinity,
             height: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color.fromRGBO(0, 7, 240, 0.5),
+                  Color.fromRGBO(0, 7, 240, 0.5),
                   Color.fromRGBO(0, 7, 240, 0.5),
                   Color.fromRGBO(127, 0, 255, 100)
                 ],
@@ -35,7 +35,7 @@ class PaymentSuccessPage extends StatelessWidget {
                   bottomRight: Radius.elliptical(50, 50),
                   bottomLeft: Radius.elliptical(50, 50)),
             ),
-            child: Align(
+            child: const Align(
               alignment: Alignment.center,
               child: Text(
                 'Enter Payment Details',
@@ -44,23 +44,23 @@ class PaymentSuccessPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 180,
           ),
           CircleAvatar(
             radius: 70,
-            backgroundColor: Color.fromRGBO(0, 7, 240, 0.5),
+            backgroundColor: const Color.fromRGBO(0, 7, 240, 0.5),
             child: Image.asset(
               'assets/mark.png',
               scale: 6,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
-          Text('Payment Process is'),
-          Text('done successfully'),
-          SizedBox(
+          const Text('Payment Process is'),
+          const Text('done successfully'),
+          const SizedBox(
             height: 25,
           ),
           TextButton(
@@ -70,7 +70,7 @@ class PaymentSuccessPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => TicketDetailsPage()));
               },
-              child: Text(
+              child: const Text(
                 'See Ticket Details',
                 style: TextStyle(
                     decoration: TextDecoration.underline,

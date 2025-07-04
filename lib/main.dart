@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
-                  return Homepage();
+                  return const Homepage();
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text("${snapshot.error}"),
@@ -36,14 +36,14 @@ class MyApp extends StatelessWidget {
                 }
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: Colors.white,
                   ),
                 );
               }
 
-              return IntroductionScreen();
+              return const IntroductionScreen();
             },
           )
           //theme: ThemeData(brightness: Brightness.dark),

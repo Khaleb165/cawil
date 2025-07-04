@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-Color primary1 = Colors.greenAccent;
-Color primary2 = Color.fromRGBO(19, 41, 75, 1);
-Color shade1 = Color.fromRGBO(0, 7, 240, 0.5);
-Color shade2 = Color.fromRGBO(127, 0, 255, 100);
-Color colorWhite = Colors.white;
+Color backgroundColor = const Color(0xFFEDE7F6);
+Color greenAccentColor = const Color(0xFF69F0AE);
+Color lightGreenColor = const Color(0xFFB9F6CA);
+Color darkBlueColor = const Color(0xFF13294B);
+Color deepBlueColor = const Color(0x7E0007F0);
+Color purpleColor = const Color(0x9C7F00FF);
+Color lightPurpleColor = const Color(0xFF7E57C2);
+Color whiteColor = const Color(0xFFFFFFFF);
+Color lightWhiteColor = const Color(0xFFFDFBFF);
+Color blackColor = const Color(0xFF000000);
+Color lightBlackColor = const Color(0x60000000);
+Color deepRedColor = const Color(0xFFB71C1C);

@@ -18,9 +18,9 @@ class TicketDetailsCard extends StatelessWidget {
       children: List.generate(busData.length, (index) {
         final seatNumber = busData[index];
         return Card(
-          margin: EdgeInsets.only(bottom: 16.0),
+          margin: const EdgeInsets.only(bottom: 16.0),
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
                 Column(
@@ -29,7 +29,7 @@ class TicketDetailsCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Name of Passenger',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
@@ -37,17 +37,17 @@ class TicketDetailsCard extends StatelessWidget {
                               color: Colors.black45),
                         ),
                         Text(
-                          '${Provider.of<BusData>(context).nameOfTraveller}',
-                          style: TextStyle(
+                          Provider.of<BusData>(context).nameOfTraveller,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w400, fontSize: 18),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Mobile Number',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
@@ -55,14 +55,14 @@ class TicketDetailsCard extends StatelessWidget {
                               color: Colors.black45),
                         ),
                         Text(
-                          '${Provider.of<BusData>(context).phoneNumber}',
-                          style: TextStyle(
+                          Provider.of<BusData>(context).phoneNumber,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w400, fontSize: 18),
                         )
                       ],
                     ),
-                    SizedBox(height: 8.0),
-                    Column(
+                    const SizedBox(height: 8.0),
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -81,23 +81,23 @@ class TicketDetailsCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Seat No:',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,
                               color: Colors.black45),
                         ),
-                        SizedBox(width: 8),
-                        Text('$seatNumber')
+                        const SizedBox(width: 8),
+                        Text(seatNumber)
                       ],
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Image.asset(
                   'assets/qrcode.png',
                   scale: 1.8,
