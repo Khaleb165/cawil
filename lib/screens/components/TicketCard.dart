@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
+import '../../constants/size_config.dart';
 import '../seat_select.dart';
 
 class TicketCard extends StatelessWidget {
@@ -49,7 +50,7 @@ class TicketCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 10),
+                        SizedBox(height: getProportionateScreenHeight(10)),
                         Text(
                           busnumber.toString(),
                           style: const TextStyle(
@@ -59,7 +60,7 @@ class TicketCard extends StatelessWidget {
                             color: Color.fromRGBO(19, 41, 75, 1),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: getProportionateScreenHeight(10)),
                         Row(
                           children: [
                             Icon(
@@ -192,7 +193,8 @@ class TicketCard extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const SeatSelectPage()));
+                                      builder: (context) =>
+                                          const SeatSelectPage()));
                             },
                             child: const Text('Buy ticket'),
                             style: TextButton.styleFrom(

@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/passenger_details.dart';
 import 'package:flutter/material.dart';
@@ -34,20 +35,18 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
         _toggleSeatSelection(seatNumber);
       },
       child: Container(
-        width: 40,
-        height: 40,
-        margin: const EdgeInsets.all(4),
+        width: getProportionateScreenWidth(40),
+        height: getProportionateScreenHeight(40),
+        margin: EdgeInsets.all(getProportionateScreenHeight(5)),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.greenAccent : Colors.white,
+          color: isSelected ? greenAccentColor : whiteColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
           child: Text(
             seatNumber,
             style: TextStyle(
-              color: isSelected
-                  ? Colors.white
-                  : const Color.fromRGBO(19, 41, 75, 1),
+              color: isSelected ? whiteColor : darkBlueColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -72,7 +71,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
     for (int row = 1; row <= 8; row++) {
       seatRows.add(
         Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(40)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,109 +86,68 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize().init(context);
     final double totalPrice = Provider.of<BusData>(context).totalPrice;
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(30),
+                  vertical: getProportionateScreenHeight(20)),
               width: double.infinity,
-              height: 200,
+              height: getProportionateScreenHeight(200),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [deepBlueColor, deepBlueColor, purpleColor],
                   tileMode: TileMode.clamp,
                 ),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.elliptical(50, 50),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.elliptical(getProportionateScreenWidth(50),
+                      getProportionateScreenHeight(40)),
                 ),
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Select your Seat',
                   style: TextStyle(
-                      color: Colors.white, fontSize: 35, letterSpacing: 1.5),
+                    color: whiteColor,
+                    fontSize: getProportionateScreenHeight(30),
+                    letterSpacing: 1.5,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            const Row(
+            SizedBox(height: getProportionateScreenHeight(10)),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  children: [
-                    Card(
-                        elevation: 20,
-                        shadowColor: Colors.white,
-                        color: Colors.white,
-                        child: SizedBox(
-                          width: 22,
-                          height: 22,
-                        )),
-                    Text(
-                      'Available',
-                      style: TextStyle(
-                          color: Color.fromRGBO(19, 41, 75, 1),
-                          letterSpacing: 1.5),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Card(
-                        elevation: 20,
-                        shadowColor: Colors.white,
-                        color: Colors.greenAccent,
-                        child: SizedBox(
-                          width: 22,
-                          height: 22,
-                        )),
-                    Text(
-                      'Selected',
-                      style: TextStyle(
-                          color: Color.fromRGBO(19, 41, 75, 1),
-                          letterSpacing: 1.5),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Card(
-                        elevation: 20,
-                        shadowColor: Colors.white,
-                        color: Color.fromRGBO(19, 41, 75, 1),
-                        child: SizedBox(
-                          width: 22,
-                          height: 22,
-                        )),
-                    Text(
-                      'Booked',
-                      style: TextStyle(
-                          color: Color.fromRGBO(19, 41, 75, 1),
-                          letterSpacing: 1.5),
-                    )
-                  ],
-                ),
+                seatStatusBuilder(seatStatus: 'Available'),
+                seatStatusBuilder(
+                    seatStatus: 'Selected', color: greenAccentColor),
+                seatStatusBuilder(color: darkBlueColor),
               ],
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: getProportionateScreenHeight(30)),
             Column(
               children: _buildSeatGrid(),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: getProportionateScreenHeight(20)),
             Flexible(
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(30),
+                    vertical: getProportionateScreenHeight(20)),
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: whiteColor,
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.elliptical(20, 20),
+                    top: Radius.elliptical(getProportionateScreenWidth(20),
+                        getProportionateScreenHeight(20)),
                   ),
                 ),
                 child: Column(
@@ -200,32 +159,32 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         Text(
                           'Seat No: ',
                           style: TextStyle(
-                            fontSize: 23,
+                            fontSize: getProportionateScreenHeight(20),
                             fontWeight: FontWeight.w500,
-                            color: Colors.deepPurple[300],
+                            color: lightPurpleColor,
                           ),
                         ),
                         Expanded(
                           child: Text(
                             ' ${Provider.of<BusData>(context).joinedSeats}',
                             style: TextStyle(
-                              color: Colors.deepPurple[300],
-                              fontSize: 20,
+                              color: lightPurpleColor,
+                              fontSize: getProportionateScreenHeight(20),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: getProportionateScreenHeight(5)),
                     Text(
                       'Price: Ghc ${totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
-                        fontSize: 23,
+                        fontSize: getProportionateScreenHeight(20),
                         fontWeight: FontWeight.w500,
-                        color: Colors.deepPurple[300],
+                        color: lightPurpleColor,
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: getProportionateScreenHeight(15)),
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
@@ -237,19 +196,20 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                           );
                         },
                         style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromRGBO(19, 41, 75, 1),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 60, vertical: 15),
+                          backgroundColor: darkBlueColor,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(60),
+                              vertical: getProportionateScreenHeight(15)),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Continue',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: whiteColor,
                             letterSpacing: 1.5,
-                            fontSize: 15,
+                            fontSize: getProportionateScreenHeight(15),
                           ),
                         ),
                       ),
@@ -261,6 +221,29 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Column seatStatusBuilder(
+      {String seatStatus = 'Booked', Color color = Colors.white}) {
+    return Column(
+      children: [
+        Card(
+            elevation: 20,
+            shadowColor: whiteColor,
+            color: color,
+            child: SizedBox(
+              width: getProportionateScreenWidth(22),
+              height: getProportionateScreenHeight(22),
+            )),
+        Text(
+          seatStatus,
+          style: TextStyle(
+            color: darkBlueColor,
+            letterSpacing: 1.5,
+          ),
+        )
+      ],
     );
   }
 }

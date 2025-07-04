@@ -1,3 +1,4 @@
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/models/available_bus_model.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -20,100 +21,112 @@ class BusCard extends StatelessWidget {
     return ClipPath(
       clipper: SideCutClipper(),
       child: Container(
-        height: 250,
+        height: getProportionateScreenHeight(250),
         child: Card(
-          elevation: 15,
+          elevation: 10,
           borderOnForeground: false,
           color: Colors.white,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(10),
+              vertical: getProportionateScreenHeight(10)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10),
+                    SizedBox(height: getProportionateScreenHeight(10)),
                     Text(
                       bus1.busNumber,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 25,
+                        fontSize: getProportionateScreenHeight(25),
                         color: darkBlueColor,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: getProportionateScreenHeight(10)),
                     Row(
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //  Image.asset('assets/send1.png',scale: 6,),
                         Icon(
                           Icons.near_me_outlined,
-                          size: 35,
-                          color: Colors.greenAccent[100],
+                          size: getProportionateScreenHeight(30),
+                          color: greenAccentColor,
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: getProportionateScreenWidth(5)),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: SizedBox(
                             // height: 30,
-                            width: 100,
+                            width: getProportionateScreenWidth(100),
                             child: Text(
                               Provider.of<BusData>(context).fromTextField,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w500),
+                              style: TextStyle(
+                                fontSize: getProportionateScreenHeight(20),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 40),
+                      padding: EdgeInsets.only(
+                          left: getProportionateScreenHeight(40)),
                       child: Text(
                         DateFormat('dd/MM/yyyy')
                             .format(Provider.of<BusData>(context).selectedDate),
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                          fontSize: getProportionateScreenHeight(15),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: getProportionateScreenHeight(20)),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //  Image.asset('assets/locate.png',scale: 22,),
-                        const Icon(
+                        Icon(
                           Icons.place_outlined,
-                          size: 35,
+                          size: getProportionateScreenHeight(30),
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: getProportionateScreenWidth(5)),
                         Column(
                           children: [
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: SizedBox(
-                                height: 30,
-                                width: 100,
+                                height: getProportionateScreenHeight(30),
+                                width: getProportionateScreenWidth(100),
                                 child: Text(
                                   Provider.of<BusData>(context).toTextField,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                    fontSize: getProportionateScreenHeight(20),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
-                            Text(
-                              DateFormat('dd/MM/yyyy').format(
-                                  Provider.of<BusData>(context).selectedDate),
-                              style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w400),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: getProportionateScreenHeight(35)),
+                              child: Text(
+                                DateFormat('dd/MM/yyyy').format(
+                                    Provider.of<BusData>(context).selectedDate),
+                                style: TextStyle(
+                                  fontSize: getProportionateScreenHeight(15),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -121,21 +134,21 @@ class BusCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(width: 30),
+                SizedBox(width: getProportionateScreenWidth(30)),
                 const DottedLine(
                   direction: Axis.vertical,
                   dashColor: Colors.black,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: getProportionateScreenWidth(10)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(padding: EdgeInsets.only(top: 15)),
+                    SizedBox(height: getProportionateScreenHeight(15)),
                     Text(
                       'Report Time: ${bus1.reportTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: getProportionateScreenHeight(15),
                         color: darkBlueColor,
                       ),
                     ),
@@ -143,7 +156,7 @@ class BusCard extends StatelessWidget {
                       'Departure: ${bus1.departureTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: getProportionateScreenHeight(15),
                         color: darkBlueColor,
                       ),
                     ),
@@ -151,27 +164,27 @@ class BusCard extends StatelessWidget {
                       'Arrival: ${bus1.arrivalTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 15,
+                        fontSize: getProportionateScreenHeight(15),
                         color: darkBlueColor,
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: getProportionateScreenHeight(15)),
                     Text(
                       'Seats Left: ${bus1.seatsLeft}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        color: Colors.deepPurple[400],
+                        fontSize: getProportionateScreenHeight(18),
+                        color: lightPurpleColor,
                       ),
                     ),
                     Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Price',
+                            text: 'Price: ',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 18,
+                              fontSize: getProportionateScreenHeight(18),
                               color: darkBlueColor,
                             ),
                           ),
@@ -179,15 +192,16 @@ class BusCard extends StatelessWidget {
                             text: 'Ghc 80',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                              color: Colors.red[900],
+                              fontSize: getProportionateScreenHeight(18),
+                              color: deepRedColor,
                             ),
                           ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: EdgeInsets.only(
+                          left: getProportionateScreenHeight(5)),
                       child: ElevatedButton(
                         onPressed: () async {
                           await context.read<BusData>().clearData();
@@ -199,10 +213,10 @@ class BusCard extends StatelessWidget {
                         },
                         child: const Text('Buy ticket'),
                         style: TextButton.styleFrom(
-                          backgroundColor: Colors.greenAccent[100],
-                          // padding: EdgeInsets.symmetric(horizontal: 150,vertical: 18),
+                          backgroundColor: greenAccentColor,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
                     ),
