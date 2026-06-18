@@ -5,6 +5,8 @@ import 'package:cawil/screens/payment/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/size_config.dart';
+
 class PassengerDetailsPage extends StatefulWidget {
   const PassengerDetailsPage({Key? key}) : super(key: key);
 
@@ -18,15 +20,18 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize().init(context);
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(30),
+                  vertical: getProportionateScreenHeight(20)),
               width: double.infinity,
-              height: 200,
+              height: getProportionateScreenHeight(200),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [deepBlueColor, deepBlueColor, purpleColor],
