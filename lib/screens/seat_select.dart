@@ -151,8 +151,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                   ),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: mainStart,
+                  crossAxisAlignment: crossStart,
                   children: [
                     Row(
                       children: [
