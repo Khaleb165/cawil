@@ -142,7 +142,7 @@ class _HomepageState extends State<Homepage> {
                         TextSpan(
                           text: 'Hey ',
                           style: TextStyle(
-                            fontSize: getProportionateScreenHeight(28),
+                            fontSize: getProportionateScreenHeight(25),
                             color: blackColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -150,7 +150,7 @@ class _HomepageState extends State<Homepage> {
                         TextSpan(
                           text: '$username,',
                           style: TextStyle(
-                            fontSize: getProportionateScreenHeight(28),
+                            fontSize: getProportionateScreenHeight(25),
                             color: blackColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -169,7 +169,7 @@ class _HomepageState extends State<Homepage> {
                   child: Text(
                     'what is your next trip?',
                     style: TextStyle(
-                      fontSize: getProportionateScreenHeight(20),
+                      fontSize: getProportionateScreenHeight(15),
                       color: lightBlackColor,
                     ),
                   ),
@@ -185,7 +185,7 @@ class _HomepageState extends State<Homepage> {
                 ),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenHeight(25)),
+                      horizontal: getProportionateScreenHeight(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
