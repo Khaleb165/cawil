@@ -161,14 +161,14 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                           style: TextStyle(
                             fontSize: getProportionateScreenHeight(20),
                             fontWeight: FontWeight.w500,
-                            color: lightPurpleColor,
+                            color: lightPurpleColorShade1,
                           ),
                         ),
                         Expanded(
                           child: Text(
                             ' ${Provider.of<BusData>(context).joinedSeats}',
                             style: TextStyle(
-                              color: lightPurpleColor,
+                              color: lightPurpleColorShade1,
                               fontSize: getProportionateScreenHeight(20),
                             ),
                           ),
@@ -181,7 +181,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                       style: TextStyle(
                         fontSize: getProportionateScreenHeight(20),
                         fontWeight: FontWeight.w500,
-                        color: lightPurpleColor,
+                        color: lightPurpleColorShade1,
                       ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(15)),
@@ -224,8 +224,10 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
     );
   }
 
-  Column seatStatusBuilder(
-      {String seatStatus = 'Booked', Color color = Colors.white}) {
+  Column seatStatusBuilder({
+    String seatStatus = 'Booked',
+    Color color = Colors.white,
+  }) {
     return Column(
       children: [
         Card(

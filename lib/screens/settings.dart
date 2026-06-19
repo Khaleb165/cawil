@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -78,22 +79,23 @@ class _SettingsPageState extends State<SettingsPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.notes_sharp,
                               size: 30,
-                              color: Colors.white,
+                              color: whiteColor,
                             )),
                       ),
-                      const SizedBox(width: 70),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 45.0),
+                      SizedBox(width: getProportionateScreenWidth(50)),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getProportionateScreenHeight(40)),
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Text(
                             'SETTINGS',
                             style: TextStyle(
                               letterSpacing: 3,
-                              color: Colors.white,
+                              color: whiteColor,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -102,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: getProportionateScreenHeight(30)),
                   Row(
                     children: [
                       const CircleAvatar(
@@ -116,18 +118,18 @@ class _SettingsPageState extends State<SettingsPage> {
                         children: [
                           Text(
                             username,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.white,
+                                color: whiteColor,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 2.5),
                           ),
-                          const SizedBox(height: 1),
+                          SizedBox(height: getProportionateScreenHeight(10)),
                           Text(
                             email,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
-                              color: Colors.white,
+                              color: whiteColor,
                               fontWeight: FontWeight.w200,
                             ),
                           ),
@@ -138,23 +140,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: getProportionateScreenHeight(20)),
             Column(
               children: [
                 settingsListTile(() {}, 'assets/person1.png', 'Account'),
-                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/bell.png', 'Notifications'),
-                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/location.png', 'Location'),
-                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/person1.png', 'Support'),
-                const SizedBox(height: 20),
                 settingsListTile(() {}, 'assets/share.png', 'Share'),
-                const SizedBox(height: 20),
                 settingsListTile(() async {
                   await AuthMethods().signOut();
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const LoginScreen()));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                      (route) => false);
                 }, 'assets/loggg.png', 'Logout'),
               ],
             )
@@ -164,26 +163,32 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  InkWell settingsListTile(VoidCallback, String imageText, String title) {
-    return InkWell(
-      onTap: VoidCallback,
-      child: ListTile(
-        leading: CircleAvatar(
-          radius: 18,
-          backgroundColor: Colors.deepPurple[300],
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Image.asset(imageText),
+  Widget settingsListTile(VoidCallback onTap, String imageText, String title) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(8)),
+      child: InkWell(
+        onTap: onTap,
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 18,
+            backgroundColor: lightPurpleColorShade2,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Image.asset(imageText),
+            ),
           ),
-        ),
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 19, color: Colors.black54),
-        ),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.deepPurple[300],
-          size: 18,
+          title: Text(
+            title,
+            style: TextStyle(
+              fontSize: 19,
+              color: lightBlackColor,
+            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: lightPurpleColorShade2,
+            size: 18,
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/screens/payment/payment_succes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class PaymentDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final charges = _calculateCharges(Provider.of<BusData>(context).totalPrice);
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -44,18 +45,18 @@ class PaymentDetailsPage extends StatelessWidget {
                   bottom: Radius.elliptical(50, 50),
                 ),
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Enter Payment Details',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 25,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 100),
+            SizedBox(height: getProportionateScreenHeight(100)),
             Container(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Card(
@@ -64,16 +65,16 @@ class PaymentDetailsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 25),
-                      const Text(
+                      SizedBox(height: getProportionateScreenHeight(25)),
+                      Text(
                         'Payment Method',
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 15,
-                          color: Colors.black45,
+                          color: lightBlackColor,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: getProportionateScreenHeight(5)),
                       Text(
                         paymentMethod.toUpperCase(),
                         style: const TextStyle(
@@ -81,16 +82,16 @@ class PaymentDetailsPage extends StatelessWidget {
                           fontSize: 18,
                         ),
                       ),
-                      const SizedBox(height: 16.0),
-                      const Text(
+                      SizedBox(height: getProportionateScreenHeight(16.0)),
+                      Text(
                         'Mobile Number',
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 15,
-                          color: Colors.black45,
+                          color: lightBlackColor,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: getProportionateScreenHeight(5)),
                       Text(
                         Provider.of<BusData>(context).phoneNumber,
                         style: const TextStyle(
@@ -98,21 +99,21 @@ class PaymentDetailsPage extends StatelessWidget {
                           fontSize: 18,
                         ),
                       ),
-                      const SizedBox(height: 20.0),
+                      SizedBox(height: getProportionateScreenHeight(20.0)),
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Ticket Price',
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 15,
-                                  color: Colors.black45,
+                                  color: lightBlackColor,
                                 ),
                               ),
-                              const SizedBox(height: 5),
+                              SizedBox(height: getProportionateScreenHeight(5)),
                               Text(
                                 'Ghc ${Provider.of<BusData>(context).totalPrice.toStringAsFixed(2)}',
                                 style: const TextStyle(
@@ -126,15 +127,15 @@ class PaymentDetailsPage extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'E-levy Charges',
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 15,
-                                  color: Colors.black45,
+                                  color: lightBlackColor,
                                 ),
                               ),
-                              const SizedBox(height: 5),
+                              SizedBox(height: getProportionateScreenHeight(5)),
                               Text(
                                 'Ghc ${charges.toStringAsFixed(2)}',
                                 style: const TextStyle(
@@ -146,13 +147,13 @@ class PaymentDetailsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30)
+                      SizedBox(height: getProportionateScreenHeight(30))
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: getProportionateScreenHeight(40)),
             SizedBox(
               height: 55,
               width: 350,
@@ -164,17 +165,17 @@ class PaymentDetailsPage extends StatelessWidget {
                           builder: (context) => const PaymentSuccessPage()));
                 }),
                 style: TextButton.styleFrom(
-                  disabledBackgroundColor: Colors.greenAccent[100],
-                  backgroundColor: Colors.greenAccent,
+                  disabledBackgroundColor: lightGreenColor,
+                  backgroundColor: greenAccentColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                 ),
-                child: const Text(
+                child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

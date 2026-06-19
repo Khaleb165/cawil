@@ -1,3 +1,4 @@
+import 'package:cawil/constants/colors.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
                 }
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
+                return  Center(
                   child: CircularProgressIndicator(
-                    color: Colors.white,
+                    color: whiteColor,
                   ),
                 );
               }

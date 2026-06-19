@@ -1,3 +1,5 @@
+import 'package:cawil/constants/colors.dart';
+import 'package:cawil/models/ticket.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -6,24 +8,12 @@ import '../../constants/size_config.dart';
 import '../seat_select.dart';
 
 class TicketCard extends StatelessWidget {
-  final String? busnumber;
-  final String? start_location;
-  final String? Destination;
-  final String? report_time;
-  final String? departure_time;
-  final String? seats_left;
-  final String? price;
+  final TicketModel? ticketModel;
 
-  const TicketCard(
-      {Key? key,
-      this.busnumber,
-      this.start_location,
-      this.Destination,
-      this.report_time,
-      this.departure_time,
-      this.seats_left,
-      this.price})
-      : super(key: key);
+  const TicketCard({
+    Key? key,
+    this.ticketModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,7 @@ class TicketCard extends StatelessWidget {
           child: Card(
             elevation: 15,
             borderOnForeground: false,
-            color: Colors.white,
+            color: whiteColor,
             margin: const EdgeInsets.all(10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
@@ -52,12 +42,12 @@ class TicketCard extends StatelessWidget {
                       children: [
                         SizedBox(height: getProportionateScreenHeight(10)),
                         Text(
-                          busnumber.toString(),
-                          style: const TextStyle(
+                          ticketModel?.busnumber.toString() ?? '',
+                          style: TextStyle(
                             letterSpacing: 2,
                             fontWeight: FontWeight.w600,
                             fontSize: 28,
-                            color: Color.fromRGBO(19, 41, 75, 1),
+                            color: darkBlueColor,
                           ),
                         ),
                         SizedBox(height: getProportionateScreenHeight(10)),
@@ -66,11 +56,11 @@ class TicketCard extends StatelessWidget {
                             Icon(
                               Icons.near_me_outlined,
                               size: 35,
-                              color: Colors.greenAccent[100],
+                              color: lightGreenColor,
                             ),
-                            const SizedBox(width: 5),
+                            SizedBox(width: getProportionateScreenWidth(5)),
                             Text(
-                              start_location.toString(),
+                              ticketModel?.start_location.toString() ?? '',
                               style: const TextStyle(
                                 letterSpacing: 2,
                                 fontSize: 25,
@@ -89,29 +79,27 @@ class TicketCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        const Row(
+                        SizedBox(height: getProportionateScreenHeight(20)),
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.place_outlined,
                               size: 35,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
+                            SizedBox(width: getProportionateScreenWidth(5)),
                             Column(
                               children: [
                                 Text(
-                                  'Kumasi',
-                                  style: TextStyle(
+                                  ticketModel?.Destination.toString() ?? '',
+                                  style: const TextStyle(
                                       letterSpacing: 2,
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  '15-01-2023',
-                                  style: TextStyle(
+                                  ticketModel?.report_time.toString() ?? '',
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -121,59 +109,57 @@ class TicketCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 30),
-                    const DottedLine(
+                    SizedBox(width: getProportionateScreenWidth(30)),
+                    DottedLine(
                       direction: Axis.vertical,
-                      dashColor: Colors.black,
+                      dashColor: blackColor,
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: getProportionateScreenWidth(10)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15),
-                        const Text(
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        Text(
                           'Report Time: 9am',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
-                            color: Color.fromRGBO(19, 41, 75, 1),
+                            color: darkBlueColor,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Departure: 10am',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
-                            color: Color.fromRGBO(19, 41, 75, 1),
+                            color: darkBlueColor,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Arrival: 2pm',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
-                            color: Color.fromRGBO(19, 41, 75, 1),
+                            color: darkBlueColor,
                           ),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
                         Text(
                           'Seats Left: 18',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.deepPurple[400],
+                            color: lightPurpleColorShade1,
                           ),
                         ),
                         Row(
                           children: [
-                            const Text(
+                            Text(
                               'Price: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
-                                color: Color.fromRGBO(19, 41, 75, 1),
+                                color: darkBlueColor,
                               ),
                             ),
                             Text(
@@ -181,13 +167,14 @@ class TicketCard extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
-                                color: Colors.red[900],
+                                color: deepRedColor,
                               ),
                             ),
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
+                          padding: EdgeInsets.only(
+                              left: getProportionateScreenWidth(10)),
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -198,7 +185,7 @@ class TicketCard extends StatelessWidget {
                             },
                             child: const Text('Buy ticket'),
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.greenAccent[100],
+                              backgroundColor: lightGreenColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25)),
                             ),

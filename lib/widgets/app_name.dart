@@ -17,16 +17,17 @@ class AppName extends StatelessWidget {
         Text(
           'Ca',
           style: TextStyle(
-              fontSize: fontSize,
-              color: greenAccentColor,
-              fontWeight: FontWeight.bold),
+            fontSize: fontSize,
+            color: greenAccentColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           'Wil',
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
-            color: const Color.fromRGBO(19, 41, 75, 1),
+            color: darkBlueColor,
           ),
         ),
       ],

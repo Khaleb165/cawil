@@ -1,12 +1,11 @@
+import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/screens/payment/payment_details.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatefulWidget {
-
-
   const PaymentMethodPage({
     super.key,
-
   });
 
   @override
@@ -19,7 +18,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -29,25 +28,28 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                 top: MediaQuery.of(context).size.height * 0.0001),
             width: double.infinity,
             height: 200,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(0, 7, 240, 0.5),
-                  Color.fromRGBO(0, 7, 240, 0.5),
-                  Color.fromRGBO(127, 0, 255, 100)
+                  deepBlueColor,
+                  deepBlueColor,
+                  purpleColor,
                 ],
                 tileMode: TileMode.clamp,
               ),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomRight: Radius.elliptical(50, 50),
                   bottomLeft: Radius.elliptical(50, 50)),
             ),
-            child: const Align(
+            child: Align(
               alignment: Alignment.center,
               child: Text(
                 'Select Payment method',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 25, letterSpacing: 1),
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 25,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
@@ -60,49 +62,39 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   'Select Card:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                RadioListTile<String>(
-                  title: const Text('Mastercard'),
-                  value: 'Mastercard',
+                SizedBox(height: getProportionateScreenHeight(20)),
+                RadioGroup<String>(
                   groupValue: selectedPaymentMethod,
                   onChanged: (value) {
                     setState(() {
                       selectedPaymentMethod = value;
                     });
                   },
-                ),
-                RadioListTile<String>(
-                  title: const Text('Mobile Wallet'),
-                  value: 'Mobile Wallet',
-                  groupValue: selectedPaymentMethod,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedPaymentMethod = value;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  title: const Text('Cash on Delivery'),
-                  value: 'Cash on Delivery',
-                  groupValue: selectedPaymentMethod,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedPaymentMethod = value;
-                    });
-                  },
+                  child: const Column(
+                    children: [
+                      RadioListTile<String>(
+                        title: Text('Mastercard'),
+                        value: 'Mastercard',
+                      ),
+                      RadioListTile<String>(
+                        title: Text('Mobile Wallet'),
+                        value: 'Mobile Wallet',
+                      ),
+                      RadioListTile<String>(
+                        title: Text('Cash on Delivery'),
+                        value: 'Cash on Delivery',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 50,
-          ),
+          SizedBox(height: getProportionateScreenHeight(50)),
           Center(
             child: SizedBox(
-              height: 50,
-              width: 300,
+              height: getProportionateScreenHeight(50),
+              width: getProportionateScreenWidth(300),
               child: ElevatedButton(
                 onPressed: selectedPaymentMethod != null
                     ? () {
@@ -110,7 +102,6 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PaymentDetailsPage(
-
                               paymentMethod: selectedPaymentMethod!,
                             ),
                           ),
@@ -118,19 +109,22 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                       }
                     : null,
                 style: TextButton.styleFrom(
-                    disabledBackgroundColor: Colors.greenAccent[100],
-                    backgroundColor: Colors.greenAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    elevation: 0),
-                child: const Text(
+                  disabledBackgroundColor: lightGreenColor,
+                  backgroundColor: greenAccentColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  elevation: 0,
+                ),
+                child: Text(
                   'Proceed',
                   style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 1,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                    color: whiteColor,
+                    letterSpacing: 1,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),

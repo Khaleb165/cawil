@@ -1,3 +1,5 @@
+import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,12 +31,13 @@ class TicketDetailsCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Name of Passenger',
                           style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15,
-                              color: Colors.black45),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15,
+                            color: lightBlackColor,
+                          ),
                         ),
                         Text(
                           Provider.of<BusData>(context).nameOfTraveller,
@@ -43,16 +46,16 @@ class TicketDetailsCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: getProportionateScreenHeight(8)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Mobile Number',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,
-                              color: Colors.black45),
+                              color: lightBlackColor),
                         ),
                         Text(
                           Provider.of<BusData>(context).phoneNumber,
@@ -61,8 +64,8 @@ class TicketDetailsCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 8.0),
-                    const Column(
+                    SizedBox(height: getProportionateScreenHeight(8)),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -70,9 +73,9 @@ class TicketDetailsCard extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,
-                              color: Colors.black45),
+                              color: lightBlackColor),
                         ),
-                        Text(
+                        const Text(
                           'Ghc 80',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
@@ -81,17 +84,17 @@ class TicketDetailsCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: getProportionateScreenHeight(12)),
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           'Seat No:',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,
-                              color: Colors.black45),
+                              color: lightBlackColor),
                         ),
-                        const SizedBox(width: 8),
+                         SizedBox(width: getProportionateScreenWidth(8)),
                         Text(seatNumber)
                       ],
                     ),

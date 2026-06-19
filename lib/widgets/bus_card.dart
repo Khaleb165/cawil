@@ -1,5 +1,5 @@
 import 'package:cawil/constants/size_config.dart';
-import 'package:cawil/models/available_bus_model.dart';
+import 'package:cawil/models/available_bus.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class BusCard extends StatelessWidget {
         child: Card(
           elevation: 10,
           borderOnForeground: false,
-          color: Colors.white,
+          color: whiteColor,
           margin: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(10),
               vertical: getProportionateScreenHeight(10)),
@@ -63,7 +63,6 @@ class BusCard extends StatelessWidget {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: SizedBox(
-                            // height: 30,
                             width: getProportionateScreenWidth(100),
                             child: Text(
                               Provider.of<BusData>(context).fromTextField,
@@ -135,9 +134,9 @@ class BusCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: getProportionateScreenWidth(30)),
-                const DottedLine(
+                 DottedLine(
                   direction: Axis.vertical,
-                  dashColor: Colors.black,
+                  dashColor: blackColor,
                 ),
                 SizedBox(width: getProportionateScreenWidth(10)),
                 Column(
@@ -174,7 +173,7 @@ class BusCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: getProportionateScreenHeight(18),
-                        color: lightPurpleColor,
+                        color: lightPurpleColorShade1,
                       ),
                     ),
                     Text.rich(

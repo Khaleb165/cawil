@@ -29,42 +29,42 @@ class ForgotPasswordPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const AppName(fontSize: 70),
-              const SizedBox(height: 150),
-              const Text(
+              SizedBox(height: getProportionateScreenHeight(150)),
+              Text(
                 'Enter your e-mail and we will send you a reset link',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: whiteColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: getProportionateScreenHeight(40)),
               CustomTextfield(
                 controller: _emailTextController,
                 keyboardType: TextInputType.emailAddress,
                 inputAction: TextInputAction.done,
                 hintText: 'Email Address',
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: getProportionateScreenHeight(25)),
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.greenAccent[100],
+                    backgroundColor: lightGreenColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 130, vertical: 18),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                   ),
-                  child: const Text(
+                  child: Text(
                     'RESET',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: getProportionateScreenHeight(20)),
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
@@ -78,7 +78,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     'Back',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.greenAccent[100],
+                      color: lightGreenColor,
                     ),
                   ),
                 ),

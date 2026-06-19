@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class TicketDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final busData = Provider.of<BusData>(context).selectedSeats;
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: backgroundColor,
       body: ListView(
         children: [
           Container(
@@ -27,20 +28,23 @@ class TicketDetailsPage extends StatelessWidget {
                   bottomRight: Radius.elliptical(50, 50),
                   bottomLeft: Radius.elliptical(50, 50)),
             ),
-            child: const Align(
+            child: Align(
               alignment: Alignment.center,
               child: Text(
                 'Ticket Details',
-                style: TextStyle(color: Colors.white, fontSize: 25),
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 25,
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: getProportionateScreenHeight(40)),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TicketDetailsCard(busData: busData),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: getProportionateScreenHeight(30)),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25),
             child: SizedBox(
@@ -56,16 +60,16 @@ class TicketDetailsPage extends StatelessWidget {
                       (Route<dynamic> route) => false);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent,
+                  backgroundColor: greenAccentColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                 ),
-                child: const Text(
+                child: Text(
                   'Go to Home',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: whiteColor,
                       letterSpacing: 1,
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
@@ -73,7 +77,7 @@ class TicketDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: getProportionateScreenHeight(30)),
         ],
       ),
     );

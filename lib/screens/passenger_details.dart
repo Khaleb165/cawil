@@ -41,18 +41,18 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                   bottom: Radius.elliptical(50, 50),
                 ),
               ),
-              child: const Align(
+              child:  Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Passenger Details',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 35,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 90),
+           SizedBox(height: getProportionateScreenHeight( 90)),
             CustomTextfield(
               controller: nameController,
               hintText: 'Name of traveller',
@@ -61,7 +61,7 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                     .updateNameTextField(newText);
               },
             ),
-            const SizedBox(height: 15),
+           SizedBox(height: getProportionateScreenHeight( 15)),
             CustomTextfield(
               controller: contactNumberController,
               keyboardType: TextInputType.phone,
@@ -71,24 +71,24 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                     .updatePhoneTextField(newNumber);
               },
             ),
-            const SizedBox(height: 15),
+           SizedBox(height: getProportionateScreenHeight( 15)),
             CustomTextfield(
               controller: TextEditingController(),
               hintText: 'Gender',
             ),
-            const SizedBox(height: 15),
+           SizedBox(height: getProportionateScreenHeight( 15)),
             CustomTextfield(
               controller: TextEditingController(),
               hintText: 'Guardian Name',
             ),
-            const SizedBox(height: 15),
+           SizedBox(height: getProportionateScreenHeight( 15)),
             CustomTextfield(
               controller: TextEditingController(),
               keyboardType: TextInputType.phone,
               inputAction: TextInputAction.done,
               hintText: 'Guardian Phone Number',
             ),
-            const SizedBox(height: 40),
+           SizedBox(height: getProportionateScreenHeight( 40)),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -100,17 +100,17 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent,
+                  backgroundColor: greenAccentColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                child: const Text(
+                child:  Text(
                   'Proceed to Payment',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                   ),
