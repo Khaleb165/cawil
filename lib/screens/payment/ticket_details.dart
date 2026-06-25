@@ -13,7 +13,7 @@ class TicketDetailsPage extends StatelessWidget {
     final busData = Provider.of<BusData>(context).selectedSeats;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: ListView(
+      body: Column(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
@@ -25,8 +25,9 @@ class TicketDetailsPage extends StatelessWidget {
                 tileMode: TileMode.clamp,
               ),
               borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.elliptical(50, 50),
-                  bottomLeft: Radius.elliptical(50, 50)),
+                bottomRight: Radius.elliptical(50, 50),
+                bottomLeft: Radius.elliptical(50, 50),
+              ),
             ),
             child: Align(
               alignment: Alignment.center,
@@ -39,45 +40,56 @@ class TicketDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: getProportionateScreenHeight(40)),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TicketDetailsCard(busData: busData),
-          ),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: SizedBox(
-              height: 55,
-              width: 350,
-              child: ElevatedButton(
-                onPressed: () {
-                  Provider.of<BusData>(context, listen: false)
-                      .clearFieldsData();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Homepage()),
-                      (Route<dynamic> route) => false);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: greenAccentColor,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
-                ),
-                child: Text(
-                  'Go to Home',
-                  style: TextStyle(
-                      color: whiteColor,
-                      letterSpacing: 1,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TicketDetailsCard(busData: busData),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(20)),
+                    child: SizedBox(
+                      height: 55,
+                      width: 350,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Provider.of<BusData>(context, listen: false)
+                              .clearFieldsData();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Homepage()),
+                            (Route<dynamic> route) => false,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: greenAccentColor,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 90, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                        ),
+                        child: Text(
+                          'Go to Home',
+                          style: TextStyle(
+                              color: whiteColor,
+                              letterSpacing: 1,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                ],
               ),
             ),
           ),
-          SizedBox(height: getProportionateScreenHeight(30)),
         ],
       ),
     );
