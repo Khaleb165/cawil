@@ -159,7 +159,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                         Text(
                           'Seat No: ',
                           style: TextStyle(
-                            fontSize: getProportionateScreenHeight(20),
+                            fontSize: getProportionateScreenHeight(18),
                             fontWeight: FontWeight.w500,
                             color: lightPurpleColorShade1,
                           ),
@@ -169,7 +169,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                             ' ${Provider.of<BusData>(context).joinedSeats}',
                             style: TextStyle(
                               color: lightPurpleColorShade1,
-                              fontSize: getProportionateScreenHeight(20),
+                              fontSize: getProportionateScreenHeight(14),
                             ),
                           ),
                         ),
@@ -177,9 +177,9 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                     ),
                     SizedBox(height: getProportionateScreenHeight(5)),
                     Text(
-                      'Price: Ghc ${totalPrice.toStringAsFixed(2)}',
+                      'Price: ¢${totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
-                        fontSize: getProportionateScreenHeight(20),
+                        fontSize: getProportionateScreenHeight(18),
                         fontWeight: FontWeight.w500,
                         color: lightPurpleColorShade1,
                       ),

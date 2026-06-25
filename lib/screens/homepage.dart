@@ -308,6 +308,7 @@ class _HomepageState extends State<Homepage> {
       controller: controller,
       onChanged: onChanged,
       textInputAction: textInputAction,
+      textCapitalization: TextCapitalization.sentences,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: getProportionateScreenHeight(20),
