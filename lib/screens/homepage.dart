@@ -42,29 +42,37 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-    getUsername();
     super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        getUsername();
+      }
+    });
   }
 
   Future<void> getUsername() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      debugPrint('Fetching username for UID: $uid');
 
-    if (snap.data() != null) {
-      if (mounted) {
-        setState(() {
-          username = (snap.data() as Map<String, dynamic>)['username'];
-        });
+      DocumentSnapshot snap =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      debugPrint('Document exists: ${snap.exists}');
+      debugPrint('Data: ${snap.data()}');
+
+      if (snap.exists && snap.data() != null) {
+        if (mounted) {
+          setState(() {
+            username =
+                (snap.data() as Map<String, dynamic>)['username'] ?? 'User';
+          });
+        }
+      } else {
+        if (mounted) setState(() => username = 'User');
       }
-    } else {
-      // Handle the case where the document does not exist or has no data
-      if (mounted) {
-        setState(() {
-          username = 'User'; // Default value if no username is found
-        });
-      }
+    } catch (e) {
+      debugPrint('Error fetching username: $e');
     }
   }
 
