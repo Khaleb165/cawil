@@ -11,12 +11,16 @@ import '../constants/colors.dart';
 import '../screens/seat_select.dart';
 
 class BusCard extends StatelessWidget {
-  const BusCard({super.key});
+  final AvailableBusModel bus;
+  const BusCard({
+    super.key,
+    required this.bus,
+  });
 
   @override
   Widget build(BuildContext context) {
-    AvailableBusModel bus1 =
-        AvailableBusModel('First Bus', '9am', '10am', '2pm', 36);
+    // AvailableBusModel bus1 =
+    //     AvailableBusModel('First Bus', '9am', '10am', '2pm', 36);
 
     return ClipPath(
       clipper: SideCutClipper(),
@@ -26,23 +30,23 @@ class BusCard extends StatelessWidget {
           elevation: 10,
           borderOnForeground: false,
           color: whiteColor,
-          margin: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(10),
-              vertical: getProportionateScreenHeight(10)),
+          margin: EdgeInsets.all(getProportionateScreenWidth(10)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
+            padding: EdgeInsets.only(
+                left: getProportionateScreenWidth(10),
+                top: getProportionateScreenHeight(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: crossStart,
                   children: [
                     SizedBox(height: getProportionateScreenHeight(10)),
                     Text(
-                      bus1.busNumber,
+                      bus.busNumber!,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: getProportionateScreenHeight(25),
@@ -51,12 +55,11 @@ class BusCard extends StatelessWidget {
                     ),
                     SizedBox(height: getProportionateScreenHeight(10)),
                     Row(
-                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      //crossAxisAlignment: crossStart,
                       children: [
-                        //  Image.asset('assets/send1.png',scale: 6,),
                         Icon(
                           Icons.near_me_outlined,
-                          size: getProportionateScreenHeight(30),
+                          size: getProportionateScreenHeight(25),
                           color: greenAccentColor,
                         ),
                         SizedBox(width: getProportionateScreenWidth(5)),
@@ -68,7 +71,7 @@ class BusCard extends StatelessWidget {
                               Provider.of<BusData>(context).fromTextField,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                fontSize: getProportionateScreenHeight(20),
+                                fontSize: getProportionateScreenHeight(18),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -78,24 +81,23 @@ class BusCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: getProportionateScreenHeight(40)),
+                          left: getProportionateScreenHeight(35)),
                       child: Text(
                         DateFormat('dd/MM/yyyy')
                             .format(Provider.of<BusData>(context).selectedDate),
                         style: TextStyle(
-                          fontSize: getProportionateScreenHeight(15),
+                          fontSize: getProportionateScreenHeight(12),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(20)),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
-                        //  Image.asset('assets/locate.png',scale: 22,),
                         Icon(
                           Icons.place_outlined,
-                          size: getProportionateScreenHeight(30),
+                          size: getProportionateScreenHeight(25),
                         ),
                         SizedBox(width: getProportionateScreenWidth(5)),
                         Column(
@@ -109,7 +111,7 @@ class BusCard extends StatelessWidget {
                                   Provider.of<BusData>(context).toTextField,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    fontSize: getProportionateScreenHeight(20),
+                                    fontSize: getProportionateScreenHeight(18),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -122,7 +124,7 @@ class BusCard extends StatelessWidget {
                                 DateFormat('dd/MM/yyyy').format(
                                     Provider.of<BusData>(context).selectedDate),
                                 style: TextStyle(
-                                  fontSize: getProportionateScreenHeight(15),
+                                  fontSize: getProportionateScreenHeight(12),
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -134,45 +136,45 @@ class BusCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: getProportionateScreenWidth(30)),
-                 DottedLine(
+                DottedLine(
                   direction: Axis.vertical,
                   dashColor: blackColor,
                 ),
                 SizedBox(width: getProportionateScreenWidth(10)),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: crossStart,
                   children: [
                     SizedBox(height: getProportionateScreenHeight(15)),
                     Text(
-                      'Report Time: ${bus1.reportTime}',
+                      'Report Time: ${bus.reportTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenHeight(15),
+                        fontSize: getProportionateScreenHeight(12),
                         color: darkBlueColor,
                       ),
                     ),
                     Text(
-                      'Departure: ${bus1.departureTime}',
+                      'Departure: ${bus.departureTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenHeight(15),
+                        fontSize: getProportionateScreenHeight(12),
                         color: darkBlueColor,
                       ),
                     ),
                     Text(
-                      'Arrival: ${bus1.arrivalTime}',
+                      'Arrival: ${bus.arrivalTime}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenHeight(15),
+                        fontSize: getProportionateScreenHeight(12),
                         color: darkBlueColor,
                       ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(15)),
                     Text(
-                      'Seats Left: ${bus1.seatsLeft}',
+                      'Seats Left: ${bus.seatsLeft}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenHeight(18),
+                        fontSize: getProportionateScreenHeight(12),
                         color: lightPurpleColorShade1,
                       ),
                     ),
@@ -183,42 +185,39 @@ class BusCard extends StatelessWidget {
                             text: 'Price: ',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: getProportionateScreenHeight(18),
+                              fontSize: getProportionateScreenHeight(12),
                               color: darkBlueColor,
                             ),
                           ),
                           TextSpan(
-                            text: 'Ghc 80',
+                            text: '¢${bus.price?.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: getProportionateScreenHeight(18),
+                              fontSize: getProportionateScreenHeight(12),
                               color: deepRedColor,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: getProportionateScreenHeight(5)),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await context.read<BusData>().clearData();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SeatSelectPage()));
-                        },
-                        child: const Text('Buy ticket'),
-                        style: TextButton.styleFrom(
-                          backgroundColor: greenAccentColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await context.read<BusData>().clearData();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SeatSelectPage()));
+                      },
+                      child: const Text('Buy ticket'),
+                      style: TextButton.styleFrom(
+                        backgroundColor: greenAccentColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),
+                    SizedBox(height: getProportionateScreenHeight(10)),
                   ],
                 ),
               ],

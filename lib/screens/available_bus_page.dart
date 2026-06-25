@@ -2,6 +2,7 @@
 
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/constants/size_config.dart';
+import 'package:cawil/utilities/utils.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/screens/components/TicketCard.dart';
 import 'package:cawil/screens/seat_select.dart';
@@ -44,25 +45,27 @@ class AvailableBusPage extends StatelessWidget {
           Column(
             children: [
               Image.asset(
-                'assets/bus-logo.png',
+                'assets/images/bus-logo.png',
                 scale: getProportionateScreenHeight(5),
               ),
               SizedBox(height: getProportionateScreenHeight(10)),
               Text(
                 'Buses Available',
                 style: TextStyle(
-                  fontSize: getProportionateScreenHeight(30),
+                  fontSize: getProportionateScreenHeight(28),
                   color: darkBlueColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          SizedBox(height: getProportionateScreenHeight(20)),
           Expanded(
             child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (_, __) => const BusCard(),
+              itemCount: availableBuses.length,
+              itemBuilder: (_, index) {
+                final bus = availableBuses[index];
+                return BusCard(bus: bus);
+              },
             ),
           ),
         ],
