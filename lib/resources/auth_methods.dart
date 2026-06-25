@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import, unnecessary_null_comparison
 
-import 'package:cawil/resources/storage_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -25,14 +24,10 @@ class AuthMethods {
     required String username,
     required String email,
     required String password,
-    required Uint8List file,
   }) async {
     String res = "Some error occurred";
     try {
-      if (email.isNotEmpty ||
-          password.isNotEmpty ||
-          username.isNotEmpty ||
-          file != null) {
+      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
           email: email,
@@ -41,15 +36,11 @@ class AuthMethods {
 
         print(cred.user!.uid);
 
-        String photoUrl = await StorageMethods()
-            .uploadImageToStorage('profilePics', file, false);
-
         //add user to the database
         await _firestore.collection('users').doc(cred.user!.uid).set({
           'username': username,
           'email': email,
           'uid': cred.user!.uid,
-          'photoUrl': photoUrl,
         });
         res = 'success';
       } else {

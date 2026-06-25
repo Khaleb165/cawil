@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/show_snackbar.dart';
 import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
@@ -7,10 +8,6 @@ import 'package:cawil/screens/components/social_login_button.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../../utilities/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -24,7 +21,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _usernameTextController = TextEditingController();
-  Uint8List? _image;
   bool _isLoading = false;
 
   @override
@@ -35,13 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  Future<void> selectImage() async {
-    Uint8List? image = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
-  }
-
   Future<void> signUpUser() async {
     setState(() {
       _isLoading = true;
@@ -50,8 +39,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       username: _usernameTextController.text,
       email: _emailTextController.text,
       password: _passwordTextController.text,
-      file: _image ?? Uint8List(0),
     );
+    debugPrint(res);
 
     if (res == 'success') {
       Navigator.of(context).pushReplacement(
@@ -82,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: crossStretch,
             children: [
               AppName(fontSize: getProportionateScreenHeight(50)),
               SizedBox(height: getProportionateScreenHeight(40)),
@@ -95,36 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: getProportionateScreenHeight(10)),
-              Center(
-                child: Stack(
-                  children: [
-                    _image != null
-                        ? CircleAvatar(
-                            radius: getProportionateScreenHeight(40),
-                            backgroundImage: MemoryImage(_image!),
-                          )
-                        : CircleAvatar(
-                            radius: getProportionateScreenHeight(40),
-                            backgroundImage:
-                                const AssetImage('assets/defaultProfile.jpeg'),
-                          ),
-                    Positioned(
-                      bottom: -10,
-                      left: 40,
-                      child: IconButton(
-                        onPressed: selectImage,
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          color: whiteColor,
-                          size: 22,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
+              SizedBox(height: getProportionateScreenHeight(30)),
               CustomTextfield(
                 controller: _usernameTextController,
                 keyboardType: TextInputType.name,
@@ -142,6 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
+                onSubmitted: signUpUser,
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
               ElevatedButton(
@@ -154,8 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 child: _isLoading
                     ? Center(
-                        child: CircularProgressIndicator(color: whiteColor),
-                      )
+                        child: CircularProgressIndicator(color: whiteColor))
                     : Text(
                         'SIGN UP',
                         style: TextStyle(

@@ -71,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Column(
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: crossStart,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 30.0),
@@ -107,14 +107,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   SizedBox(height: getProportionateScreenHeight(30)),
                   Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 30,
-                        backgroundImage:
-                            AssetImage('assets/defaultProfile.jpeg'),
+                        backgroundColor: lightPurpleColorShade2,
+                        child: Text(
+                          username.isNotEmpty ? username[0].toUpperCase() : 'U',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: deepBlueColor,
+                          ),
+                        ),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: getProportionateScreenWidth(10)),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: crossStart,
                         children: [
                           Text(
                             username,
@@ -124,7 +131,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 2.5),
                           ),
-                          SizedBox(height: getProportionateScreenHeight(10)),
                           Text(
                             email,
                             style: TextStyle(
@@ -143,18 +149,20 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(height: getProportionateScreenHeight(20)),
             Column(
               children: [
-                settingsListTile(() {}, 'assets/person1.png', 'Account'),
-                settingsListTile(() {}, 'assets/bell.png', 'Notifications'),
-                settingsListTile(() {}, 'assets/location.png', 'Location'),
-                settingsListTile(() {}, 'assets/person1.png', 'Support'),
-                settingsListTile(() {}, 'assets/share.png', 'Share'),
+                settingsListTile(() {}, 'assets/images/person.png', 'Account'),
+                settingsListTile(
+                    () {}, 'assets/images/bell.png', 'Notifications'),
+                settingsListTile(
+                    () {}, 'assets/images/location.png', 'Location'),
+                settingsListTile(() {}, 'assets/images/person.png', 'Support'),
+                settingsListTile(() {}, 'assets/images/share.png', 'Share'),
                 settingsListTile(() async {
                   await AuthMethods().signOut();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const LoginScreen()),
                       (route) => false);
-                }, 'assets/loggg.png', 'Logout'),
+                }, 'assets/images/logout.png', 'Logout'),
               ],
             )
           ],
