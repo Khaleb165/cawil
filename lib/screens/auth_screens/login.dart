@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 inputAction: TextInputAction.done,
                 hintText: 'Password',
                 obscureText: hide,
+                onSubmitted: loginUser,
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
               ElevatedButton(

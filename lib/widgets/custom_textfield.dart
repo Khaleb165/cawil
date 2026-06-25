@@ -10,6 +10,7 @@ class CustomTextfield extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final void Function(String)? onChanged;
+  final VoidCallback? onSubmitted;
 
   CustomTextfield({
     super.key,
@@ -19,12 +20,14 @@ class CustomTextfield extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.onChanged,
+    this.onSubmitted,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       onChanged: onChanged,
+      onSubmitted: (value) => onSubmitted?.call(),
       style: TextStyle(color: lightBlackColor),
       controller: controller,
       keyboardType: keyboardType,

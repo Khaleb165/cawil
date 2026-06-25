@@ -44,6 +44,9 @@ class ForgotPasswordPage extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 inputAction: TextInputAction.done,
                 hintText: 'Email Address',
+                onSubmitted: () {
+                  // Handle the submission of the email address
+                },
               ),
               SizedBox(height: getProportionateScreenHeight(25)),
               Center(
