@@ -31,9 +31,9 @@ class SocialsLogin extends StatelessWidget {
       child: Row(
         mainAxisAlignment: mainSpaceEvenly,
         children: [
-          _buildSocialIcon('assets/google.png'),
-          _buildSocialIcon('assets/facebook1.png'),
-          _buildSocialIcon('assets/images.png'),
+          _buildSocialIcon('assets/images/google.png'),
+          _buildSocialIcon('assets/images/facebook.png'),
+          _buildSocialIcon('assets/images/twitter.png'),
         ],
       ),
     );

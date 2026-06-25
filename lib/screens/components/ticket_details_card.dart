@@ -102,7 +102,7 @@ class TicketDetailsCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Image.asset(
-                  'assets/qrcode.png',
+                  'assets/images/qrcode.png',
                   scale: 1.8,
                 ),
               ],

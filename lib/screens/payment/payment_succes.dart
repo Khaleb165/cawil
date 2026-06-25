@@ -46,12 +46,12 @@ class PaymentSuccessPage extends StatelessWidget {
                 ),
               ),
             ),
-           SizedBox(height: getProportionateScreenHeight( 180)),
+            SizedBox(height: getProportionateScreenHeight(180)),
             CircleAvatar(
               radius: 70,
               backgroundColor: deepBlueColor,
               child: Image.asset(
-                'assets/mark.png',
+                'assets/images/check.png',
                 scale: 6,
               ),
             ),

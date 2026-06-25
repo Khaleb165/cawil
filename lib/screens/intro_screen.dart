@@ -34,7 +34,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                      "assets/caWil.png",
+                      "assets/images/intro-screen-logo.png",
                     ),
                   ),
                 ),
