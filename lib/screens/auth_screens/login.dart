@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: crossStretch,
             children: [
               AppName(fontSize: getProportionateScreenHeight(50)),
               SizedBox(height: getProportionateScreenHeight(50)),

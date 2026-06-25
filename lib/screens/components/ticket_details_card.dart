@@ -16,7 +16,7 @@ class TicketDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: crossStart,
       children: List.generate(busData.length, (index) {
         final seatNumber = busData[index];
         return Card(
@@ -26,10 +26,10 @@ class TicketDetailsCard extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: crossStart,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
                         Text(
                           'Name of Passenger',
@@ -48,7 +48,7 @@ class TicketDetailsCard extends StatelessWidget {
                     ),
                     SizedBox(height: getProportionateScreenHeight(8)),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
                         Text(
                           'Mobile Number',
@@ -66,7 +66,7 @@ class TicketDetailsCard extends StatelessWidget {
                     ),
                     SizedBox(height: getProportionateScreenHeight(8)),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
                         Text(
                           'Total Price ',
@@ -94,7 +94,7 @@ class TicketDetailsCard extends StatelessWidget {
                               fontSize: 15,
                               color: lightBlackColor),
                         ),
-                         SizedBox(width: getProportionateScreenWidth(8)),
+                        SizedBox(width: getProportionateScreenWidth(8)),
                         Text(seatNumber)
                       ],
                     ),

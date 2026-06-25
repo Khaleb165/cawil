@@ -187,7 +187,7 @@ class _HomepageState extends State<Homepage> {
                   padding: EdgeInsets.symmetric(
                       horizontal: getProportionateScreenHeight(10)),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: crossStart,
                     children: [
                       headerText('From'),
                       buildCardFields(

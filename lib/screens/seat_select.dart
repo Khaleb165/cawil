@@ -75,7 +75,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(40)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: crossCenter,
             children: _buildSeatRow(row),
           ),
         ),

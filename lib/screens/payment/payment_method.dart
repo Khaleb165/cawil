@@ -56,7 +56,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 15, top: 100),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: crossStart,
               children: [
                 const Text(
                   'Select Card:',

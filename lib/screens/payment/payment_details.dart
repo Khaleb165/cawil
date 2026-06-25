@@ -63,7 +63,7 @@ class PaymentDetailsPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, right: 20),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: crossStart,
                     children: [
                       SizedBox(height: getProportionateScreenHeight(25)),
                       Text(
@@ -103,7 +103,7 @@ class PaymentDetailsPage extends StatelessWidget {
                       Row(
                         children: [
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: crossStart,
                             children: [
                               Text(
                                 'Ticket Price',
@@ -125,7 +125,7 @@ class PaymentDetailsPage extends StatelessWidget {
                           ),
                           const Spacer(),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: crossStart,
                             children: [
                               Text(
                                 'E-levy Charges',

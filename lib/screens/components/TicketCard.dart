@@ -38,7 +38,7 @@ class TicketCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
                         SizedBox(height: getProportionateScreenHeight(10)),
                         Text(
@@ -81,7 +81,7 @@ class TicketCard extends StatelessWidget {
                         ),
                         SizedBox(height: getProportionateScreenHeight(20)),
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: crossStart,
                           children: [
                             const Icon(
                               Icons.place_outlined,
@@ -116,7 +116,7 @@ class TicketCard extends StatelessWidget {
                     ),
                     SizedBox(width: getProportionateScreenWidth(10)),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: crossStart,
                       children: [
                         SizedBox(height: getProportionateScreenHeight(15)),
                         Text(

@@ -26,7 +26,7 @@ class ForgotPasswordPage extends StatelessWidget {
               horizontal: getProportionateScreenWidth(25),
               vertical: getProportionateScreenHeight(50)),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: crossCenter,
             children: [
               const AppName(fontSize: 70),
               SizedBox(height: getProportionateScreenHeight(150)),
