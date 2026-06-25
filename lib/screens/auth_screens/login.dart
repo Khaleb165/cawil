@@ -1,4 +1,5 @@
 import 'package:cawil/constants/colors.dart';
+import 'package:cawil/constants/show_snackbar.dart';
 import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/widgets/custom_textfield.dart';
@@ -6,7 +7,6 @@ import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/auth_screens/forgot_password.dart';
 import 'package:cawil/screens/homepage.dart';
 import 'package:cawil/screens/auth_screens/signup.dart';
-import 'package:cawil/utilities/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../components/social_login_button.dart';
