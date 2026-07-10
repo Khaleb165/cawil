@@ -1,14 +1,14 @@
-import 'package:cawil/constants/colors.dart';
-import 'package:cawil/providers/bus_data.dart';
-import 'package:cawil/resources/auth_methods.dart';
-import 'package:cawil/screens/homepage.dart';
+import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/view_model/bus_data.dart';
+import 'package:cawil/data/resources/auth_methods.dart';
+import 'package:cawil/view/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/intro_screen.dart';
+import 'view/screens/intro_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
