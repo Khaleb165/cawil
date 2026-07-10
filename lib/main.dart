@@ -1,16 +1,28 @@
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/providers/bus_data.dart';
+import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/homepage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/intro_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await dotenv.load(fileName: ".env");
+
+  await Hive.initFlutter();
+  await Hive.openBox<dynamic>('auth');
+  await Hive.openBox<dynamic>('user_profile');
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(const MyApp());
 }
 
