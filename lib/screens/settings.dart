@@ -2,14 +2,10 @@ import 'package:cawil/constants/colors.dart';
 import 'package:cawil/constants/size_config.dart';
 import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/screens/auth_screens/login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  final String uid;
-
-  const SettingsPage({Key? key, required this.uid}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -26,25 +22,26 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> getData() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    if (snap.data() != null) {
-      if (mounted) {
+    try {
+      final authMethods = AuthMethods();
+      final cachedUser = await authMethods.cachedUser();
+      if (cachedUser != null && mounted) {
         setState(() {
-          username = (snap.data() as Map<String, dynamic>)['username'];
-          email = (snap.data() as Map<String, dynamic>)['email'];
+          username = cachedUser.username;
+          email = cachedUser.email;
         });
       }
-    } else {
-      // Handle the case where the document does not exist or has no data
+
+      final user = await authMethods.getUserDetails();
       if (mounted) {
         setState(() {
-          username = 'User'; // Default value if no username is found
-          email = 'user@example.com'; // Default value if no email is found
+          username = user.username;
+          email = user.email;
         });
+      }
+    } catch (_) {
+      if (username.isEmpty && mounted) {
+        setState(() => username = 'User');
       }
     }
   }

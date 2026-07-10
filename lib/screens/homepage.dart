@@ -1,11 +1,10 @@
 import 'package:cawil/constants/colors.dart';
 import 'package:cawil/constants/size_config.dart';
+import 'package:cawil/resources/auth_methods.dart';
 import 'package:cawil/widgets/app_name.dart';
 import 'package:cawil/providers/bus_data.dart';
 import 'package:cawil/screens/available_bus_page.dart';
 import 'package:cawil/screens/settings.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -43,36 +42,28 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((user) {
-      if (user != null) {
-        getUsername();
-      }
-    });
+    getUsername();
   }
 
   Future<void> getUsername() async {
     try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
-      debugPrint('Fetching username for UID: $uid');
+      final authMethods = AuthMethods();
+      final cachedUser = await authMethods.cachedUser();
+      if (cachedUser != null && mounted) {
+        setState(() => username = cachedUser.username);
+      }
 
-      DocumentSnapshot snap =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-      debugPrint('Document exists: ${snap.exists}');
-      debugPrint('Data: ${snap.data()}');
-
-      if (snap.exists && snap.data() != null) {
-        if (mounted) {
-          setState(() {
-            username =
-                (snap.data() as Map<String, dynamic>)['username'] ?? 'User';
-          });
-        }
-      } else {
-        if (mounted) setState(() => username = 'User');
+      final user = await authMethods.getUserDetails();
+      if (mounted) {
+        setState(() => username = user.username);
       }
     } catch (e) {
       debugPrint('Error fetching username: $e');
+      if (username.isEmpty) {
+        if (mounted) {
+          setState(() => username = 'User');
+        }
+      }
     }
   }
 
@@ -121,9 +112,7 @@ class _HomepageState extends State<Homepage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SettingsPage(
-                                  uid: '',
-                                ),
+                                builder: (context) => const SettingsPage(),
                               ),
                             );
                           },

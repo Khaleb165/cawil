@@ -34,33 +34,26 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BusData(),
       child: MaterialApp(
-          title: 'CaWil',
-          debugShowCheckedModeBanner: false,
-          home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData) {
-                  return const Homepage();
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text("${snapshot.error}"),
-                  );
-                }
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return  Center(
-                  child: CircularProgressIndicator(
-                    color: whiteColor,
-                  ),
-                );
-              }
+        debugShowCheckedModeBanner: false,
+        home: FutureBuilder<bool>(
+          future: AuthMethods.hasSavedSession(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: whiteColor,
+                ),
+              );
+            }
 
-              return const IntroductionScreen();
-            },
-          )
-          //theme: ThemeData(brightness: Brightness.dark),
-          ),
+            if (snapshot.data == true) {
+              return const Homepage();
+            }
+
+            return const IntroductionScreen();
+          },
+        ),
+      ),
     );
   }
 }
