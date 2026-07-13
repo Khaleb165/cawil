@@ -1,21 +1,18 @@
-// ignore_for_file: unused_import
-
 import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
-import 'package:cawil/core/utils/utils.dart';
+import 'package:cawil/model/available_bus.dart';
 import 'package:cawil/view/widgets/app_name.dart';
-import 'package:cawil/view/widgets/TicketCard.dart';
-import 'package:cawil/view/screens/seat_select.dart';
-import 'package:cawil/view/screens/settings.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:intl/intl.dart';
 
 import '../widgets/bus_card.dart';
 
 class AvailableBusPage extends StatelessWidget {
-  const AvailableBusPage({Key? key}) : super(key: key);
+  final List<AvailableBusModel> buses;
+
+  const AvailableBusPage({
+    Key? key,
+    required this.buses,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +57,24 @@ class AvailableBusPage extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: availableBuses.length,
-              itemBuilder: (_, index) {
-                final bus = availableBuses[index];
-                return BusCard(bus: bus);
-              },
-            ),
+            child: buses.isEmpty
+                ? Center(
+                    child: Text(
+                      'No buses available',
+                      style: TextStyle(
+                        color: darkBlueColor,
+                        fontSize: getProportionateScreenHeight(18),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: buses.length,
+                    itemBuilder: (_, index) {
+                      final bus = buses[index];
+                      return BusCard(bus: bus);
+                    },
+                  ),
           ),
         ],
       ),
