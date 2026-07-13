@@ -14,7 +14,7 @@ class DioClient {
 
   DioClient.internal();
 
-  final serverUrl = dotenv.env['BASE_URL'] ?? 'http://10.0.2.2:8080';
+  final serverUrl = dotenv.env['BASE_URL'] ?? '';
 
   Future<void> initDioClient() async {
     _dio = Dio(
@@ -40,13 +40,17 @@ class DioClient {
     String endpoint, {
     Map<String, dynamic>? queryParameters,
     bool requiresAuth = true,
+    Map<String, dynamic>? headers,
   }) async {
     Response response;
     try {
       response = await _dio.get(
         endpoint,
         queryParameters: queryParameters,
-        options: Options(extra: {'requiresAuth': requiresAuth}),
+        options: Options(
+          headers: headers,
+          extra: {'requiresAuth': requiresAuth},
+        ),
       );
       return response.data;
     } on DioException catch (e) {
