@@ -1,4 +1,5 @@
 import 'package:cawil/model/user.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveStorage {
@@ -66,6 +67,7 @@ class HiveStorage {
     final user = User.fromJson(
       Map<String, dynamic>.from(data[_userKey] as Map),
     );
+    debugPrint('User details ---- $user');
     await cacheUser(user);
   }
 
