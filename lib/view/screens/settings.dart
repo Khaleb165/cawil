@@ -17,11 +17,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    getData();
+    getUserData();
     super.initState();
   }
 
-  Future<void> getData() async {
+  Future<void> getUserData() async {
     try {
       final authMethods = AuthMethods();
       final cachedUser = await authMethods.cachedUser();
