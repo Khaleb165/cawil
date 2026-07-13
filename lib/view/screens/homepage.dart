@@ -1,6 +1,8 @@
 import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/auth_methods.dart';
+import 'package:cawil/data/resources/schedule_methods.dart';
 import 'package:cawil/view/widgets/app_name.dart';
 import 'package:cawil/view_model/bus_data.dart';
 import 'package:cawil/view/screens/available_bus_page.dart';
@@ -19,6 +21,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
+  bool _isSearching = false;
 
   // DateTime selectedDate = DateTime.now();
 
@@ -45,6 +48,13 @@ class _HomepageState extends State<Homepage> {
     getUsername();
   }
 
+  @override
+  void dispose() {
+    sourceController.dispose();
+    destinationController.dispose();
+    super.dispose();
+  }
+
   Future<void> getUsername() async {
     try {
       final authMethods = AuthMethods();
@@ -63,6 +73,41 @@ class _HomepageState extends State<Homepage> {
         if (mounted) {
           setState(() => username = 'User');
         }
+      }
+    }
+  }
+
+  Future<void> findBuses(BusData busData) async {
+    final origin = busData.fromTextField.trim();
+    final destination = busData.toTextField.trim();
+
+    if (origin.isEmpty || destination.isEmpty) {
+      showSnackBar('Please enter both origin and destination', context);
+      return;
+    }
+
+    setState(() => _isSearching = true);
+    try {
+      final buses = await ScheduleMethods().searchSchedules(
+        origin: origin,
+        destination: destination,
+        date: busData.selectedDate,
+      );
+
+      if (!mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AvailableBusPage(buses: buses),
+        ),
+      );
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(e.toString(), context);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isSearching = false);
       }
     }
   }
@@ -256,14 +301,7 @@ class _HomepageState extends State<Homepage> {
               SizedBox(height: getProportionateScreenHeight(30)),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AvailableBusPage(),
-                      ),
-                    );
-                  },
+                  onPressed: _isSearching ? null : () => findBuses(busData),
                   style: TextButton.styleFrom(
                     backgroundColor: darkBlueColor,
                     padding: EdgeInsets.symmetric(
@@ -273,7 +311,7 @@ class _HomepageState extends State<Homepage> {
                         borderRadius: BorderRadius.circular(25)),
                   ),
                   child: Text(
-                    'FIND YOUR BUS',
+                    _isSearching ? 'SEARCHING...' : 'FIND YOUR BUS',
                     style: TextStyle(
                       color: whiteColor,
                     ),
