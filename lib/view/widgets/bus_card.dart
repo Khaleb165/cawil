@@ -203,7 +203,9 @@ class BusCard extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () async {
-                        await context.read<BusData>().clearData();
+                        final busData = context.read<BusData>();
+                        await busData.clearData();
+                        busData.selectBus(bus);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
