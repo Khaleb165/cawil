@@ -6,10 +6,11 @@ import 'package:cawil/model/user.dart' as model;
 
 class AuthMethods {
   static Future<bool> hasSavedSession() async {
-    return HiveStorage.hasSavedSession();
+    return AuthMethods().restoreSavedSession();
   }
 
   Future<model.User> getUserDetails() async {
+    await _ensureAccessToken();
     final response = await DioClient().get('/auth/me');
     final data = Map<String, dynamic>.from(response as Map);
     final user = model.User.fromJson(
@@ -17,6 +18,54 @@ class AuthMethods {
     );
     await HiveStorage.cacheUser(user);
     return user;
+  }
+
+  Future<bool> restoreSavedSession() async {
+    if (!await HiveStorage.hasSavedSession()) {
+      return false;
+    }
+
+    try {
+      await getUserDetails();
+      return true;
+    } catch (_) {
+      final refreshed = await refreshSession();
+      if (!refreshed) {
+        await HiveStorage.clearSession();
+        return false;
+      }
+    }
+
+    try {
+      await getUserDetails();
+      return true;
+    } catch (_) {
+      await HiveStorage.clearSession();
+      return false;
+    }
+  }
+
+  Future<bool> refreshSession() async {
+    final refreshToken = await HiveStorage.refreshToken;
+    if (refreshToken == null || refreshToken.isEmpty) {
+      return false;
+    }
+
+    try {
+      final response = await DioClient().post(
+        '/auth/refresh',
+        {'refresh_token': refreshToken},
+        requiresAuth: false,
+      );
+      final data = Map<String, dynamic>.from(response as Map);
+      await HiveStorage.saveTokens(
+        accessToken: data['access_token'] as String,
+        refreshToken: data['refresh_token'] as String,
+      );
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<String> signUpUser({
@@ -38,6 +87,7 @@ class AuthMethods {
           requiresAuth: false,
         );
         await HiveStorage.saveAuthResponse(response);
+        await getUserDetails();
         res = 'success';
       } else {
         res = 'Please fill all the fields';
@@ -65,6 +115,7 @@ class AuthMethods {
           requiresAuth: false,
         );
         await HiveStorage.saveAuthResponse(response);
+        await getUserDetails();
         res = 'success';
       } else {
         res = 'Please fill all the fields';
@@ -81,5 +132,17 @@ class AuthMethods {
 
   Future<model.User?> cachedUser() async {
     return HiveStorage.cachedUser();
+  }
+
+  Future<void> _ensureAccessToken() async {
+    final accessToken = await HiveStorage.accessToken;
+    if (accessToken != null && accessToken.isNotEmpty) {
+      return;
+    }
+
+    final refreshed = await refreshSession();
+    if (!refreshed) {
+      throw StateError('No saved login session. Please log in again.');
+    }
   }
 }

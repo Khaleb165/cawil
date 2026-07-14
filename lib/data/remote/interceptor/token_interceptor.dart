@@ -38,11 +38,21 @@ class TokenInterceptor extends Interceptor {
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
     final status = err.response?.statusCode;
-    final msg = err.response?.data['detail'];
+    final responseData = err.response?.data;
+    final msg = responseData is Map
+        ? responseData['detail'] ?? responseData['error'] ?? responseData
+        : responseData;
     debugPrint('TokenInterceptor onError -> status: $status, message: $msg');
     if (status == 401 &&
         err.requestOptions.path != '/auth/refresh' &&
         err.requestOptions.extra['requiresAuth'] != false) {
+      if (!await HiveStorage.hasRefreshToken()) {
+        debugPrint('No refresh token found; clearing saved session');
+        await HiveStorage.clearSession();
+        handler.next(err);
+        return;
+      }
+
       debugPrint('Queueing failed request: ${err.requestOptions.path}');
       _queue.add(PendingRequest(err.requestOptions, handler));
       if (!_isRefreshing) {
@@ -70,6 +80,7 @@ class TokenInterceptor extends Interceptor {
           }
         } catch (e) {
           debugPrint('Error refreshing token: $e');
+          await HiveStorage.clearSession();
           for (final pending in _queue) {
             pending.handler.next(err);
           }
