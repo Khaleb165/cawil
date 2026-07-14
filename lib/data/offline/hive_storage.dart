@@ -44,7 +44,14 @@ class HiveStorage {
   }
 
   static Future<bool> hasSavedSession() async {
-    final token = await accessToken;
+    final access = await accessToken;
+    final refresh = await refreshToken;
+    return (access != null && access.isNotEmpty) ||
+        (refresh != null && refresh.isNotEmpty);
+  }
+
+  static Future<bool> hasRefreshToken() async {
+    final token = await refreshToken;
     return token != null && token.isNotEmpty;
   }
 
@@ -52,16 +59,21 @@ class HiveStorage {
     required String accessToken,
     required String refreshToken,
   }) async {
+    if (accessToken.isEmpty || refreshToken.isEmpty) {
+      throw StateError('Auth response did not include valid tokens');
+    }
+
     final box = await authBox;
     await box.put(_accessTokenKey, accessToken);
     await box.put(_refreshTokenKey, refreshToken);
+    await box.flush();
   }
 
   static Future<void> saveAuthResponse(dynamic responseData) async {
-    final data = Map<String, dynamic>.from(responseData as Map);
+    final data = _authResponseMap(responseData);
     await saveTokens(
-      accessToken: data[_accessTokenKey] as String,
-      refreshToken: data[_refreshTokenKey] as String,
+      accessToken: _requiredString(data, _accessTokenKey),
+      refreshToken: _requiredString(data, _refreshTokenKey),
     );
 
     final user = User.fromJson(
@@ -74,6 +86,7 @@ class HiveStorage {
   static Future<void> cacheUser(User user) async {
     final box = await profileBox;
     await box.put(_userKey, user.toJson());
+    await box.flush();
   }
 
   static Future<User?> cachedUser() async {
@@ -90,5 +103,22 @@ class HiveStorage {
     final profile = await profileBox;
     await auth.clear();
     await profile.clear();
+  }
+
+  static Map<String, dynamic> _authResponseMap(dynamic responseData) {
+    final data = Map<String, dynamic>.from(responseData as Map);
+    final wrappedData = data['data'];
+    if (wrappedData is Map) {
+      return Map<String, dynamic>.from(wrappedData);
+    }
+    return data;
+  }
+
+  static String _requiredString(Map<String, dynamic> data, String key) {
+    final value = data[key];
+    if (value is String && value.isNotEmpty) {
+      return value;
+    }
+    throw StateError('Auth response did not include $key');
   }
 }
