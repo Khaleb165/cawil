@@ -19,8 +19,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  TextEditingController sourceController = TextEditingController();
-  TextEditingController destinationController = TextEditingController();
+  List<String> _origins = [];
+  List<String> _destinations = [];
+  bool _isLoadingLocations = true;
   bool _isSearching = false;
 
   // DateTime selectedDate = DateTime.now();
@@ -46,13 +47,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     getUsername();
-  }
-
-  @override
-  void dispose() {
-    sourceController.dispose();
-    destinationController.dispose();
-    super.dispose();
+    getLocations();
   }
 
   Future<void> getUsername() async {
@@ -73,6 +68,24 @@ class _HomepageState extends State<Homepage> {
         if (mounted) {
           setState(() => username = 'User');
         }
+      }
+    }
+  }
+
+  Future<void> getLocations() async {
+    try {
+      final locations = await ScheduleMethods().getScheduleLocations();
+      if (mounted) {
+        setState(() {
+          _origins = locations.origins;
+          _destinations = locations.destinations;
+          _isLoadingLocations = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error fetching schedule locations: $e');
+      if (mounted) {
+        setState(() => _isLoadingLocations = false);
       }
     }
   }
@@ -227,27 +240,41 @@ class _HomepageState extends State<Homepage> {
                 ),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenHeight(10)),
+                      horizontal: getProportionateScreenWidth(10)),
                   child: Column(
                     crossAxisAlignment: crossStart,
                     children: [
                       headerText('From'),
-                      buildCardFields(
-                        sourceController,
-                        TextInputAction.next,
-                        greenAccentColor,
-                        (newText) {
-                          busData.updateFromTextField(newText);
+                      buildLocationDropdown(
+                        value: busData.fromTextField.isEmpty
+                            ? null
+                            : busData.fromTextField,
+                        hintText: _isLoadingLocations
+                            ? 'Loading origins...'
+                            : 'Select origin',
+                        items: _origins,
+                        textColor: greenAccentColor,
+                        onChanged: (newValue) {
+                          if (newValue != null) {
+                            busData.updateFromTextField(newValue);
+                          }
                         },
                       ),
                       const Divider(thickness: 1),
                       headerText('To'),
-                      buildCardFields(
-                        destinationController,
-                        TextInputAction.done,
-                        darkBlueColor,
-                        (newText) {
-                          busData.updateToTextField(newText);
+                      buildLocationDropdown(
+                        value: busData.toTextField.isEmpty
+                            ? null
+                            : busData.toTextField,
+                        hintText: _isLoadingLocations
+                            ? 'Loading destinations...'
+                            : 'Select destination',
+                        items: _destinations,
+                        textColor: darkBlueColor,
+                        onChanged: (newValue) {
+                          if (newValue != null) {
+                            busData.updateToTextField(newValue);
+                          }
                         },
                       ),
                       SizedBox(height: getProportionateScreenHeight(15))
@@ -326,26 +353,46 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  TextField buildCardFields(
-      TextEditingController controller,
-      TextInputAction textInputAction,
-      Color textColor,
-      void Function(String) onChanged) {
-    return TextField(
-      controller: controller,
-      onChanged: onChanged,
-      textInputAction: textInputAction,
-      textCapitalization: TextCapitalization.sentences,
+  DropdownButtonFormField<String> buildLocationDropdown({
+    required String? value,
+    required String hintText,
+    required List<String> items,
+    required Color textColor,
+    required void Function(String?) onChanged,
+  }) {
+    final hasValue = value != null && items.contains(value);
+    return DropdownButtonFormField<String>(
+      initialValue: hasValue ? value : null,
+      isExpanded: true,
+      icon: Icon(Icons.keyboard_arrow_down, color: textColor),
       style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: getProportionateScreenHeight(20),
-        color: textColor,
-      ),
+          fontWeight: FontWeight.bold,
+          fontSize: getProportionateScreenHeight(20),
+          color: textColor),
       decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: lightBlackColor,
+          fontSize: getProportionateScreenHeight(16),
+          fontWeight: FontWeight.w500,
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: whiteColor),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: textColor),
+        ),
       ),
+      items: items
+          .map((location) => DropdownMenuItem<String>(
+                value: location,
+                child: Text(
+                  location,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ))
+          .toList(),
+      onChanged: _isLoadingLocations || items.isEmpty ? null : onChanged,
     );
   }
 
