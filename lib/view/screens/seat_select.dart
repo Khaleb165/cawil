@@ -1,7 +1,7 @@
 import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/view_model/bus_data.dart';
-import 'package:cawil/view/screens/passenger_details.dart';
+import 'package:cawil/view/screens/contact_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,9 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
 
   void _toggleSeatSelection(String seatNumber) {
     final busData = Provider.of<BusData>(context, listen: false);
+    if (busData.isBookedSeat(seatNumber)) {
+      return;
+    }
     setState(() {
       if (busData.containSeat(seatNumber)) {
         busData.removeSeatSelection(seatNumber);
@@ -27,26 +30,29 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
   }
 
   Widget _buildSeat(String seatNumber) {
-    final isSelected =
-        Provider.of<BusData>(context, listen: false).containSeat(seatNumber);
+    final busData = Provider.of<BusData>(context, listen: false);
+    final isSelected = busData.containSeat(seatNumber);
+    final isBooked = busData.isBookedSeat(seatNumber);
 
     return GestureDetector(
-      onTap: () {
-        _toggleSeatSelection(seatNumber);
-      },
+      onTap: isBooked ? null : () => _toggleSeatSelection(seatNumber),
       child: Container(
         width: getProportionateScreenWidth(40),
         height: getProportionateScreenHeight(40),
         margin: EdgeInsets.all(getProportionateScreenHeight(5)),
         decoration: BoxDecoration(
-          color: isSelected ? greenAccentColor : whiteColor,
+          color: isBooked
+              ? darkBlueColor
+              : isSelected
+                  ? greenAccentColor
+                  : whiteColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
           child: Text(
             seatNumber,
             style: TextStyle(
-              color: isSelected ? whiteColor : darkBlueColor,
+              color: isBooked || isSelected ? whiteColor : darkBlueColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -67,8 +73,11 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
   }
 
   List<Widget> _buildSeatGrid() {
+    final totalSeats =
+        Provider.of<BusData>(context, listen: false).selectedBusTotalSeats;
     final seatRows = <Widget>[];
-    for (int row = 1; row <= 8; row++) {
+    final rowCount = (totalSeats / 4).ceil();
+    for (int row = 1; row <= rowCount; row++) {
       seatRows.add(
         Padding(
           padding:
@@ -76,7 +85,9 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: crossCenter,
-            children: _buildSeatRow(row),
+            children: _buildSeatRow(row)
+                .take((totalSeats - ((row - 1) * 4)).clamp(0, 4))
+                .toList(),
           ),
         ),
       );
@@ -87,7 +98,8 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
   @override
   Widget build(BuildContext context) {
     ScreenSize().init(context);
-    final double totalPrice = Provider.of<BusData>(context).totalPrice;
+    final busData = Provider.of<BusData>(context);
+    final double totalPrice = busData.totalPrice;
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -123,6 +135,18 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
               ),
             ),
             SizedBox(height: getProportionateScreenHeight(10)),
+            if (busData.selectedBusNumber.isNotEmpty)
+              Text(
+                '${busData.selectedBusNumber} • ${busData.selectedBusTotalSeats} seats • ¢${busData.selectedSchedulePrice.toStringAsFixed(2)} per seat',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: darkBlueColor,
+                  fontSize: getProportionateScreenHeight(14),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            if (busData.selectedBusNumber.isNotEmpty)
+              SizedBox(height: getProportionateScreenHeight(10)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -177,6 +201,28 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                     ),
                     SizedBox(height: getProportionateScreenHeight(5)),
                     Text(
+                      'Seats left: ${busData.selectedScheduleSeatsLeft}',
+                      style: TextStyle(
+                        fontSize: getProportionateScreenHeight(18),
+                        fontWeight: FontWeight.w500,
+                        color: lightPurpleColorShade1,
+                      ),
+                    ),
+                    if (busData.selectedBookedSeats.isNotEmpty)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getProportionateScreenHeight(5)),
+                        child: Text(
+                          'Booked: ${busData.selectedBookedSeats.join(', ')}',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(14),
+                            fontWeight: FontWeight.w500,
+                            color: darkBlueColor,
+                          ),
+                        ),
+                      ),
+                    SizedBox(height: getProportionateScreenHeight(5)),
+                    Text(
                       'Price: ¢${totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: getProportionateScreenHeight(18),
@@ -187,14 +233,16 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                     SizedBox(height: getProportionateScreenHeight(15)),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const PassengerDetailsPage()),
-                          );
-                        },
+                        onPressed: busData.selectedSeats.isEmpty
+                            ? null
+                            : () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ContactDetailsPage()),
+                                );
+                              },
                         style: TextButton.styleFrom(
                           backgroundColor: darkBlueColor,
                           padding: EdgeInsets.symmetric(
