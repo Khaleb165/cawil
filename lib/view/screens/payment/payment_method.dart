@@ -1,6 +1,7 @@
 import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/view/screens/payment/payment_details.dart';
+import 'package:cawil/view/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatefulWidget {
@@ -22,44 +23,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.0001),
-            width: double.infinity,
-            height: 200,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  deepBlueColor,
-                  deepBlueColor,
-                  purpleColor,
-                ],
-                tileMode: TileMode.clamp,
-              ),
-              borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.elliptical(50, 50),
-                  bottomLeft: Radius.elliptical(50, 50)),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Select Payment method',
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 25,
-                  letterSpacing: 1,
-                ),
-              ),
-            ),
-          ),
+          const CustomAppBar(title: 'Payment Method'),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 15, top: 100),
             child: Column(
               crossAxisAlignment: crossStart,
               children: [
                 const Text(
-                  'Select Card:',
+                  'Select Payment Channel:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
@@ -73,16 +44,12 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   child: const Column(
                     children: [
                       RadioListTile<String>(
-                        title: Text('Mastercard'),
-                        value: 'Mastercard',
+                        title: Text('Card'),
+                        value: 'Card',
                       ),
                       RadioListTile<String>(
-                        title: Text('Mobile Wallet'),
-                        value: 'Mobile Wallet',
-                      ),
-                      RadioListTile<String>(
-                        title: Text('Cash on Delivery'),
-                        value: 'Cash on Delivery',
+                        title: Text('Mobile Money'),
+                        value: 'Mobile Money',
                       ),
                     ],
                   ),

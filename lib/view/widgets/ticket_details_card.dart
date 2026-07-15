@@ -32,7 +32,7 @@ class TicketDetailsCard extends StatelessWidget {
                       crossAxisAlignment: crossStart,
                       children: [
                         Text(
-                          'Name of Passenger',
+                          'Contact Person',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 15,
@@ -69,15 +69,15 @@ class TicketDetailsCard extends StatelessWidget {
                       crossAxisAlignment: crossStart,
                       children: [
                         Text(
-                          'Total Price ',
+                          'Ticket Price ',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,
                               color: lightBlackColor),
                         ),
-                        const Text(
-                          'Ghc 80',
-                          style: TextStyle(
+                        Text(
+                          'Ghc ${Provider.of<BusData>(context).selectedSchedulePrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 18,
                           ),

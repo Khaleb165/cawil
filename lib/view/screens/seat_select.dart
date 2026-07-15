@@ -1,5 +1,6 @@
 import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
+import 'package:cawil/view/widgets/custom_appbar.dart';
 import 'package:cawil/view_model/bus_data.dart';
 import 'package:cawil/view/screens/contact_details.dart';
 import 'package:flutter/material.dart';
@@ -106,34 +107,7 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(30),
-                  vertical: getProportionateScreenHeight(20)),
-              width: double.infinity,
-              height: getProportionateScreenHeight(200),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [deepBlueColor, deepBlueColor, purpleColor],
-                  tileMode: TileMode.clamp,
-                ),
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.elliptical(getProportionateScreenWidth(50),
-                      getProportionateScreenHeight(40)),
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Select your Seat',
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: getProportionateScreenHeight(30),
-                    letterSpacing: 1.5,
-                  ),
-                ),
-              ),
-            ),
+            const CustomAppBar(title: 'Select Seats'),
             SizedBox(height: getProportionateScreenHeight(10)),
             if (busData.selectedBusNumber.isNotEmpty)
               Text(

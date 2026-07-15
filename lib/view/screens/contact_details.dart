@@ -1,4 +1,5 @@
 import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/view/widgets/custom_appbar.dart';
 import 'package:cawil/view_model/bus_data.dart';
 import 'package:cawil/view/widgets/custom_textfield.dart';
 import 'package:cawil/view/screens/payment/payment_method.dart';
@@ -27,32 +28,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(30),
-                  vertical: getProportionateScreenHeight(20)),
-              width: double.infinity,
-              height: getProportionateScreenHeight(200),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [deepBlueColor, deepBlueColor, purpleColor],
-                  tileMode: TileMode.clamp,
-                ),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.elliptical(50, 50),
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Contact Details',
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: getProportionateScreenHeight(30),
-                  ),
-                ),
-              ),
-            ),
+            const CustomAppBar(title: 'Contact Details'),
             SizedBox(height: getProportionateScreenHeight(90)),
             Padding(
               padding: EdgeInsets.symmetric(
