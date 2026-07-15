@@ -59,6 +59,29 @@ class DioClient {
     }
   }
 
+  Future<List<int>> getBytes(
+    String endpoint, {
+    Map<String, dynamic>? queryParameters,
+    bool requiresAuth = true,
+    Map<String, dynamic>? headers,
+  }) async {
+    try {
+      final response = await _dio.get<List<int>>(
+        endpoint,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: headers,
+          extra: {'requiresAuth': requiresAuth},
+          responseType: ResponseType.bytes,
+        ),
+      );
+      return response.data ?? <int>[];
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      throw (errorMessage);
+    }
+  }
+
   // post endpoint
   Future<dynamic> post(
     String endpoint,
