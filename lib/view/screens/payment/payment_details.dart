@@ -1,12 +1,16 @@
 import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
+import 'package:cawil/data/resources/payment_methods.dart';
+import 'package:cawil/model/payment_init.dart';
 import 'package:cawil/view/screens/payment/payment_succes.dart';
+import 'package:cawil/view/widgets/custom_appbar.dart';
+import 'package:cawil/view_model/bus_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../view_model/bus_data.dart';
-
-class PaymentDetailsPage extends StatelessWidget {
+class PaymentDetailsPage extends StatefulWidget {
   final String paymentMethod;
 
   const PaymentDetailsPage({
@@ -14,49 +18,113 @@ class PaymentDetailsPage extends StatelessWidget {
     required this.paymentMethod,
   });
 
-  double _calculateCharges(double totalPrice) {
-    double charges = totalPrice * 0.01; // 1% charges
+  @override
+  State<PaymentDetailsPage> createState() => _PaymentDetailsPageState();
+}
 
-    if (totalPrice > 100) {
-      charges += totalPrice * 0.015; // Additional 1.5% charges for e-levy
+class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
+  final PaymentMethods _paymentMethods = PaymentMethods();
+  bool _isInitializing = false;
+  bool _isVerifying = false;
+  PaymentInitResult? _payment;
+
+  Future<void> _startPayment(BusData busData) async {
+    final scheduleId = busData.selectedScheduleId;
+    if (scheduleId == null) {
+      showSnackBar('Please select a bus before payment', context);
+      return;
+    }
+    if (busData.selectedSeats.isEmpty) {
+      showSnackBar('Please select at least one seat', context);
+      return;
+    }
+    if (busData.nameOfTraveller.trim().isEmpty ||
+        busData.phoneNumber.trim().isEmpty) {
+      showSnackBar('Contact person and phone number are required', context);
+      return;
     }
 
-    return charges;
+    setState(() => _isInitializing = true);
+    try {
+      final payment = await _paymentMethods.initializePaystackPayment(
+        scheduleId: scheduleId,
+        seatNumbers: busData.selectedSeats,
+        contactPerson: busData.nameOfTraveller.trim(),
+        phone: busData.phoneNumber.trim(),
+        paymentMethod: widget.paymentMethod,
+      );
+
+      if (!mounted) return;
+      setState(() => _payment = payment);
+
+      final launched = await launchUrl(
+        Uri.parse(payment.authorizationUrl),
+        mode: LaunchMode.externalApplication,
+      );
+      if (!launched && mounted) {
+        showSnackBar('Unable to open Paystack checkout', context);
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(e.toString(), context);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isInitializing = false);
+      }
+    }
+  }
+
+  Future<void> _verifyPayment() async {
+    final payment = _payment;
+    if (payment == null) {
+      showSnackBar('Start payment first', context);
+      return;
+    }
+
+    setState(() => _isVerifying = true);
+    try {
+      final result = await _paymentMethods.verifyPaystackPayment(
+        reference: payment.reference,
+      );
+
+      if (!mounted) return;
+      if (result.isSuccessful) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaymentSuccessPage(
+              bookingId: payment.bookingId,
+              bookingRef: payment.bookingRef,
+            ),
+          ),
+        );
+      } else {
+        showSnackBar('Payment status: ${result.status}', context);
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(e.toString(), context);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isVerifying = false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final charges = _calculateCharges(Provider.of<BusData>(context).totalPrice);
+    ScreenSize().init(context);
+    final busData = Provider.of<BusData>(context);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [deepBlueColor, deepBlueColor, purpleColor],
-                  tileMode: TileMode.clamp,
-                ),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.elliptical(50, 50),
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Enter Payment Details',
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: getProportionateScreenHeight(100)),
+            const CustomAppBar(title: 'Payment Details'),
+            SizedBox(height: getProportionateScreenHeight(80)),
             Container(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Card(
@@ -66,124 +134,131 @@ class PaymentDetailsPage extends StatelessWidget {
                     crossAxisAlignment: crossStart,
                     children: [
                       SizedBox(height: getProportionateScreenHeight(25)),
-                      Text(
-                        'Payment Method',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 15,
-                          color: lightBlackColor,
-                        ),
+                      _detailLabel('Payment Method'),
+                      _detailValue(widget.paymentMethod.toUpperCase()),
+                      SizedBox(height: getProportionateScreenHeight(16)),
+                      _detailLabel('Mobile Number'),
+                      _detailValue(busData.phoneNumber),
+                      SizedBox(height: getProportionateScreenHeight(20)),
+                      _detailLabel('Amount to Pay'),
+                      _detailValue(
+                        'Ghc ${busData.totalPrice.toStringAsFixed(2)}',
                       ),
-                      SizedBox(height: getProportionateScreenHeight(5)),
-                      Text(
-                        paymentMethod.toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(16.0)),
-                      Text(
-                        'Mobile Number',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 15,
-                          color: lightBlackColor,
-                        ),
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(5)),
-                      Text(
-                        Provider.of<BusData>(context).phoneNumber,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(20.0)),
+                      SizedBox(height: getProportionateScreenHeight(20)),
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: crossStart,
                             children: [
-                              Text(
-                                'Ticket Price',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15,
-                                  color: lightBlackColor,
-                                ),
-                              ),
-                              SizedBox(height: getProportionateScreenHeight(5)),
-                              Text(
-                                'Ghc ${Provider.of<BusData>(context).totalPrice.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
+                              _detailLabel('Ticket Price'),
+                              _detailValue(
+                                  'Ghc ${busData.selectedSchedulePrice.toStringAsFixed(2)}'),
                             ],
                           ),
                           const Spacer(),
                           Column(
                             crossAxisAlignment: crossStart,
                             children: [
-                              Text(
-                                'E-levy Charges',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15,
-                                  color: lightBlackColor,
-                                ),
-                              ),
-                              SizedBox(height: getProportionateScreenHeight(5)),
-                              Text(
-                                'Ghc ${charges.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
+                              _detailLabel('Seats'),
+                              _detailValue(busData.joinedSeats),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(height: getProportionateScreenHeight(30))
+                      if (_payment != null) ...[
+                        SizedBox(height: getProportionateScreenHeight(16)),
+                        _detailLabel('Payment Reference'),
+                        _detailValue(_payment!.reference),
+                      ],
+                      SizedBox(height: getProportionateScreenHeight(30)),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(40)),
-            SizedBox(
-              height: 55,
-              width: 350,
-              child: ElevatedButton(
-                onPressed: (() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PaymentSuccessPage()));
-                }),
-                style: TextButton.styleFrom(
-                  disabledBackgroundColor: lightGreenColor,
-                  backgroundColor: greenAccentColor,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)),
-                ),
-                child: Text(
-                  'Confirm',
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+            SizedBox(height: getProportionateScreenHeight(35)),
+            _actionButton(
+              text: _payment == null ? 'Proceed to Payment' : 'Open Checkout',
+              isLoading: _isInitializing,
+              onPressed: _isInitializing
+                  ? null
+                  : () {
+                      if (_payment == null) {
+                        _startPayment(busData);
+                      } else {
+                        launchUrl(
+                          Uri.parse(_payment!.authorizationUrl),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
             ),
+            if (_payment != null) ...[
+              SizedBox(height: getProportionateScreenHeight(15)),
+              _actionButton(
+                text: 'Verify Payment',
+                isLoading: _isVerifying,
+                onPressed: _isVerifying ? null : _verifyPayment,
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _detailLabel(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.normal,
+        fontSize: 15,
+        color: lightBlackColor,
+      ),
+    );
+  }
+
+  Widget _detailValue(String text) {
+    return Padding(
+      padding: EdgeInsets.only(top: getProportionateScreenHeight(5)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+
+  Widget _actionButton({
+    required String text,
+    required bool isLoading,
+    required VoidCallback? onPressed,
+  }) {
+    return SizedBox(
+      height: 55,
+      width: 350,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: TextButton.styleFrom(
+          disabledBackgroundColor: lightGreenColor,
+          backgroundColor: greenAccentColor,
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+        ),
+        child: isLoading
+            ? CircularProgressIndicator(color: whiteColor)
+            : Text(
+                text,
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }
