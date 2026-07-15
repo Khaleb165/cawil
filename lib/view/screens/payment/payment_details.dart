@@ -122,7 +122,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
         child: Column(
           children: [
             const CustomAppBar(title: 'Payment Details'),
-            SizedBox(height: getProportionateScreenHeight(80)),
+            SizedBox(height: getProportionateScreenHeight(40)),
             Container(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Card(
@@ -201,6 +201,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                 onPressed: _isVerifying ? null : _verifyPayment,
               ),
             ],
+            SizedBox(height: getProportionateScreenHeight(40)),
           ],
         ),
       ),
