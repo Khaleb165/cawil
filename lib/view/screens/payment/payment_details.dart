@@ -2,10 +2,10 @@ import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/payment_methods.dart';
-import 'package:cawil/model/payment_init.dart';
 import 'package:cawil/view/screens/payment/payment_succes.dart';
 import 'package:cawil/view/widgets/custom_appbar.dart';
 import 'package:cawil/view_model/bus_data.dart';
+import 'package:cawil/view_model/payment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,7 +26,6 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   final PaymentMethods _paymentMethods = PaymentMethods();
   bool _isInitializing = false;
   bool _isVerifying = false;
-  PaymentInitResult? _payment;
 
   Future<void> _startPayment(BusData busData) async {
     final scheduleId = busData.selectedScheduleId;
@@ -55,7 +54,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
       );
 
       if (!mounted) return;
-      setState(() => _payment = payment);
+      context.read<PaymentData>().setInitializedPayment(payment);
 
       final launched = await launchUrl(
         Uri.parse(payment.authorizationUrl),
@@ -76,8 +75,8 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   }
 
   Future<void> _verifyPayment() async {
-    final payment = _payment;
-    if (payment == null) {
+    final paymentData = context.read<PaymentData>();
+    if (!paymentData.hasInitializedPayment) {
       showSnackBar('Start payment first', context);
       return;
     }
@@ -85,18 +84,16 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
     setState(() => _isVerifying = true);
     try {
       final result = await _paymentMethods.verifyPaystackPayment(
-        reference: payment.reference,
+        reference: paymentData.paymentReference,
       );
 
       if (!mounted) return;
+      context.read<PaymentData>().setVerifiedPayment(result);
       if (result.isSuccessful) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => PaymentSuccessPage(
-              bookingId: payment.bookingId,
-              bookingRef: payment.bookingRef,
-            ),
+            builder: (context) => const PaymentSuccessPage(),
           ),
         );
       } else {
@@ -117,6 +114,7 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
   Widget build(BuildContext context) {
     ScreenSize().init(context);
     final busData = Provider.of<BusData>(context);
+    final paymentData = Provider.of<PaymentData>(context);
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -165,10 +163,10 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
                           ),
                         ],
                       ),
-                      if (_payment != null) ...[
+                      if (paymentData.hasInitializedPayment) ...[
                         SizedBox(height: getProportionateScreenHeight(16)),
                         _detailLabel('Payment Reference'),
-                        _detailValue(_payment!.reference),
+                        _detailValue(paymentData.paymentReference),
                       ],
                       SizedBox(height: getProportionateScreenHeight(30)),
                     ],
@@ -178,22 +176,24 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
             ),
             SizedBox(height: getProportionateScreenHeight(35)),
             _actionButton(
-              text: _payment == null ? 'Proceed to Payment' : 'Open Checkout',
+              text: paymentData.hasInitializedPayment
+                  ? 'Open Checkout'
+                  : 'Proceed to Payment',
               isLoading: _isInitializing,
               onPressed: _isInitializing
                   ? null
                   : () {
-                      if (_payment == null) {
+                      if (!paymentData.hasInitializedPayment) {
                         _startPayment(busData);
                       } else {
                         launchUrl(
-                          Uri.parse(_payment!.authorizationUrl),
+                          Uri.parse(paymentData.authorizationUrl),
                           mode: LaunchMode.externalApplication,
                         );
                       }
                     },
             ),
-            if (_payment != null) ...[
+            if (paymentData.hasInitializedPayment) ...[
               SizedBox(height: getProportionateScreenHeight(15)),
               _actionButton(
                 text: 'Verify Payment',
