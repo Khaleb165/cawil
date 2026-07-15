@@ -5,6 +5,7 @@ import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/payment_methods.dart';
 import 'package:cawil/view/screens/homepage.dart';
+import 'package:cawil/view_model/payment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,13 +15,8 @@ import '../../../view_model/bus_data.dart';
 import '../../widgets/ticket_details_card.dart';
 
 class TicketDetailsPage extends StatefulWidget {
-  final int bookingId;
-  final String bookingRef;
-
   const TicketDetailsPage({
     super.key,
-    required this.bookingId,
-    required this.bookingRef,
   });
 
   @override
@@ -33,11 +29,18 @@ class _TicketDetailsPageState extends State<TicketDetailsPage> {
   Future<void> _openPdfTicket() async {
     setState(() => _isOpeningPdf = true);
     try {
+      final paymentData = context.read<PaymentData>();
+      final bookingId = paymentData.bookingId;
+      if (bookingId == null) {
+        showSnackBar('No booking found for this ticket', context);
+        return;
+      }
+
       final bytes = await PaymentMethods().downloadTicketPdf(
-        bookingId: widget.bookingId,
+        bookingId: bookingId,
       );
       final directory = await getTemporaryDirectory();
-      final safeRef = widget.bookingRef.replaceAll(
+      final safeRef = paymentData.bookingRef.replaceAll(
         RegExp(r'[^A-Za-z0-9_-]'),
         '_',
       );
@@ -109,6 +112,7 @@ class _TicketDetailsPageState extends State<TicketDetailsPage> {
                     onPressed: () {
                       Provider.of<BusData>(context, listen: false)
                           .clearFieldsData();
+                      Provider.of<PaymentData>(context, listen: false).clear();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
