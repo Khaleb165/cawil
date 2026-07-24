@@ -40,10 +40,11 @@ class CustomTextfield extends StatelessWidget {
         counterText: '',
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: whiteColor, width: 0.0),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(getProportionateScreenHeight(20)),
         ),
         hintText: hintText,
-        hintStyle: TextStyle(color: lightBlackColor),
+        hintStyle: TextStyle(
+            color: lightBlackColor, fontSize: getProportionateScreenHeight(14)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: whiteColor,
@@ -51,7 +52,7 @@ class CustomTextfield extends StatelessWidget {
             horizontal: getProportionateScreenWidth(20),
             vertical: getProportionateScreenHeight(10)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(getProportionateScreenHeight(20)),
           borderSide: BorderSide(
             style: BorderStyle.solid,
             color: lightBlackColor,
