@@ -34,8 +34,10 @@ class CustomTextfield extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: inputAction,
+      maxLength: maxLength,
       obscureText: obscureText,
       decoration: InputDecoration(
+        counterText: '',
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: whiteColor, width: 0.0),
           borderRadius: BorderRadius.circular(20),
