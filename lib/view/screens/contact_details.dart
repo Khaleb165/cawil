@@ -1,5 +1,7 @@
 import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/view/widgets/custom_appbar.dart';
+import 'package:cawil/view/widgets/custom_button.dart';
 import 'package:cawil/view_model/bus_data.dart';
 import 'package:cawil/view/widgets/custom_textfield.dart';
 import 'package:cawil/view/screens/payment/payment_method.dart';
@@ -25,120 +27,108 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     ScreenSize().init(context);
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const CustomAppBar(title: 'Contact Details'),
-            SizedBox(height: getProportionateScreenHeight(90)),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(10)),
+      body: Column(
+        children: [
+          const CustomAppBar(title: 'Contact Details'),
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CustomTextfield(
-                    controller: contactController,
-                    hintText: 'Contact Person',
-                    onChanged: (newText) {
-                      Provider.of<BusData>(context, listen: false)
-                          .updateNameTextField(newText);
-                    },
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15)),
-                  CustomTextfield(
-                    controller: contactNumberController,
-                    keyboardType: TextInputType.phone,
-                    hintText: 'Phone Number',
-                    maxLength: 10,
-                    onChanged: (newNumber) {
-                      Provider.of<BusData>(context, listen: false)
-                          .updatePhoneTextField(newNumber);
-                    },
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15)),
-                  DropdownButtonFormField<String>(
-                    initialValue: selectedGender,
-                    icon: const Icon(Icons.arrow_drop_down),
-                    elevation: 16,
-                    style: TextStyle(color: lightBlackColor),
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: whiteColor, width: 0.0),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      hintText: 'Gender',
-                      hintStyle: TextStyle(color: lightBlackColor),
-                      filled: true,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      fillColor: whiteColor,
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(20),
-                          vertical: getProportionateScreenHeight(10)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          style: BorderStyle.solid,
-                          color: lightBlackColor,
+                  SizedBox(height: getProportionateScreenHeight(90)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(10)),
+                    child: Column(
+                      children: [
+                        CustomTextfield(
+                          controller: contactController,
+                          hintText: 'Contact Person',
+                          onChanged: (newText) {
+                            Provider.of<BusData>(context, listen: false)
+                                .updateNameTextField(newText);
+                          },
                         ),
-                      ),
-                    ),
-                    items: <String>['Male', 'Female']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedGender = newValue;
-                      });
-                    },
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15)),
-                  SizedBox(height: getProportionateScreenHeight(40)),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (contactController.text.trim().isEmpty ||
-                            contactNumberController.text.trim().isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    'Name of traveller and Phone Number are required.')),
-                          );
-                          return;
-                        }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PaymentMethodPage(),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        CustomTextfield(
+                          controller: contactNumberController,
+                          keyboardType: TextInputType.phone,
+                          hintText: 'Phone Number',
+                          maxLength: 10,
+                          onChanged: (newNumber) {
+                            Provider.of<BusData>(context, listen: false)
+                                .updatePhoneTextField(newNumber);
+                          },
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        DropdownButtonFormField<String>(
+                          initialValue: selectedGender,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          elevation: 16,
+                          style: TextStyle(color: lightBlackColor),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: whiteColor, width: 0.0),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            hintText: 'Gender',
+                            hintStyle: TextStyle(color: lightBlackColor),
+                            filled: true,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            fillColor: whiteColor,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(20),
+                                vertical: getProportionateScreenHeight(10)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: lightBlackColor,
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: greenAccentColor,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: getProportionateScreenWidth(90),
-                            vertical: getProportionateScreenHeight(15)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                          items: <String>['Male', 'Female']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedGender = newValue;
+                            });
+                          },
                         ),
-                      ),
-                      child: Text(
-                        'Proceed to Payment',
-                        style: TextStyle(
-                          color: whiteColor,
-                          fontSize: getProportionateScreenHeight(15),
-                          fontWeight: FontWeight.w400,
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        SizedBox(height: getProportionateScreenHeight(40)),
+                        CustomButton(
+                          text: 'Proceed to Payment',
+                          onPressed: () {
+                            if (contactController.text.trim().isEmpty ||
+                                contactNumberController.text.trim().isEmpty) {
+                              showSnackBar(
+                                'Name of traveller and Phone Number are required.',
+                                context,
+                              );
+                              return;
+                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PaymentMethodPage(),
+                              ),
+                            );
+                          },
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

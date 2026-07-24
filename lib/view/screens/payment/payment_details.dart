@@ -4,6 +4,7 @@ import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/payment_methods.dart';
 import 'package:cawil/view/screens/payment/payment_succes.dart';
 import 'package:cawil/view/widgets/custom_appbar.dart';
+import 'package:cawil/view/widgets/custom_button.dart';
 import 'package:cawil/view_model/bus_data.dart';
 import 'package:cawil/view_model/payment_data.dart';
 import 'package:flutter/material.dart';
@@ -118,92 +119,99 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const CustomAppBar(title: 'Payment Details'),
-            SizedBox(height: getProportionateScreenHeight(40)),
-            Container(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 20),
-                  child: Column(
-                    crossAxisAlignment: crossStart,
-                    children: [
-                      SizedBox(height: getProportionateScreenHeight(25)),
-                      _detailLabel('Payment Method'),
-                      _detailValue(widget.paymentMethod.toUpperCase()),
-                      SizedBox(height: getProportionateScreenHeight(16)),
-                      _detailLabel('Mobile Number'),
-                      _detailValue(busData.phoneNumber),
-                      SizedBox(height: getProportionateScreenHeight(20)),
-                      _detailLabel('Amount to Pay'),
-                      _detailValue(
-                        'Ghc ${busData.totalPrice.toStringAsFixed(2)}',
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(20)),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: crossStart,
-                            children: [
-                              _detailLabel('Ticket Price'),
-                              _detailValue(
-                                  'Ghc ${busData.selectedSchedulePrice.toStringAsFixed(2)}'),
+      body: Column(
+        children: [
+          const CustomAppBar(title: 'Payment Details'),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(40)),
+                  Container(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 20),
+                        child: Column(
+                          crossAxisAlignment: crossStart,
+                          children: [
+                            SizedBox(height: getProportionateScreenHeight(25)),
+                            _detailLabel('Payment Method'),
+                            _detailValue(widget.paymentMethod.toUpperCase()),
+                            SizedBox(height: getProportionateScreenHeight(16)),
+                            _detailLabel('Mobile Number'),
+                            _detailValue(busData.phoneNumber),
+                            SizedBox(height: getProportionateScreenHeight(20)),
+                            _detailLabel('Amount to Pay'),
+                            _detailValue(
+                              'Ghc ${busData.totalPrice.toStringAsFixed(2)}',
+                            ),
+                            SizedBox(height: getProportionateScreenHeight(20)),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: crossStart,
+                                  children: [
+                                    _detailLabel('Ticket Price'),
+                                    _detailValue(
+                                        'Ghc ${busData.selectedSchedulePrice.toStringAsFixed(2)}'),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Column(
+                                  crossAxisAlignment: crossStart,
+                                  children: [
+                                    _detailLabel('Seats'),
+                                    _detailValue(busData.joinedSeats),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            if (paymentData.hasInitializedPayment) ...[
+                              SizedBox(
+                                  height: getProportionateScreenHeight(16)),
+                              _detailLabel('Payment Reference'),
+                              _detailValue(paymentData.paymentReference),
                             ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            crossAxisAlignment: crossStart,
-                            children: [
-                              _detailLabel('Seats'),
-                              _detailValue(busData.joinedSeats),
-                            ],
-                          ),
-                        ],
+                            SizedBox(height: getProportionateScreenHeight(30)),
+                          ],
+                        ),
                       ),
-                      if (paymentData.hasInitializedPayment) ...[
-                        SizedBox(height: getProportionateScreenHeight(16)),
-                        _detailLabel('Payment Reference'),
-                        _detailValue(paymentData.paymentReference),
-                      ],
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(height: getProportionateScreenHeight(35)),
+                  _actionButton(
+                    text: paymentData.hasInitializedPayment
+                        ? 'Open Checkout'
+                        : 'Proceed to Payment',
+                    isLoading: _isInitializing,
+                    onPressed: _isInitializing
+                        ? null
+                        : () {
+                            if (!paymentData.hasInitializedPayment) {
+                              _startPayment(busData);
+                            } else {
+                              launchUrl(
+                                Uri.parse(paymentData.authorizationUrl),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            }
+                          },
+                  ),
+                  if (paymentData.hasInitializedPayment) ...[
+                    SizedBox(height: getProportionateScreenHeight(15)),
+                    _actionButton(
+                      text: 'Verify Payment',
+                      isLoading: _isVerifying,
+                      onPressed: _isVerifying ? null : _verifyPayment,
+                    ),
+                  ],
+                  SizedBox(height: getProportionateScreenHeight(40)),
+                ],
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(35)),
-            _actionButton(
-              text: paymentData.hasInitializedPayment
-                  ? 'Open Checkout'
-                  : 'Proceed to Payment',
-              isLoading: _isInitializing,
-              onPressed: _isInitializing
-                  ? null
-                  : () {
-                      if (!paymentData.hasInitializedPayment) {
-                        _startPayment(busData);
-                      } else {
-                        launchUrl(
-                          Uri.parse(paymentData.authorizationUrl),
-                          mode: LaunchMode.externalApplication,
-                        );
-                      }
-                    },
-            ),
-            if (paymentData.hasInitializedPayment) ...[
-              SizedBox(height: getProportionateScreenHeight(15)),
-              _actionButton(
-                text: 'Verify Payment',
-                isLoading: _isVerifying,
-                onPressed: _isVerifying ? null : _verifyPayment,
-              ),
-            ],
-            SizedBox(height: getProportionateScreenHeight(40)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -237,30 +245,12 @@ class _PaymentDetailsPageState extends State<PaymentDetailsPage> {
     required bool isLoading,
     required VoidCallback? onPressed,
   }) {
-    return SizedBox(
-      height: 55,
-      width: 350,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          disabledBackgroundColor: lightGreenColor,
-          backgroundColor: greenAccentColor,
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-        ),
-        child: isLoading
-            ? CircularProgressIndicator(color: whiteColor)
-            : Text(
-                text,
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-      ),
+    return CustomButton(
+      text: text,
+      isLoading: isLoading,
+      onPressed: onPressed,
+      height: getProportionateScreenHeight(55),
+      width: getProportionateScreenWidth(350),
     );
   }
 }
