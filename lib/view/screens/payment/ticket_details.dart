@@ -5,6 +5,7 @@ import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/payment_methods.dart';
 import 'package:cawil/view/screens/homepage.dart';
+import 'package:cawil/view/widgets/custom_button.dart';
 import 'package:cawil/view_model/payment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
@@ -99,16 +100,17 @@ class _TicketDetailsPageState extends State<TicketDetailsPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: TicketDetailsCard(busData: busData),
                   ),
-                  _ticketButton(
+                  CustomButton(
                     text: 'Open PDF Ticket',
-                    color: deepBlueColor,
                     isLoading: _isOpeningPdf,
                     onPressed: _isOpeningPdf ? null : _openPdfTicket,
+                    backgroundColor: deepBlueColor,
+                    height: getProportionateScreenHeight(55),
+                    width: getProportionateScreenWidth(350),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),
-                  _ticketButton(
+                  CustomButton(
                     text: 'Go to Home',
-                    color: greenAccentColor,
                     onPressed: () {
                       Provider.of<BusData>(context, listen: false)
                           .clearFieldsData();
@@ -121,6 +123,8 @@ class _TicketDetailsPageState extends State<TicketDetailsPage> {
                         (Route<dynamic> route) => false,
                       );
                     },
+                    height: getProportionateScreenHeight(55),
+                    width: getProportionateScreenWidth(350),
                   ),
                   SizedBox(height: getProportionateScreenHeight(30)),
                 ],
@@ -128,43 +132,6 @@ class _TicketDetailsPageState extends State<TicketDetailsPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _ticketButton({
-    required String text,
-    required Color color,
-    required VoidCallback? onPressed,
-    bool isLoading = false,
-  }) {
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: SizedBox(
-        height: 55,
-        width: 350,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-          ),
-          child: isLoading
-              ? CircularProgressIndicator(color: whiteColor)
-              : Text(
-                  text,
-                  style: TextStyle(
-                    color: whiteColor,
-                    letterSpacing: 1,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-        ),
       ),
     );
   }

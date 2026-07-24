@@ -19,9 +19,6 @@ class BusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AvailableBusModel bus1 =
-    //     AvailableBusModel('First Bus', '9am', '10am', '2pm', 36);
-
     return ClipPath(
       clipper: SideCutClipper(),
       child: Container(
@@ -55,7 +52,6 @@ class BusCard extends StatelessWidget {
                     ),
                     SizedBox(height: getProportionateScreenHeight(10)),
                     Row(
-                      //crossAxisAlignment: crossStart,
                       children: [
                         Icon(
                           Icons.near_me_outlined,
@@ -215,7 +211,8 @@ class BusCard extends StatelessWidget {
                       style: TextButton.styleFrom(
                         backgroundColor: greenAccentColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(
+                              getProportionateScreenHeight(20)),
                         ),
                       ),
                     ),
