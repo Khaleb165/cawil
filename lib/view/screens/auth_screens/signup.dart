@@ -2,6 +2,7 @@ import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/view/widgets/app_name.dart';
+import 'package:cawil/view/widgets/custom_button.dart';
 import 'package:cawil/view/widgets/custom_textfield.dart';
 import 'package:cawil/data/resources/auth_methods.dart';
 import 'package:cawil/view/widgets/social_login_button.dart';
@@ -69,102 +70,95 @@ class _SignUpScreenState extends State<SignUpScreen> {
             tileMode: TileMode.clamp,
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: crossStretch,
-            children: [
-              AppName(fontSize: getProportionateScreenHeight(50)),
-              SizedBox(height: getProportionateScreenHeight(40)),
-              Text(
-                'SignUp to Book',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: getProportionateScreenHeight(30),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(30)),
-              CustomTextfield(
-                controller: _usernameTextController,
-                keyboardType: TextInputType.name,
-                hintText: 'Username',
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              CustomTextfield(
-                controller: _emailTextController,
-                keyboardType: TextInputType.emailAddress,
-                hintText: 'Email Address',
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              CustomTextfield(
-                controller: _passwordTextController,
-                inputAction: TextInputAction.done,
-                hintText: 'Password',
-                obscureText: hide,
-                onSubmitted: signUpUser,
-              ),
-              SizedBox(height: getProportionateScreenHeight(20)),
-              ElevatedButton(
-                onPressed: signUpUser,
-                style: TextButton.styleFrom(
-                  backgroundColor: lightGreenColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(color: whiteColor))
-                    : Text(
-                        'SIGN UP',
-                        style: TextStyle(
-                          color: whiteColor,
-                          fontSize: getProportionateScreenHeight(16),
-                        ),
-                      ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(40)),
-              Text(
-                'or login with',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: getProportionateScreenHeight(15),
-                  color: whiteColor,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(30)),
-              const SocialsLogin(),
-              SizedBox(height: getProportionateScreenHeight(20)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      fontSize: getProportionateScreenHeight(14),
-                      color: whiteColor,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
-                    },
-                    child: Text(
-                      'Log in',
+        child: Column(
+          crossAxisAlignment: crossStretch,
+          children: [
+            AppName(fontSize: getProportionateScreenHeight(50)),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: crossStretch,
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(40)),
+                    Text(
+                      'SignUp to Book',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: deepRedColor,
-                        fontSize: getProportionateScreenHeight(14),
+                        color: whiteColor,
+                        fontSize: getProportionateScreenHeight(30),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: getProportionateScreenHeight(30)),
+                    CustomTextfield(
+                      controller: _usernameTextController,
+                      keyboardType: TextInputType.name,
+                      hintText: 'Username',
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(15)),
+                    CustomTextfield(
+                      controller: _emailTextController,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'Email Address',
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(15)),
+                    CustomTextfield(
+                      controller: _passwordTextController,
+                      inputAction: TextInputAction.done,
+                      hintText: 'Password',
+                      obscureText: hide,
+                      onSubmitted: signUpUser,
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    CustomButton(
+                      onPressed: signUpUser,
+                      text: 'SIGN UP',
+                      isLoading: _isLoading,
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(40)),
+                    Text(
+                      'or login with',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenHeight(15),
+                        color: whiteColor,
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(30)),
+                    const SocialsLogin(),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Already have an account?',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(14),
+                            color: whiteColor,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          child: Text(
+                            'Log in',
+                            style: TextStyle(
+                              color: deepRedColor,
+                              fontSize: getProportionateScreenHeight(14),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
