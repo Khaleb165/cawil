@@ -48,6 +48,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                     controller: contactNumberController,
                     keyboardType: TextInputType.phone,
                     hintText: 'Phone Number',
+                    maxLength: 10,
                     onChanged: (newNumber) {
                       Provider.of<BusData>(context, listen: false)
                           .updatePhoneTextField(newNumber);
