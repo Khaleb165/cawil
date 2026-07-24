@@ -11,6 +11,7 @@ class CustomTextfield extends StatelessWidget {
   final bool obscureText;
   final void Function(String)? onChanged;
   final VoidCallback? onSubmitted;
+  final int maxLength;
 
   CustomTextfield({
     super.key,
@@ -21,6 +22,7 @@ class CustomTextfield extends StatelessWidget {
     this.obscureText = false,
     this.onChanged,
     this.onSubmitted,
+    this.maxLength = 50,
   });
 
   @override
