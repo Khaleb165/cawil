@@ -1,7 +1,9 @@
 import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
+import 'package:cawil/view_model/payment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../view_model/bus_data.dart';
 
@@ -15,6 +17,17 @@ class TicketDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookingData = context.watch<BusData>();
+    final paymentData = context.watch<PaymentData>();
+    final qrData = _ticketQrData(
+      bookingRef: paymentData.bookingRef,
+      scheduleId: bookingData.selectedScheduleId,
+      seats: bookingData.selectedSeats,
+      contactPerson: bookingData.nameOfTraveller,
+      paymentStatus:
+          paymentData.status.isNotEmpty ? paymentData.status : 'completed',
+    );
+
     return Column(
       crossAxisAlignment: crossStart,
       children: List.generate(busData.length, (index) {
