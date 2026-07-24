@@ -131,225 +131,237 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Consumer<BusData>(builder: (context, busData, _) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20),
-                    vertical: getProportionateScreenHeight(20)),
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.0001),
-                width: double.infinity,
-                height: getProportionateScreenHeight(200),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [deepBlueColor, deepBlueColor, purpleColor],
-                    tileMode: TileMode.clamp,
-                  ),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(getProportionateScreenWidth(50),
-                        getProportionateScreenHeight(40)),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: mainSpaceBetween,
+        return Column(
+          children: [
+            _homeHeader(context),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
+                    SizedBox(height: getProportionateScreenHeight(40)),
                     Padding(
-                        padding: EdgeInsets.only(
-                            left: getProportionateScreenWidth(50))),
-                    AppName(fontSize: getProportionateScreenHeight(50)),
-                    SizedBox(width: getProportionateScreenWidth(50)),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: getProportionateScreenHeight(20)),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SettingsPage(),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20)),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Hey ',
+                                style: TextStyle(
+                                  fontSize: getProportionateScreenHeight(25),
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.notes_sharp,
-                            size: getProportionateScreenHeight(30),
+                              TextSpan(
+                                text: '$username,',
+                                style: TextStyle(
+                                  fontSize: getProportionateScreenHeight(25),
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(5)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20)),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'what is your next trip?',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(15),
+                            color: lightBlackColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    Card(
+                      elevation: getProportionateScreenHeight(10),
+                      borderOnForeground: true,
+                      margin: EdgeInsets.all(getProportionateScreenHeight(20)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: getProportionateScreenWidth(10)),
+                        child: Column(
+                          crossAxisAlignment: crossStart,
+                          children: [
+                            headerText('From'),
+                            buildLocationDropdown(
+                              value: busData.fromTextField.isEmpty
+                                  ? null
+                                  : busData.fromTextField,
+                              hintText: _isLoadingLocations
+                                  ? 'Loading origins...'
+                                  : 'Select origin',
+                              items: _origins,
+                              textColor: greenAccentColor,
+                              onChanged: (newValue) {
+                                if (newValue != null) {
+                                  busData.updateFromTextField(newValue);
+                                }
+                              },
+                            ),
+                            const Divider(thickness: 1),
+                            headerText('To'),
+                            buildLocationDropdown(
+                              value: busData.toTextField.isEmpty
+                                  ? null
+                                  : busData.toTextField,
+                              hintText: _isLoadingLocations
+                                  ? 'Loading destinations...'
+                                  : 'Select destination',
+                              items: _destinations,
+                              textColor: darkBlueColor,
+                              onChanged: (newValue) {
+                                if (newValue != null) {
+                                  busData.updateToTextField(newValue);
+                                }
+                              },
+                            ),
+                            SizedBox(height: getProportionateScreenHeight(15))
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(30)),
+                      child: Material(
+                        elevation: 5,
+                        color: lightWhiteColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: SizedBox(
+                          height: getProportionateScreenHeight(50),
+                          width: getProportionateScreenWidth(250),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: getProportionateScreenWidth(30),
+                                right: getProportionateScreenWidth(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  DateFormat('dd/MM/yyyy').format(
+                                      Provider.of<BusData>(context)
+                                          .selectedDate),
+                                  style: TextStyle(
+                                    fontSize: getProportionateScreenHeight(15),
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 1.5,
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                ),
+                                const Spacer(),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: darkBlueColor,
+                                  ),
+                                  onPressed: () => _selectDate(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(30)),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed:
+                            _isSearching ? null : () => findBuses(busData),
+                        style: TextButton.styleFrom(
+                          backgroundColor: darkBlueColor,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(50),
+                              vertical: getProportionateScreenHeight(15)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                        ),
+                        child: Text(
+                          _isSearching ? 'SEARCHING...' : 'FIND YOUR BUS',
+                          style: TextStyle(
                             color: whiteColor,
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(20)),
                   ],
                 ),
               ),
-              SizedBox(height: getProportionateScreenHeight(40)),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Hey ',
-                          style: TextStyle(
-                            fontSize: getProportionateScreenHeight(25),
-                            color: blackColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '$username,',
-                          style: TextStyle(
-                            fontSize: getProportionateScreenHeight(25),
-                            color: blackColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(5)),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'what is your next trip?',
-                    style: TextStyle(
-                      fontSize: getProportionateScreenHeight(15),
-                      color: lightBlackColor,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(20)),
-              Card(
-                elevation: getProportionateScreenHeight(10),
-                borderOnForeground: true,
-                margin: EdgeInsets.all(getProportionateScreenHeight(20)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(10)),
-                  child: Column(
-                    crossAxisAlignment: crossStart,
-                    children: [
-                      headerText('From'),
-                      buildLocationDropdown(
-                        value: busData.fromTextField.isEmpty
-                            ? null
-                            : busData.fromTextField,
-                        hintText: _isLoadingLocations
-                            ? 'Loading origins...'
-                            : 'Select origin',
-                        items: _origins,
-                        textColor: greenAccentColor,
-                        onChanged: (newValue) {
-                          if (newValue != null) {
-                            busData.updateFromTextField(newValue);
-                          }
-                        },
-                      ),
-                      const Divider(thickness: 1),
-                      headerText('To'),
-                      buildLocationDropdown(
-                        value: busData.toTextField.isEmpty
-                            ? null
-                            : busData.toTextField,
-                        hintText: _isLoadingLocations
-                            ? 'Loading destinations...'
-                            : 'Select destination',
-                        items: _destinations,
-                        textColor: darkBlueColor,
-                        onChanged: (newValue) {
-                          if (newValue != null) {
-                            busData.updateToTextField(newValue);
-                          }
-                        },
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(15))
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(20)),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(30)),
-                child: Material(
-                  elevation: 5,
-                  color: lightWhiteColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: SizedBox(
-                    height: getProportionateScreenHeight(50),
-                    width: getProportionateScreenWidth(250),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: getProportionateScreenWidth(30),
-                          right: getProportionateScreenWidth(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            DateFormat('dd/MM/yyyy').format(
-                                Provider.of<BusData>(context).selectedDate),
-                            style: TextStyle(
-                              fontSize: getProportionateScreenHeight(15),
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 1.5,
-                              fontStyle: FontStyle.normal,
-                            ),
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            icon: Icon(
-                              Icons.calendar_month_outlined,
-                              color: darkBlueColor,
-                            ),
-                            onPressed: () => _selectDate(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(30)),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _isSearching ? null : () => findBuses(busData),
-                  style: TextButton.styleFrom(
-                    backgroundColor: darkBlueColor,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(50),
-                        vertical: getProportionateScreenHeight(15)),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                  ),
-                  child: Text(
-                    _isSearching ? 'SEARCHING...' : 'FIND YOUR BUS',
-                    style: TextStyle(
-                      color: whiteColor,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(20)),
-            ],
-          ),
+            ),
+          ],
         );
       }),
+    );
+  }
+
+  Widget _homeHeader(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(20),
+          vertical: getProportionateScreenHeight(20)),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.0001),
+      width: double.infinity,
+      height: getProportionateScreenHeight(200),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [deepBlueColor, deepBlueColor, purpleColor],
+          tileMode: TileMode.clamp,
+        ),
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.elliptical(
+            getProportionateScreenWidth(50),
+            getProportionateScreenHeight(40),
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: mainSpaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: getProportionateScreenWidth(50)),
+          ),
+          AppName(fontSize: getProportionateScreenHeight(50)),
+          SizedBox(width: getProportionateScreenWidth(50)),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(top: getProportionateScreenHeight(20)),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsPage(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.notes_sharp,
+                  size: getProportionateScreenHeight(30),
+                  color: whiteColor,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 

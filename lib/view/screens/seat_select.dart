@@ -103,145 +103,150 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
     final double totalPrice = busData.totalPrice;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CustomAppBar(title: 'Select Seats'),
-            SizedBox(height: getProportionateScreenHeight(10)),
-            if (busData.selectedBusNumber.isNotEmpty)
-              Text(
-                '${busData.selectedBusNumber} • ${busData.selectedBusTotalSeats} seats • ¢${busData.selectedSchedulePrice.toStringAsFixed(2)} per seat',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: darkBlueColor,
-                  fontSize: getProportionateScreenHeight(14),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            if (busData.selectedBusNumber.isNotEmpty)
-              SizedBox(height: getProportionateScreenHeight(10)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                seatStatusBuilder(seatStatus: 'Available'),
-                seatStatusBuilder(
-                    seatStatus: 'Selected', color: greenAccentColor),
-                seatStatusBuilder(color: darkBlueColor),
-              ],
-            ),
-            SizedBox(height: getProportionateScreenHeight(30)),
-            Column(
-              children: _buildSeatGrid(),
-            ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(30),
-                    vertical: getProportionateScreenHeight(20)),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: whiteColor,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.elliptical(getProportionateScreenWidth(20),
-                        getProportionateScreenHeight(20)),
+      body: Column(
+        children: [
+          const CustomAppBar(title: 'Select Seats'),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(10)),
+                  if (busData.selectedBusNumber.isNotEmpty)
+                    Text(
+                      '${busData.selectedBusNumber} • ${busData.selectedBusTotalSeats} seats • ¢${busData.selectedSchedulePrice.toStringAsFixed(2)} per seat',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: darkBlueColor,
+                        fontSize: getProportionateScreenHeight(14),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  if (busData.selectedBusNumber.isNotEmpty)
+                    SizedBox(height: getProportionateScreenHeight(10)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      seatStatusBuilder(seatStatus: 'Available'),
+                      seatStatusBuilder(
+                          seatStatus: 'Selected', color: greenAccentColor),
+                      seatStatusBuilder(color: darkBlueColor),
+                    ],
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: mainStart,
-                  crossAxisAlignment: crossStart,
-                  children: [
-                    Row(
+                  SizedBox(height: getProportionateScreenHeight(30)),
+                  Column(
+                    children: _buildSeatGrid(),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(30),
+                        vertical: getProportionateScreenHeight(20)),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.elliptical(getProportionateScreenWidth(20),
+                            getProportionateScreenHeight(20)),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: mainStart,
+                      crossAxisAlignment: crossStart,
                       children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Seat No: ',
+                              style: TextStyle(
+                                fontSize: getProportionateScreenHeight(18),
+                                fontWeight: FontWeight.w500,
+                                color: lightPurpleColorShade1,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                ' ${Provider.of<BusData>(context).joinedSeats}',
+                                style: TextStyle(
+                                  color: lightPurpleColorShade1,
+                                  fontSize: getProportionateScreenHeight(14),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(5)),
                         Text(
-                          'Seat No: ',
+                          'Seats left: ${busData.selectedScheduleSeatsLeft}',
                           style: TextStyle(
                             fontSize: getProportionateScreenHeight(18),
                             fontWeight: FontWeight.w500,
                             color: lightPurpleColorShade1,
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            ' ${Provider.of<BusData>(context).joinedSeats}',
-                            style: TextStyle(
-                              color: lightPurpleColorShade1,
-                              fontSize: getProportionateScreenHeight(14),
+                        if (busData.selectedBookedSeats.isNotEmpty)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: getProportionateScreenHeight(5)),
+                            child: Text(
+                              'Booked: ${busData.selectedBookedSeats.join(', ')}',
+                              style: TextStyle(
+                                fontSize: getProportionateScreenHeight(14),
+                                fontWeight: FontWeight.w500,
+                                color: darkBlueColor,
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: getProportionateScreenHeight(5)),
+                        Text(
+                          'Price: ¢${totalPrice.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(18),
+                            fontWeight: FontWeight.w500,
+                            color: lightPurpleColorShade1,
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: busData.selectedSeats.isEmpty
+                                ? null
+                                : () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ContactDetailsPage()),
+                                    );
+                                  },
+                            style: TextButton.styleFrom(
+                              backgroundColor: darkBlueColor,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(60),
+                                  vertical: getProportionateScreenHeight(15)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    getProportionateScreenHeight(20)),
+                              ),
+                            ),
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                color: whiteColor,
+                                letterSpacing: 1.5,
+                                fontSize: getProportionateScreenHeight(15),
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: getProportionateScreenHeight(5)),
-                    Text(
-                      'Seats left: ${busData.selectedScheduleSeatsLeft}',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenHeight(18),
-                        fontWeight: FontWeight.w500,
-                        color: lightPurpleColorShade1,
-                      ),
-                    ),
-                    if (busData.selectedBookedSeats.isNotEmpty)
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: getProportionateScreenHeight(5)),
-                        child: Text(
-                          'Booked: ${busData.selectedBookedSeats.join(', ')}',
-                          style: TextStyle(
-                            fontSize: getProportionateScreenHeight(14),
-                            fontWeight: FontWeight.w500,
-                            color: darkBlueColor,
-                          ),
-                        ),
-                      ),
-                    SizedBox(height: getProportionateScreenHeight(5)),
-                    Text(
-                      'Price: ¢${totalPrice.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenHeight(18),
-                        fontWeight: FontWeight.w500,
-                        color: lightPurpleColorShade1,
-                      ),
-                    ),
-                    SizedBox(height: getProportionateScreenHeight(15)),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: busData.selectedSeats.isEmpty
-                            ? null
-                            : () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ContactDetailsPage()),
-                                );
-                              },
-                        style: TextButton.styleFrom(
-                          backgroundColor: darkBlueColor,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(60),
-                              vertical: getProportionateScreenHeight(15)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            color: whiteColor,
-                            letterSpacing: 1.5,
-                            fontSize: getProportionateScreenHeight(15),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
