@@ -155,7 +155,7 @@ class AuthMethods {
       );
       final data = Map<String, dynamic>.from(response as Map);
       return PasswordResetRequestResult(
-        message: data['message']?.toString() ?? 'Reset token created',
+        message: data['message']?.toString() ?? 'Password reset email sent',
         resetToken: data['reset_token']?.toString(),
       );
     } catch (error) {

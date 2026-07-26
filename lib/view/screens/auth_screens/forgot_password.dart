@@ -132,7 +132,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       SizedBox(height: getProportionateScreenHeight(12)),
                       Text(
-                        'Enter your email, then use the reset token to set a new password.',
+                        'Enter your email and we will send you a reset token.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: whiteColor,
@@ -151,11 +151,21 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       SizedBox(height: getProportionateScreenHeight(18)),
                       CustomButton(
                         onPressed: _isRequesting ? null : _requestResetToken,
-                        text: 'GET RESET TOKEN',
+                        text: 'SEND RESET EMAIL',
                         isLoading: _isRequesting,
                       ),
                       if (_tokenRequested) ...[
                         SizedBox(height: getProportionateScreenHeight(28)),
+                        Text(
+                          'Check your email for the reset token, then enter it below.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: whiteColor,
+                            fontSize: getProportionateScreenHeight(13),
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(18)),
                         CustomTextfield(
                           controller: _tokenTextController,
                           inputAction: TextInputAction.next,
