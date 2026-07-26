@@ -43,9 +43,7 @@ class TokenInterceptor extends Interceptor {
         ? responseData['detail'] ?? responseData['error'] ?? responseData
         : responseData;
     debugPrint('TokenInterceptor onError -> status: $status, message: $msg');
-    if (status == 401 &&
-        err.requestOptions.path != '/auth/refresh' &&
-        err.requestOptions.extra['requiresAuth'] != false) {
+    if (_shouldRefreshToken(err, msg)) {
       if (!await HiveStorage.hasRefreshToken()) {
         debugPrint('No refresh token found; clearing saved session');
         await HiveStorage.clearSession();
@@ -90,12 +88,23 @@ class TokenInterceptor extends Interceptor {
           debugPrint('Token refresh process completed');
         }
       }
-    } else if (status == 401) {
+    } else if (status == 401 && err.requestOptions.path == '/auth/refresh') {
       await HiveStorage.clearSession();
       handler.next(err);
     } else {
       handler.next(err);
     }
+  }
+
+  bool _shouldRefreshToken(DioException err, Object? message) {
+    if (err.response?.statusCode != 401) return false;
+    if (err.requestOptions.path == '/auth/refresh') return false;
+    if (err.requestOptions.extra['requiresAuth'] == false) return false;
+
+    final normalizedMessage = message?.toString().toLowerCase().trim();
+    return normalizedMessage == 'authentication required' ||
+        normalizedMessage == 'missing or invalid authentication' ||
+        normalizedMessage == 'invalid or expired token';
   }
 
   Future<void> _refreshToken() async {
