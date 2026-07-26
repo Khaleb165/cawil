@@ -140,6 +140,34 @@ class DioClient {
     }
   }
 
+  Future<dynamic> put(
+    String endpoint,
+    dynamic data, {
+    Map<String, dynamic>? headers,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      Options options = Options(
+        headers: headers,
+        extra: {'requiresAuth': requiresAuth},
+      );
+      final response = await _dio.put(
+        endpoint,
+        data: data,
+        options: options,
+      );
+      return response.data;
+    } on DioException catch (e) {
+      debugPrint("Error Message: ${e.message}");
+      if (e.response != null) {
+        debugPrint("Error Response Data: ${e.response?.data}");
+        debugPrint("Error Response Headers: ${e.response?.headers}");
+      }
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      throw (errorMessage);
+    }
+  }
+
   // delete endpoint
   Future<dynamic> delete(
     String endpoint, {
