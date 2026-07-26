@@ -188,6 +188,59 @@ class AuthMethods {
     }
   }
 
+  Future<model.User> updateUsername({
+    required String username,
+  }) async {
+    final cleanUsername = username.trim();
+    if (cleanUsername.isEmpty) {
+      throw 'Please enter a username';
+    }
+    if (!RegExp(r'^[a-zA-Z0-9_]{1,30}$').hasMatch(cleanUsername)) {
+      throw 'Username must be 1-30 letters, numbers, or underscores';
+    }
+
+    try {
+      await _ensureAccessToken();
+      final response = await DioClient().put(
+        '/auth/me',
+        {'username': cleanUsername},
+      );
+      final data = Map<String, dynamic>.from(response as Map);
+      final user = model.User.fromJson(
+        Map<String, dynamic>.from(data['user'] as Map),
+      );
+      await HiveStorage.cacheUser(user);
+      return user;
+    } catch (error) {
+      throw error.toString();
+    }
+  }
+
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    if (currentPassword.isEmpty) {
+      throw 'Please enter your current password';
+    }
+    if (newPassword.length < 6) {
+      throw 'New password must be at least 6 characters';
+    }
+
+    try {
+      await _ensureAccessToken();
+      await DioClient().post(
+        '/auth/change-password',
+        {
+          'current_password': currentPassword,
+          'new_password': newPassword,
+        },
+      );
+    } catch (error) {
+      throw error.toString();
+    }
+  }
+
   Future<model.User?> cachedUser() async {
     return HiveStorage.cachedUser();
   }
