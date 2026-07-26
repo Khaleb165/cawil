@@ -1,5 +1,7 @@
 import 'package:cawil/core/constants/colors.dart';
+import 'package:cawil/core/constants/show_snackbar.dart';
 import 'package:cawil/core/constants/size_config.dart';
+import 'package:cawil/data/resources/auth_methods.dart';
 import 'package:cawil/view/widgets/app_name.dart';
 import 'package:cawil/view/widgets/custom_button.dart';
 import 'package:cawil/view/widgets/custom_textfield.dart';
@@ -7,13 +9,94 @@ import 'package:flutter/material.dart';
 
 import 'login.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+}
+
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _tokenTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _confirmPasswordTextController =
+      TextEditingController();
+
+  bool _isRequesting = false;
+  bool _isResetting = false;
+  bool _tokenRequested = false;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _tokenTextController.dispose();
+    _passwordTextController.dispose();
+    _confirmPasswordTextController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _requestResetToken() async {
+    setState(() => _isRequesting = true);
+    try {
+      final result = await AuthMethods().requestPasswordReset(
+        email: _emailTextController.text,
+      );
+      if (!mounted) return;
+
+      final resetToken = result.resetToken;
+      if (resetToken != null && resetToken.isNotEmpty) {
+        _tokenTextController.text = resetToken;
+      }
+      setState(() => _tokenRequested = true);
+      showSnackBar(result.message, context);
+    } catch (error) {
+      if (mounted) {
+        showSnackBar(error.toString(), context);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isRequesting = false);
+      }
+    }
+  }
+
+  Future<void> _resetPassword() async {
+    final password = _passwordTextController.text;
+    final confirmPassword = _confirmPasswordTextController.text;
+
+    if (password != confirmPassword) {
+      showSnackBar('Passwords do not match', context);
+      return;
+    }
+
+    setState(() => _isResetting = true);
+    try {
+      await AuthMethods().resetPassword(
+        token: _tokenTextController.text,
+        password: password,
+      );
+      if (!mounted) return;
+
+      showSnackBar('Password reset successfully. Please log in.', context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    } catch (error) {
+      if (mounted) {
+        showSnackBar(error.toString(), context);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isResetting = false);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailTextController = TextEditingController();
-    final bool _isLoading = false;
+    ScreenSize().init(context);
     return Scaffold(
       body: Container(
         height: double.infinity,
