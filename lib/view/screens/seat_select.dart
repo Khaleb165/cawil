@@ -184,19 +184,19 @@ class _SeatSelectPageState extends State<SeatSelectPage> {
                             color: lightPurpleColorShade1,
                           ),
                         ),
-                        if (busData.selectedBookedSeats.isNotEmpty)
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: getProportionateScreenHeight(5)),
-                            child: Text(
-                              'Booked: ${busData.selectedBookedSeats.join(', ')}',
-                              style: TextStyle(
-                                fontSize: getProportionateScreenHeight(14),
-                                fontWeight: FontWeight.w500,
-                                color: darkBlueColor,
-                              ),
-                            ),
-                          ),
+                        // if (busData.selectedBookedSeats.isNotEmpty)
+                        //   Padding(
+                        //     padding: EdgeInsets.only(
+                        //         top: getProportionateScreenHeight(5)),
+                        //     child: Text(
+                        //       'Booked: ${busData.selectedBookedSeats.join(', ')}',
+                        //       style: TextStyle(
+                        //         fontSize: getProportionateScreenHeight(14),
+                        //         fontWeight: FontWeight.w500,
+                        //         color: darkBlueColor,
+                        //       ),
+                        //     ),
+                        //   ),
                         SizedBox(height: getProportionateScreenHeight(5)),
                         Text(
                           'Price: ¢${totalPrice.toStringAsFixed(2)}',
