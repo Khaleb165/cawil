@@ -2,6 +2,7 @@ import 'package:cawil/core/constants/colors.dart';
 import 'package:cawil/core/constants/size_config.dart';
 import 'package:cawil/data/resources/auth_methods.dart';
 import 'package:cawil/view/screens/auth_screens/login.dart';
+import 'package:cawil/view/screens/account_settings.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -61,11 +62,22 @@ class _SettingsPageState extends State<SettingsPage> {
                   Column(
                     children: [
                       settingsListTile(
-                          () {}, 'assets/images/person.png', 'Account'),
+                        () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AccountSettingsPage(),
+                            ),
+                          );
+                          if (mounted) {
+                            getUserData();
+                          }
+                        },
+                        'assets/images/person.png',
+                        'Account',
+                      ),
                       settingsListTile(
                           () {}, 'assets/images/bell.png', 'Notifications'),
-                      settingsListTile(
-                          () {}, 'assets/images/location.png', 'Location'),
                       settingsListTile(
                           () {}, 'assets/images/person.png', 'Support'),
                       settingsListTile(
