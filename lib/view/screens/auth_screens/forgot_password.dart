@@ -118,44 +118,78 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: crossCenter,
+                    crossAxisAlignment: crossStretch,
                     children: [
-                      SizedBox(height: getProportionateScreenHeight(150)),
+                      SizedBox(height: getProportionateScreenHeight(70)),
                       Text(
-                        'Enter your e-mail for a reset link',
+                        'Reset your password',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: whiteColor,
-                          fontSize: getProportionateScreenHeight(15),
-                          fontWeight: FontWeight.w500,
+                          fontSize: getProportionateScreenHeight(24),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: getProportionateScreenHeight(40)),
+                      SizedBox(height: getProportionateScreenHeight(12)),
+                      Text(
+                        'Enter your email, then use the reset token to set a new password.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: getProportionateScreenHeight(14),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(35)),
                       CustomTextfield(
                         controller: _emailTextController,
                         keyboardType: TextInputType.emailAddress,
                         inputAction: TextInputAction.done,
                         hintText: 'Email Address',
-                        onSubmitted: () {
-                          // Handle the submission of the email address
-                        },
+                        onSubmitted: _requestResetToken,
                       ),
-                      SizedBox(height: getProportionateScreenHeight(25)),
+                      SizedBox(height: getProportionateScreenHeight(18)),
                       CustomButton(
-                        onPressed: () {
-                          // Handle the reset password action
-                        },
-                        text: 'RESET',
-                        isLoading: _isLoading,
+                        onPressed: _isRequesting ? null : _requestResetToken,
+                        text: 'GET RESET TOKEN',
+                        isLoading: _isRequesting,
                       ),
+                      if (_tokenRequested) ...[
+                        SizedBox(height: getProportionateScreenHeight(28)),
+                        CustomTextfield(
+                          controller: _tokenTextController,
+                          inputAction: TextInputAction.next,
+                          hintText: 'Reset Token',
+                          maxLength: 120,
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        CustomTextfield(
+                          controller: _passwordTextController,
+                          inputAction: TextInputAction.next,
+                          hintText: 'New Password',
+                          obscureText: true,
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        CustomTextfield(
+                          controller: _confirmPasswordTextController,
+                          inputAction: TextInputAction.done,
+                          hintText: 'Confirm Password',
+                          obscureText: true,
+                          onSubmitted: _resetPassword,
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(22)),
+                        CustomButton(
+                          onPressed: _isResetting ? null : _resetPassword,
+                          text: 'RESET PASSWORD',
+                          isLoading: _isResetting,
+                        ),
+                      ],
                       SizedBox(height: getProportionateScreenHeight(20)),
                       Align(
                         alignment: Alignment.topRight,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
+                            Navigator.pop(context);
                           },
                           child: Text(
                             'Back',
