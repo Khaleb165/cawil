@@ -4,6 +4,16 @@ import 'package:cawil/model/login.dart';
 import 'package:cawil/model/register.dart';
 import 'package:cawil/model/user.dart' as model;
 
+class PasswordResetRequestResult {
+  final String message;
+  final String? resetToken;
+
+  const PasswordResetRequestResult({
+    required this.message,
+    this.resetToken,
+  });
+}
+
 class AuthMethods {
   static Future<bool> hasSavedSession() async {
     return AuthMethods().restoreSavedSession();
@@ -128,6 +138,54 @@ class AuthMethods {
 
   Future<void> signOut() async {
     await HiveStorage.clearSession();
+  }
+
+  Future<PasswordResetRequestResult> requestPasswordReset({
+    required String email,
+  }) async {
+    if (email.trim().isEmpty) {
+      throw 'Please enter your email address';
+    }
+
+    try {
+      final response = await DioClient().post(
+        '/auth/forgot-password',
+        {'email': email.trim()},
+        requiresAuth: false,
+      );
+      final data = Map<String, dynamic>.from(response as Map);
+      return PasswordResetRequestResult(
+        message: data['message']?.toString() ?? 'Reset token created',
+        resetToken: data['reset_token']?.toString(),
+      );
+    } catch (error) {
+      throw error.toString();
+    }
+  }
+
+  Future<void> resetPassword({
+    required String token,
+    required String password,
+  }) async {
+    if (token.trim().isEmpty) {
+      throw 'Please enter your reset token';
+    }
+    if (password.length < 6) {
+      throw 'Password must be at least 6 characters';
+    }
+
+    try {
+      await DioClient().post(
+        '/auth/reset-password',
+        {
+          'token': token.trim(),
+          'password': password,
+        },
+        requiresAuth: false,
+      );
+    } catch (error) {
+      throw error.toString();
+    }
   }
 
   Future<model.User?> cachedUser() async {
